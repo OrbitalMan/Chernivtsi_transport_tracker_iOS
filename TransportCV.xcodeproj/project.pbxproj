@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		8524866723B3BCF600E7D26F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8524866623B3BCF600E7D26F /* AppDelegate.swift */; };
 		8524866923B3BCF600E7D26F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8524866823B3BCF600E7D26F /* SceneDelegate.swift */; };
-		8524866B23B3BCF600E7D26F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8524866A23B3BCF600E7D26F /* ViewController.swift */; };
 		8524866E23B3BCF600E7D26F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8524866C23B3BCF600E7D26F /* Main.storyboard */; };
 		8524867023B3BCFA00E7D26F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8524866F23B3BCFA00E7D26F /* Assets.xcassets */; };
 		8524867323B3BCFA00E7D26F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8524867123B3BCFA00E7D26F /* LaunchScreen.storyboard */; };
 		8524867E23B3BCFA00E7D26F /* TransportCVTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8524867D23B3BCFA00E7D26F /* TransportCVTests.swift */; };
 		8524868923B3BCFA00E7D26F /* TransportCVUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8524868823B3BCFA00E7D26F /* TransportCVUITests.swift */; };
+		8524869723B3BD3B00E7D26F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8524869623B3BD3B00E7D26F /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +38,6 @@
 		8524866323B3BCF600E7D26F /* TransportCV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransportCV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8524866623B3BCF600E7D26F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8524866823B3BCF600E7D26F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		8524866A23B3BCF600E7D26F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8524866D23B3BCF600E7D26F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8524866F23B3BCFA00E7D26F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8524867223B3BCFA00E7D26F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +48,7 @@
 		8524868423B3BCFA00E7D26F /* TransportCVUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransportCVUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8524868823B3BCFA00E7D26F /* TransportCVUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportCVUITests.swift; sourceTree = "<group>"; };
 		8524868A23B3BCFA00E7D26F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8524869623B3BD3B00E7D26F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +101,7 @@
 			children = (
 				8524866623B3BCF600E7D26F /* AppDelegate.swift */,
 				8524866823B3BCF600E7D26F /* SceneDelegate.swift */,
-				8524866A23B3BCF600E7D26F /* ViewController.swift */,
+				8524869623B3BD3B00E7D26F /* MapViewController.swift */,
 				8524866C23B3BCF600E7D26F /* Main.storyboard */,
 				8524866F23B3BCFA00E7D26F /* Assets.xcassets */,
 				8524867123B3BCFA00E7D26F /* LaunchScreen.storyboard */,
@@ -259,9 +259,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8524866B23B3BCF600E7D26F /* ViewController.swift in Sources */,
 				8524866723B3BCF600E7D26F /* AppDelegate.swift in Sources */,
 				8524866923B3BCF600E7D26F /* SceneDelegate.swift in Sources */,
+				8524869723B3BD3B00E7D26F /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,7 +366,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -420,7 +420,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -435,8 +435,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5AAE2CPYY6;
 				INFOPLIST_FILE = TransportCV/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -453,8 +455,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5AAE2CPYY6;
 				INFOPLIST_FILE = TransportCV/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
