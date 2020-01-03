@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2ACC4F2F8ABAE9E1B7A4D978 /* Pods_TransportCV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17A98F1E3D77449F60D77791 /* Pods_TransportCV.framework */; };
 		8524866723B3BCF600E7D26F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8524866623B3BCF600E7D26F /* AppDelegate.swift */; };
 		8524866923B3BCF600E7D26F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8524866823B3BCF600E7D26F /* SceneDelegate.swift */; };
 		8524866E23B3BCF600E7D26F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8524866C23B3BCF600E7D26F /* Main.storyboard */; };
@@ -15,6 +16,19 @@
 		8524867E23B3BCFA00E7D26F /* TransportCVTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8524867D23B3BCFA00E7D26F /* TransportCVTests.swift */; };
 		8524868923B3BCFA00E7D26F /* TransportCVUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8524868823B3BCFA00E7D26F /* TransportCVUITests.swift */; };
 		8524869723B3BD3B00E7D26F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8524869623B3BD3B00E7D26F /* MapViewController.swift */; };
+		8526749A23B5038C00210509 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8526749923B5038C00210509 /* Request.swift */; };
+		8526749C23B504AE00210509 /* APITargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8526749B23B504AE00210509 /* APITargetType.swift */; };
+		852674A023B5064C00210509 /* JSONExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8526749F23B5064C00210509 /* JSONExtension.swift */; };
+		852674A223B506D300210509 /* Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852674A123B506D300210509 /* Handler.swift */; };
+		852674A523B5103500210509 /* TransGPSCVTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852674A423B5103500210509 /* TransGPSCVTracker.swift */; };
+		852674A723B5104B00210509 /* TransportCVTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852674A623B5104B00210509 /* TransportCVTracker.swift */; };
+		85546F3B23B4E9D70050045A /* TransGPSCVAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85546F3A23B4E9D70050045A /* TransGPSCVAPI.swift */; };
+		85546F3D23B4E9EC0050045A /* TransportCVAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85546F3C23B4E9EC0050045A /* TransportCVAPI.swift */; };
+		855C157123BA34FB0062ABD5 /* GenericTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855C157023BA34FB0062ABD5 /* GenericTracker.swift */; };
+		855C157323BA4C620062ABD5 /* TransportCVRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855C157223BA4C620062ABD5 /* TransportCVRoute.swift */; };
+		855C157523BA56FC0062ABD5 /* TransGPSCVRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855C157423BA56FC0062ABD5 /* TransGPSCVRoute.swift */; };
+		D59FCBEF449AC627A029B837 /* Pods_TransportCV_TransportCVUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D17A5ED5578E86A6E4C1097C /* Pods_TransportCV_TransportCVUITests.framework */; };
+		F837E4A358F16A62B27F8D7D /* Pods_TransportCVTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE4BF1B816F9EB0513A6418A /* Pods_TransportCVTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +49,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		05AF448F1E46608CF7C2F7F3 /* Pods-TransportCVTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportCVTests.release.xcconfig"; path = "Target Support Files/Pods-TransportCVTests/Pods-TransportCVTests.release.xcconfig"; sourceTree = "<group>"; };
+		17A98F1E3D77449F60D77791 /* Pods_TransportCV.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TransportCV.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DD6E93586DB74DE8356BFE8 /* Pods-TransportCV-TransportCVUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportCV-TransportCVUITests.release.xcconfig"; path = "Target Support Files/Pods-TransportCV-TransportCVUITests/Pods-TransportCV-TransportCVUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8524866323B3BCF600E7D26F /* TransportCV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransportCV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8524866623B3BCF600E7D26F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8524866823B3BCF600E7D26F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +66,23 @@
 		8524868823B3BCFA00E7D26F /* TransportCVUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportCVUITests.swift; sourceTree = "<group>"; };
 		8524868A23B3BCFA00E7D26F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8524869623B3BD3B00E7D26F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		8526749923B5038C00210509 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		8526749B23B504AE00210509 /* APITargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITargetType.swift; sourceTree = "<group>"; };
+		8526749F23B5064C00210509 /* JSONExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONExtension.swift; sourceTree = "<group>"; };
+		852674A123B506D300210509 /* Handler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handler.swift; sourceTree = "<group>"; };
+		852674A423B5103500210509 /* TransGPSCVTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransGPSCVTracker.swift; sourceTree = "<group>"; };
+		852674A623B5104B00210509 /* TransportCVTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportCVTracker.swift; sourceTree = "<group>"; };
+		85546F3A23B4E9D70050045A /* TransGPSCVAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransGPSCVAPI.swift; sourceTree = "<group>"; };
+		85546F3C23B4E9EC0050045A /* TransportCVAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportCVAPI.swift; sourceTree = "<group>"; };
+		855C157023BA34FB0062ABD5 /* GenericTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTracker.swift; sourceTree = "<group>"; };
+		855C157223BA4C620062ABD5 /* TransportCVRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportCVRoute.swift; sourceTree = "<group>"; };
+		855C157423BA56FC0062ABD5 /* TransGPSCVRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransGPSCVRoute.swift; sourceTree = "<group>"; };
+		98A172E48307F7450CFB5775 /* Pods-TransportCV-TransportCVUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportCV-TransportCVUITests.debug.xcconfig"; path = "Target Support Files/Pods-TransportCV-TransportCVUITests/Pods-TransportCV-TransportCVUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		A8B72F169666667D5C5AD318 /* Pods-TransportCV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportCV.debug.xcconfig"; path = "Target Support Files/Pods-TransportCV/Pods-TransportCV.debug.xcconfig"; sourceTree = "<group>"; };
+		AB25B7A21C386BE6D9BB1400 /* Pods-TransportCVTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportCVTests.debug.xcconfig"; path = "Target Support Files/Pods-TransportCVTests/Pods-TransportCVTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D17A5ED5578E86A6E4C1097C /* Pods_TransportCV_TransportCVUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TransportCV_TransportCVUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA0EE5BC62C38839C22171D9 /* Pods-TransportCV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportCV.release.xcconfig"; path = "Target Support Files/Pods-TransportCV/Pods-TransportCV.release.xcconfig"; sourceTree = "<group>"; };
+		FE4BF1B816F9EB0513A6418A /* Pods_TransportCVTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TransportCVTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2ACC4F2F8ABAE9E1B7A4D978 /* Pods_TransportCV.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F837E4A358F16A62B27F8D7D /* Pods_TransportCVTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,12 +106,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D59FCBEF449AC627A029B837 /* Pods_TransportCV_TransportCVUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		498496E9AB92D5D81106151E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A8B72F169666667D5C5AD318 /* Pods-TransportCV.debug.xcconfig */,
+				DA0EE5BC62C38839C22171D9 /* Pods-TransportCV.release.xcconfig */,
+				98A172E48307F7450CFB5775 /* Pods-TransportCV-TransportCVUITests.debug.xcconfig */,
+				7DD6E93586DB74DE8356BFE8 /* Pods-TransportCV-TransportCVUITests.release.xcconfig */,
+				AB25B7A21C386BE6D9BB1400 /* Pods-TransportCVTests.debug.xcconfig */,
+				05AF448F1E46608CF7C2F7F3 /* Pods-TransportCVTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		62C590452EDB240F1310FF91 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				17A98F1E3D77449F60D77791 /* Pods_TransportCV.framework */,
+				D17A5ED5578E86A6E4C1097C /* Pods_TransportCV_TransportCVUITests.framework */,
+				FE4BF1B816F9EB0513A6418A /* Pods_TransportCVTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8524865A23B3BCF600E7D26F = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +143,8 @@
 				8524867C23B3BCFA00E7D26F /* TransportCVTests */,
 				8524868723B3BCFA00E7D26F /* TransportCVUITests */,
 				8524866423B3BCF600E7D26F /* Products */,
+				498496E9AB92D5D81106151E /* Pods */,
+				62C590452EDB240F1310FF91 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,6 +161,8 @@
 		8524866523B3BCF600E7D26F /* TransportCV */ = {
 			isa = PBXGroup;
 			children = (
+				852674A323B50FEF00210509 /* Models */,
+				85546F3923B4E99C0050045A /* API */,
 				8524866623B3BCF600E7D26F /* AppDelegate.swift */,
 				8524866823B3BCF600E7D26F /* SceneDelegate.swift */,
 				8524869623B3BD3B00E7D26F /* MapViewController.swift */,
@@ -128,6 +192,31 @@
 			path = TransportCVUITests;
 			sourceTree = "<group>";
 		};
+		852674A323B50FEF00210509 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				852674A123B506D300210509 /* Handler.swift */,
+				8526749F23B5064C00210509 /* JSONExtension.swift */,
+				852674A423B5103500210509 /* TransGPSCVTracker.swift */,
+				855C157423BA56FC0062ABD5 /* TransGPSCVRoute.swift */,
+				852674A623B5104B00210509 /* TransportCVTracker.swift */,
+				855C157223BA4C620062ABD5 /* TransportCVRoute.swift */,
+				855C157023BA34FB0062ABD5 /* GenericTracker.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		85546F3923B4E99C0050045A /* API */ = {
+			isa = PBXGroup;
+			children = (
+				85546F3A23B4E9D70050045A /* TransGPSCVAPI.swift */,
+				85546F3C23B4E9EC0050045A /* TransportCVAPI.swift */,
+				8526749923B5038C00210509 /* Request.swift */,
+				8526749B23B504AE00210509 /* APITargetType.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,9 +224,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8524868D23B3BCFA00E7D26F /* Build configuration list for PBXNativeTarget "TransportCV" */;
 			buildPhases = (
+				DBAA1DA21926C03411312EDF /* [CP] Check Pods Manifest.lock */,
 				8524865F23B3BCF600E7D26F /* Sources */,
 				8524866023B3BCF600E7D26F /* Frameworks */,
 				8524866123B3BCF600E7D26F /* Resources */,
+				BD5432D97A49EAD7F7C324A4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -152,6 +243,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8524869023B3BCFA00E7D26F /* Build configuration list for PBXNativeTarget "TransportCVTests" */;
 			buildPhases = (
+				4A1510463F46BB6402DCC72B /* [CP] Check Pods Manifest.lock */,
 				8524867523B3BCFA00E7D26F /* Sources */,
 				8524867623B3BCFA00E7D26F /* Frameworks */,
 				8524867723B3BCFA00E7D26F /* Resources */,
@@ -170,9 +262,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8524869323B3BCFA00E7D26F /* Build configuration list for PBXNativeTarget "TransportCVUITests" */;
 			buildPhases = (
+				AF216925955B1999E46413D1 /* [CP] Check Pods Manifest.lock */,
 				8524868023B3BCFA00E7D26F /* Sources */,
 				8524868123B3BCFA00E7D26F /* Frameworks */,
 				8524868223B3BCFA00E7D26F /* Resources */,
+				B1003355BCE41D0C1EB9A343 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -254,14 +348,128 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4A1510463F46BB6402DCC72B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TransportCVTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AF216925955B1999E46413D1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TransportCV-TransportCVUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B1003355BCE41D0C1EB9A343 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TransportCV-TransportCVUITests/Pods-TransportCV-TransportCVUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TransportCV-TransportCVUITests/Pods-TransportCV-TransportCVUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TransportCV-TransportCVUITests/Pods-TransportCV-TransportCVUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BD5432D97A49EAD7F7C324A4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TransportCV/Pods-TransportCV-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TransportCV/Pods-TransportCV-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TransportCV/Pods-TransportCV-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DBAA1DA21926C03411312EDF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TransportCV-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8524865F23B3BCF600E7D26F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				8524866723B3BCF600E7D26F /* AppDelegate.swift in Sources */,
+				8526749A23B5038C00210509 /* Request.swift in Sources */,
+				855C157323BA4C620062ABD5 /* TransportCVRoute.swift in Sources */,
 				8524866923B3BCF600E7D26F /* SceneDelegate.swift in Sources */,
+				852674A523B5103500210509 /* TransGPSCVTracker.swift in Sources */,
+				855C157123BA34FB0062ABD5 /* GenericTracker.swift in Sources */,
+				8526749C23B504AE00210509 /* APITargetType.swift in Sources */,
+				85546F3D23B4E9EC0050045A /* TransportCVAPI.swift in Sources */,
+				852674A023B5064C00210509 /* JSONExtension.swift in Sources */,
+				852674A723B5104B00210509 /* TransportCVTracker.swift in Sources */,
+				855C157523BA56FC0062ABD5 /* TransGPSCVRoute.swift in Sources */,
+				852674A223B506D300210509 /* Handler.swift in Sources */,
 				8524869723B3BD3B00E7D26F /* MapViewController.swift in Sources */,
+				85546F3B23B4E9D70050045A /* TransGPSCVAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,10 +640,11 @@
 		};
 		8524868E23B3BCFA00E7D26F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A8B72F169666667D5C5AD318 /* Pods-TransportCV.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 5AAE2CPYY6;
 				INFOPLIST_FILE = TransportCV/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -452,10 +661,11 @@
 		};
 		8524868F23B3BCFA00E7D26F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA0EE5BC62C38839C22171D9 /* Pods-TransportCV.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 5AAE2CPYY6;
 				INFOPLIST_FILE = TransportCV/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -472,8 +682,8 @@
 		};
 		8524869123B3BCFA00E7D26F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AB25B7A21C386BE6D9BB1400 /* Pods-TransportCVTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5AAE2CPYY6;
@@ -494,8 +704,8 @@
 		};
 		8524869223B3BCFA00E7D26F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 05AF448F1E46608CF7C2F7F3 /* Pods-TransportCVTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5AAE2CPYY6;
@@ -516,8 +726,8 @@
 		};
 		8524869423B3BCFA00E7D26F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 98A172E48307F7450CFB5775 /* Pods-TransportCV-TransportCVUITests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5AAE2CPYY6;
 				INFOPLIST_FILE = TransportCVUITests/Info.plist;
@@ -536,8 +746,8 @@
 		};
 		8524869523B3BCFA00E7D26F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7DD6E93586DB74DE8356BFE8 /* Pods-TransportCV-TransportCVUITests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5AAE2CPYY6;
 				INFOPLIST_FILE = TransportCVUITests/Info.plist;
