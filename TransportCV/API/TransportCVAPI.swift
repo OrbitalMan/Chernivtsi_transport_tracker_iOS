@@ -103,7 +103,7 @@ extension TransportCVAPI {
                 if let token = headers?["Set-Cookie"] as? String {
                     completion(.success(token))
                 } else {
-                    completion(.failure("Failed to get token from \(dataResponse)"))
+                    completion(.failure("Failed to get token from \(dataResponse.stringResponse ?? dataResponse.description)"))
                 }
             case let .failure(error):
                 completion(.failure(error))
@@ -174,7 +174,6 @@ extension TransportCVAPI {
     }
     
     static func getRoutes(completion: @escaping APIHandler<[TransportCVRoute]>) {
-        // guard let token = Self.token else {
         getToken { result in
             switch result {
             case let .success(token):
@@ -185,8 +184,6 @@ extension TransportCVAPI {
             }
         }
         return
-        // }
-        // getRoutes(token: token, completion: completion)
     }
     
 }

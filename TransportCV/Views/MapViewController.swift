@@ -27,7 +27,7 @@ class MapViewController: UIViewController {
             for tracker in trackers {
                 let newPointer = MKPointAnnotation()
                 newPointer.coordinate = tracker.location.coordinate
-                newPointer.title = tracker.route.title
+                newPointer.title = tracker.route?.key.title ?? "error"
                 newPointer.subtitle = tracker.title
                 mapView.addAnnotation(newPointer)
             }
@@ -101,15 +101,12 @@ class MapViewController: UIViewController {
     
     func getRoutes() {
         RouteStore.shared.routes = [:]
-        RouteStore.shared.routeIdMap = [:]
         
         TransGPSCVAPI.getRoutes { transGPSResult in
             switch transGPSResult {
             case let .success(transGPSRoutes):
                 print("trans-gps routes:", transGPSRoutes.count)
-                for routeData in transGPSRoutes {
-                    RouteStore.shared.insert(transGPSCVData: routeData)
-                }
+                RouteStore.shared.insert(transGPSCVData: transGPSRoutes)
             case let .failure(error):
                 print("trans-gps routes error:", error)
             }
@@ -119,9 +116,7 @@ class MapViewController: UIViewController {
             switch transportRoutesResult {
             case let .success(transportRoutes):
                 print("transport routes:", transportRoutes.count)
-                for routeData in transportRoutes {
-                    RouteStore.shared.insert(transportCVData: routeData)
-                }
+                RouteStore.shared.insert(transportCVData: transportRoutes)
             case let .failure(error):
                 print("transport routes error:", error)
             }

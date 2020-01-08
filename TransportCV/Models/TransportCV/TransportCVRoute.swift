@@ -26,18 +26,20 @@ struct TransportCVRoutes: Codable {
 
 extension TransportCVRoute: GenericRouteConvertible {
     
-    var asGenericRoute: GenericRoute {
+    var routeKey: RouteKey {
         let busType: BusType
-        if name.localizedCaseInsensitiveContains("T") {
+        if name.contains(where: "TtТт".contains) {
             busType = .trolley
         } else {
             busType = .bus
         }
-        
-        return GenericRoute(id: id,
-                            title: name,
+        return RouteKey(busType: busType,
+                        name: name)
+    }
+    
+    var asGenericRoute: GenericRoute {
+        return GenericRoute(key: routeKey,
                             subtitle: description,
-                            busType: busType,
                             provider: .desyde)
     }
     

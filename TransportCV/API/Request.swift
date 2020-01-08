@@ -69,6 +69,7 @@ class Request {
                         completion(.success(decoded))
                     } catch {
                         completion(.failure(response.error ?? error))
+                        print(response.stringResponse ?? "")
                     }
                     return
                 }

@@ -29,11 +29,15 @@ typealias TransGPSCVRouteContainer = [String: TransGPSCVRoute]
 
 extension TransGPSCVRoute: GenericRouteConvertible {
     
+    var routeKey: RouteKey {
+        let refinedName = name.components(separatedBy: "/").first ?? ""
+        return RouteKey(busType: busType ?? .bus,
+                        name: refinedName)
+    }
+    
     var asGenericRoute: GenericRoute {
-        return GenericRoute(id: id,
-                            title: name,
+        return GenericRoute(key: routeKey,
                             subtitle: priceString,
-                            busType: busType,
                             provider: .transGPS)
     }
     
