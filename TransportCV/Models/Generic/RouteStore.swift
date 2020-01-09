@@ -91,23 +91,18 @@ class RouteData {
     var transGPSCVTrackers: [TransGPSCVTracker] = []
     
     func genericData(routeKey: RouteKey) -> GenericRoute? {
-        if let transportCVData = transportCVRoute {
-            if let transGPSCVData = transGPSCVRoute {
-                return merge(routeKey: routeKey,
-                             transportCVData: transportCVData,
-                             transGPSCVData: transGPSCVData)
-            }
-            return transportCVData.asGenericRoute
+        switch (transportCVRoute, transGPSCVRoute) {
+        case let (transportCVRoute?, transGPSCVRoute?):
+            return merge(routeKey: routeKey,
+                         transportCVData: transportCVRoute,
+                         transGPSCVData: transGPSCVRoute)
+        case let (transportCVRoute?, nil):
+            return transportCVRoute.asGenericRoute
+        case let (nil, transGPSCVRoute?):
+            return transGPSCVRoute.asGenericRoute
+        case (nil, nil):
+            return nil
         }
-        if let transGPSCVData = transGPSCVRoute {
-            if let transportCVData = transportCVRoute {
-                return merge(routeKey: routeKey,
-                             transportCVData: transportCVData,
-                             transGPSCVData: transGPSCVData)
-            }
-            return transGPSCVData.asGenericRoute
-        }
-        return nil
     }
     
     private func merge(routeKey: RouteKey,

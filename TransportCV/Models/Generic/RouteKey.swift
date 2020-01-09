@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct RouteKey: Hashable {
+struct RouteKey: Hashable, Codable {
     
     let type: BusType
     let routeNumber: Int?
@@ -34,8 +34,11 @@ extension RouteKey {
         let routeNumber = Int(numberString)
         
         var routeLetter: String? = nil
-        if busType == .bus {
-            routeLetter = name.components(separatedBy: .decimalDigits).last
+        if  busType == .bus,
+            let letter = name.components(separatedBy: .decimalDigits).last,
+            !letter.isEmpty
+        {
+            routeLetter = letter
         } else if routeNumber == nil {
             routeLetter = name
         }
@@ -50,7 +53,48 @@ extension RouteKey {
     
 }
 
-enum BusType: Int {
+extension RouteKey: Comparable {
+    
+    static func < (lhs: RouteKey, rhs: RouteKey) -> Bool {
+        return lhs.compare(with: rhs)
+    }
+    
+    func compare(with another: RouteKey) -> Bool {
+        switch (self.routeNumber, another.routeNumber) {
+        case let (leftNumber?, rightNumber?):
+            if leftNumber == rightNumber {
+                return compareLetters(with: another)
+            }
+            return leftNumber < rightNumber
+        case (nil, .some):
+            return false
+        case (.some, nil):
+            return true
+        case (nil, nil):
+            return compareLetters(with: another)
+        }
+    }
+    
+    private func compareLetters(with another: RouteKey) -> Bool {
+        switch (self.routeLetter, another.routeLetter) {
+        case let (leftLetter?, rightLetter?):
+            if leftLetter.count == 1, rightLetter.count > 1 {
+                return false
+            }
+            if rightLetter.count == 1, leftLetter.count > 1 {
+                return true
+            }
+            return leftLetter < rightLetter
+        case (.some, nil):
+            return false
+        default:
+            return true
+        }
+    }
+    
+}
+
+enum BusType: Int, Codable {
     case bus = 1
     case trolley = 2
     
@@ -67,3 +111,24 @@ enum BusType: Int {
     
 }
 
+extension BusType {
+    
+    init(segmentIndex: Int) {
+        switch segmentIndex {
+        case 0:
+            self = .trolley
+        case 1:
+            self = .bus
+        default:
+            self = .trolley
+        }
+    }
+    
+    var segmentIndex: Int {
+        switch self {
+        case .bus: return 1
+        case .trolley: return 0
+        }
+    }
+    
+}

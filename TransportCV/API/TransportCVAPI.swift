@@ -64,11 +64,6 @@ enum TransportCVAPI: TransportTargetType {
 
 extension TransportCVAPI {
     
-    private(set) static var token: String? {
-        get { UserDefaults.standard.string(forKey: "\(#file)\(#function)") }
-        set { UserDefaults.standard.set(newValue, forKey: "\(#file)\(#function)") }
-    }
-    
     private static var sessionDelegate: SessionDelegate {
         Alamofire.SessionManager.default.delegate
     }
@@ -85,7 +80,7 @@ extension TransportCVAPI {
     @discardableResult
     private static func tryUpdatingCookies(in response: HTTPURLResponse?) -> Bool {
         if let token = response?.allHeaderFields["Set-Cookie"] as? String {
-            Self.token = token
+            Storage.transportCVCookie = token
             return true
         }
         return false
@@ -158,26 +153,22 @@ extension TransportCVAPI {
     }
     
     static func getTrackers(completion: @escaping APIHandler<[TransportCVTracker]>) {
-        // guard let token = Self.token else {
         getToken { result in
             switch result {
             case let .success(token):
-                Self.token = token
+                Storage.transportCVCookie = token
                 getTrackers(token: token, completion: completion)
             case let .failure(error):
                 completion(.failure(error))
             }
         }
-        return
-        // }
-        // getTrackers(token: token, completion: completion)
     }
     
     static func getRoutes(completion: @escaping APIHandler<[TransportCVRoute]>) {
         getToken { result in
             switch result {
             case let .success(token):
-                Self.token = token
+                Storage.transportCVCookie = token
                 getRoutes(token: token, completion: completion)
             case let .failure(error):
                 completion(.failure(error))

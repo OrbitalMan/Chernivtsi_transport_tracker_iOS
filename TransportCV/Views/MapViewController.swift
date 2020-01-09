@@ -23,14 +23,7 @@ class MapViewController: UIViewController {
     
     var trackers: [GenericTracker] = [] {
         didSet {
-            mapView.removeAnnotations(mapView.annotations)
-            for tracker in trackers {
-                let newPointer = MKPointAnnotation()
-                newPointer.coordinate = tracker.location.coordinate
-                newPointer.title = tracker.route?.key.title ?? "error"
-                newPointer.subtitle = tracker.title
-                mapView.addAnnotation(newPointer)
-            }
+            updateAnnotations()
         }
     }
     
@@ -46,15 +39,31 @@ class MapViewController: UIViewController {
     /// The `mapView` and `locationManager` setup.
     override func viewDidLoad() {
         super.viewDidLoad()
+        if #available(iOS 13.0, *) {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark.rectangle"),
+                                                               style: .done,
+                                                               target: self,
+                                                               action: #selector(selectRoutes))
+        }
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         getRoutes()
+        getTrackers()
+        getLocation()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        getLocation()
+        updateAnnotations()
+    }
+    
+    @IBAction func selectRoutes() {
+        navigationController?.pushViewController(RoutesTableViewController(),
+                                                 animated: true)
+    }
+    
+    @IBAction func refresh() {
         getTrackers()
     }
     
@@ -146,6 +155,21 @@ class MapViewController: UIViewController {
             case let .failure(error):
                 print("transport trackers error:", error)
             }
+        }
+    }
+    
+    func updateAnnotations() {
+        mapView.removeAnnotations(mapView.annotations)
+        let checkedRoutes = Storage.checkedRoutes
+        for tracker in trackers {
+            if let key = tracker.route?.key, checkedRoutes[key] == false {
+                continue
+            }
+            let newPointer = MKPointAnnotation()
+            newPointer.coordinate = tracker.location.coordinate
+            newPointer.title = tracker.route?.key.title ?? tracker.title
+            newPointer.subtitle = tracker.title
+            mapView.addAnnotation(newPointer)
         }
     }
     

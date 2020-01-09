@@ -17,7 +17,7 @@ struct TransportCVTracker: Codable {
     let latitude: Double
     let longitude: Double
     let number: String
-    let routeId: Int
+    let routeId: Int?
     let speed: Int
     let startStatusDate: String
     let statusName: String
@@ -49,7 +49,7 @@ extension TransportCVTracker: GenericTrackerConvertible {
         let routes = RouteStore.shared.routes
         let routePair = routes.first(where: { $0.value.transportCVRoute?.id == routeId })
         if routePair == nil {
-            print("TransportCVTracker: missing route with \(routeId) id")
+            print("TransportCVTracker: missing route with \(routeId ?? -1) id")
         }
         return routePair?.key
     }
@@ -66,7 +66,7 @@ extension TransportCVTracker: GenericTrackerConvertible {
     }
     
     var asGenericTracker: GenericTracker {
-        return GenericTracker(routeId: routeId,
+        return GenericTracker(routeId: routeId ?? -1,
                               title: number + " desyde",
                               route: RouteStore.shared.findRoute(key: routeKey),
                               location: getCLLocation,

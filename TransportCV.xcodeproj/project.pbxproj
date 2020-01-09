@@ -22,6 +22,7 @@
 		852674A223B506D300210509 /* Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852674A123B506D300210509 /* Handler.swift */; };
 		852674A523B5103500210509 /* TransGPSCVTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852674A423B5103500210509 /* TransGPSCVTracker.swift */; };
 		852674A723B5104B00210509 /* TransportCVTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852674A623B5104B00210509 /* TransportCVTracker.swift */; };
+		854FFA6E23C6915600A2570F /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854FFA6D23C6915600A2570F /* Storage.swift */; };
 		85546F3B23B4E9D70050045A /* TransGPSCVAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85546F3A23B4E9D70050045A /* TransGPSCVAPI.swift */; };
 		85546F3D23B4E9EC0050045A /* TransportCVAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85546F3C23B4E9EC0050045A /* TransportCVAPI.swift */; };
 		855C157123BA34FB0062ABD5 /* GenericTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855C157023BA34FB0062ABD5 /* GenericTracker.swift */; };
@@ -76,6 +77,7 @@
 		852674A123B506D300210509 /* Handler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handler.swift; sourceTree = "<group>"; };
 		852674A423B5103500210509 /* TransGPSCVTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransGPSCVTracker.swift; sourceTree = "<group>"; };
 		852674A623B5104B00210509 /* TransportCVTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportCVTracker.swift; sourceTree = "<group>"; };
+		854FFA6D23C6915600A2570F /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		85546F3A23B4E9D70050045A /* TransGPSCVAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransGPSCVAPI.swift; sourceTree = "<group>"; };
 		85546F3C23B4E9EC0050045A /* TransportCVAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportCVAPI.swift; sourceTree = "<group>"; };
 		855C157023BA34FB0062ABD5 /* GenericTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTracker.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				8595898C23C628FE005AF3C9 /* Generic */,
 				852674A123B506D300210509 /* Handler.swift */,
 				8526749F23B5064C00210509 /* JSONExtension.swift */,
+				854FFA6D23C6915600A2570F /* Storage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -503,6 +506,7 @@
 				8524866723B3BCF600E7D26F /* AppDelegate.swift in Sources */,
 				8526749A23B5038C00210509 /* Request.swift in Sources */,
 				855C157323BA4C620062ABD5 /* TransportCVRoute.swift in Sources */,
+				854FFA6E23C6915600A2570F /* Storage.swift in Sources */,
 				8524866923B3BCF600E7D26F /* SceneDelegate.swift in Sources */,
 				852674A523B5103500210509 /* TransGPSCVTracker.swift in Sources */,
 				855C157123BA34FB0062ABD5 /* GenericTracker.swift in Sources */,
