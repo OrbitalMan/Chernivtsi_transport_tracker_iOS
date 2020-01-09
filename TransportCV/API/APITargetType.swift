@@ -46,6 +46,10 @@ extension APITargetType {
         return url
     }
     
+    var request: Request {
+        return Request(target: self)
+    }
+    
 }
 
 protocol TransportTargetType: APITargetType {
