@@ -9,20 +9,15 @@
 import Alamofire
 
 enum TransportCVAPI: TransportTargetType {
-    case getRoutes(token: String)
-    case getTrackers(token: String)
-    case auth(username: String, password: String)
+    case getRoutes(token: String?)
+    case getTrackers(token: String?)
     
-    var baseURL: URL {
-        return URL(string: "http://www.transport.cv.ua:8080")!
-    }
+    static let baseURL = URL(string: "http://www.transport.cv.ua:8080")!
     
     var apiComponent: String? {
         switch self {
         case .getRoutes, .getTrackers:
             return "DTM/routescheme"
-        case .auth:
-            return "DTM"
         }
     }
     
@@ -32,8 +27,6 @@ enum TransportCVAPI: TransportTargetType {
             return "findAllShort.action"
         case .getTrackers:
             return "findPositionExtsByUser.action"
-        case .auth:
-            return "j_spring_security_check"
         }
     }
     
@@ -41,11 +34,6 @@ enum TransportCVAPI: TransportTargetType {
         switch self {
         case .getRoutes, .getTrackers:
             return nil
-        case let .auth(username, password):
-            var parameters: Parameters = [:]
-            parameters["j_username"] = username
-            parameters["j_password"] = password
-            return parameters
         }
     }
     
@@ -53,11 +41,10 @@ enum TransportCVAPI: TransportTargetType {
         switch self {
         case .getRoutes(let token),
              .getTrackers(let token):
+            guard let token = token else { return nil }
             var headers: HTTPHeaders = [:]
             headers["cookie"] = token
             return headers
-        case .auth:
-            return nil
         }
     }
     
@@ -67,84 +54,61 @@ enum TransportCVAPI: TransportTargetType {
 
 extension TransportCVAPI {
     
-    private static var sessionDelegate: SessionDelegate {
-        Alamofire.SessionManager.default.delegate
-    }
-    
-    private static func startCatchingCookie(caught: @escaping (String) -> ()) {
-        sessionDelegate.taskWillPerformHTTPRedirection = { (_, _, response, request) -> URLRequest? in
-            if let cookie = response.allHeaderFields["Set-Cookie"] as? String {
-                Storage.transportCVCookie = cookie
-                caught(cookie)
-                if request.url?.absoluteString.contains("start") ?? false {
-                    return nil
-                }
+    static func catchCookies() {
+        Alamofire.SessionManager.default.delegate.taskWillPerformHTTPRedirection = { _, task, response, request in
+            guard task.originalRequest?.url?.absoluteString.localizedCaseInsensitiveContains(TransportCVAPI.baseURL.absoluteString) ?? false else {
+                return request
             }
+            var request = request
+            let cookie = response.allHeaderFields["Set-Cookie"] as? String
+            print("""
+                
+                catchCookie - taskWillPerformHTTPRedirection:
+                From: \(response.url?.absoluteString ?? "nil")
+                Cookie: \(cookie ?? "nope")
+                """)
+            if let cookie = cookie {
+                Storage.transportCVCookie = cookie
+                request.allHTTPHeaderFields?["Cookie"] = cookie
+            }
+            let redirectCookie = cookie ?? request.allHTTPHeaderFields?["Cookie"]
+            if  request.url?.absoluteString.localizedCaseInsensitiveContains("start") ?? false,
+                let newCookie = redirectCookie,
+                var retryRequest = task.originalRequest
+            {
+                retryRequest.allHTTPHeaderFields?["Cookie"] = newCookie
+                print("Override redirect to \(retryRequest) with \(newCookie)\n")
+                return retryRequest
+            }
+            print("Continue redirect to \(request) with \(redirectCookie ?? "no cookie")\n")
             return request
         }
     }
     
-    private static func declineRedirects() {
-        sessionDelegate.taskWillPerformHTTPRedirection = { _, _, _, _ in
-            return nil
-        }
-    }
-    
-    private static func stopCatchingRedirects() {
-        sessionDelegate.taskWillPerformHTTPRedirection =  nil
-    }
-    
     // MARK: -
-    
-    private static func getToken(completion: @escaping (String?) -> ()) {
-        var token: String? = nil
-        let authRequest = TransportCVAPI.auth(username: "ChernivtsyPublicUser",
-                                              password: "peopleoF4e").request
-        startCatchingCookie { token = $0 }
-        authRequest.rawResponse { result in
-            stopCatchingRedirects()
-            completion(token)
-        }
-    }
     
     private static func getRoutes(token: String?,
                                   completion: @escaping APIHandler<[TransportCVRoute]>) {
-        guard let token = token else {
-            completion(.failure("getRoutes failure - missing token"))
-            return
-        }
-        let routesRequest = TransportCVAPI.getRoutes(token: token).request
-        declineRedirects()
+        let routesRequest = TransportCVAPI.getRoutes(token: token).request()
         routesRequest.responseDecoding { (result: APIResult<TransportCVRoutes>) in
-            stopCatchingRedirects()
             switch result {
             case let .success(routes):
                 completion(.success(routes.routes.elements))
-            case .failure:
-                getToken {
-                    getRoutes(token: $0, completion: completion)
-                }
+            case let .failure(error):
+                completion(.failure(error))
             }
         }
     }
     
     private static func getTrackers(token: String?,
                                     completion: @escaping APIHandler<[TransportCVTracker]>) {
-        guard let token = token else {
-            completion(.failure("getTrackers failure - missing token"))
-            return
-        }
-        let trackersRequest = TransportCVAPI.getTrackers(token: token).request
-        declineRedirects()
+        let trackersRequest = TransportCVAPI.getTrackers(token: token).request()
         trackersRequest.responseDecoding { (result: APIResult<SafeCodableArray<TransportCVTracker>>) in
-            stopCatchingRedirects()
             switch result {
             case let .success(trackers):
                 completion(.success(trackers.elements))
-            case .failure:
-                getToken {
-                    getTrackers(token: $0, completion: completion)
-                }
+            case let .failure(error):
+                completion(.failure(error))
             }
         }
     }
@@ -152,23 +116,11 @@ extension TransportCVAPI {
     // MARK: -
     
     static func getRoutes(completion: @escaping APIHandler<[TransportCVRoute]>) {
-        guard let token = Storage.transportCVCookie else {
-            getToken {
-                getRoutes(token: $0, completion: completion)
-            }
-            return
-        }
-        getRoutes(token: token, completion: completion)
+        getRoutes(token: Storage.transportCVCookie, completion: completion)
     }
     
     static func getTrackers(completion: @escaping APIHandler<[TransportCVTracker]>) {
-        guard let token = Storage.transportCVCookie else {
-            getToken {
-                getTrackers(token: $0, completion: completion)
-            }
-            return
-        }
-        getTrackers(token: token, completion: completion)
+        getTrackers(token: Storage.transportCVCookie, completion: completion)
     }
     
 }

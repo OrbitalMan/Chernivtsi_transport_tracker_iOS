@@ -20,7 +20,7 @@ struct TransportCVRoute: Codable {
 
 struct TransportCVRoutes: Codable {
     
-    let routes: [TransportCVRoute]
+    let routes: SafeCodableArray<TransportCVRoute>
     
 }
 

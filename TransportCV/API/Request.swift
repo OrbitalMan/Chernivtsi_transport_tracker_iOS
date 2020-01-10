@@ -31,13 +31,17 @@ class Request {
         }
     }
     
-    init(target: APITargetType) {
+    init(target: APITargetType, startImmediately: Bool = true) {
         self.target = target
+        if !startImmediately {
+            SessionManager.default.startRequestsImmediately = false
+        }
         self.dataRequest = Alamofire.request(target.url,
                                              method: target.method,
                                              parameters: target.parameters,
                                              encoding: target.encoding,
                                              headers: target.headers)
+        SessionManager.default.startRequestsImmediately = true
     }
     
     func responseIsOk(completion: @escaping APIHandler<()>) {
@@ -69,7 +73,6 @@ class Request {
                         completion(.success(decoded))
                     } catch {
                         completion(.failure(response.error ?? error))
-                        print(response.stringResponse ?? "")
                     }
                     return
                 }
@@ -88,11 +91,13 @@ class Request {
 
 extension Alamofire.DataResponse where Value == Data {
     
-    var stringResponse: String? {
-        return try? DataRequest.serializeResponseString(encoding: .utf8,
-                                                        response: response,
-                                                        data: data,
-                                                        error: nil).unwrap()
+    var stringResponse: String {
+        let stringResult = DataRequest.serializeResponseString(encoding: .utf8,
+                                                               response: response,
+                                                               data: data,
+                                                               error: nil)
+        let optionalString = try? stringResult.unwrap()
+        return optionalString ?? "nil"
     }
     
     var jsonResult: Alamofire.Result<Any> {

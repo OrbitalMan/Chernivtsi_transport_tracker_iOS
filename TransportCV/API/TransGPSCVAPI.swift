@@ -13,9 +13,7 @@ enum TransGPSCVAPI: TransportTargetType {
     case getTrolleyRoutes
     case getTrackers
     
-    var baseURL: URL {
-        return URL(string: "http://www.trans-gps.cv.ua")!
-    }
+    static let baseURL = URL(string: "http://www.trans-gps.cv.ua")!
     
     var apiComponent: String? {
         return "map"

@@ -27,7 +27,7 @@ class MapViewController: UIViewController {
         }
     }
     
-    //MARK: -
+    // MARK: -
     
     /// Sets the `mapView`, text fields and navigation items up.
     override func loadView() {
@@ -67,7 +67,7 @@ class MapViewController: UIViewController {
         getTrackers()
     }
     
-    //MARK: -
+    // MARK: -
     
     /// Asks the `locationManager` to request initial location.
     /// Also does `requestWhenInUseAuthorization` if necessary.

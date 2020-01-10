@@ -11,7 +11,7 @@ import Alamofire
 protocol APITargetType {
     
     /// The target's base `URL`.
-    var baseURL: URL { get }
+    static var baseURL: URL { get }
     
     /// The target's API path component.
     var apiComponent: String? { get }
@@ -38,7 +38,7 @@ extension APITargetType {
     /// The target's `URL` to perform requests on.
     /// The path to be appended to `baseURL` with `apiComponent` to form the full `URL`.
     var url: Alamofire.URLConvertible {
-        var url = baseURL
+        var url = Self.baseURL
         if let apiComponent = apiComponent {
             url.appendPathComponent(apiComponent)
         }
@@ -46,8 +46,8 @@ extension APITargetType {
         return url
     }
     
-    var request: Request {
-        return Request(target: self)
+    func request(startImmediately: Bool = true) -> Request {
+        return Request(target: self, startImmediately: startImmediately)
     }
     
 }
