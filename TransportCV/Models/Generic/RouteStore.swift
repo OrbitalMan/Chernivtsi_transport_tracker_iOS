@@ -10,6 +10,11 @@ import Foundation
 
 class RouteStore {
     
+    static let shared = RouteStore()
+    private init() { }
+    
+    private(set) var updatingTasks = 0
+    
     var routes: [RouteKey: RouteData] = [:] {
         didSet {
             if routes.isEmpty { return }
@@ -36,9 +41,35 @@ class RouteStore {
         }
     }
     
-    static let shared = RouteStore()
-    
-    private init() { }
+    func updateRoutes() {
+        if updatingTasks > 0 { return }
+        
+        routes = [:]
+        
+        updatingTasks += 1
+        TransGPSCVAPI.getRoutes { [weak self] transGPSResult in
+            self?.updatingTasks -= 1
+            switch transGPSResult {
+            case let .success(transGPSRoutes):
+                print("trans-gps routes:", transGPSRoutes.count)
+                self?.insert(transGPSCVData: transGPSRoutes)
+            case let .failure(error):
+                print("trans-gps routes error:", error)
+            }
+        }
+        
+        updatingTasks += 1
+        TransportCVAPI.getRoutes { [weak self] transportRoutesResult in
+            self?.updatingTasks -= 1
+            switch transportRoutesResult {
+            case let .success(transportRoutes):
+                print("transport routes:", transportRoutes.count)
+                self?.insert(transportCVData: transportRoutes)
+            case let .failure(error):
+                print("transport routes error:", error)
+            }
+        }
+    }
     
     func findRoute(key: RouteKey?) -> GenericRoute? {
         guard let routeKey = key else {
@@ -48,7 +79,7 @@ class RouteStore {
         return route.genericData(routeKey: routeKey)
     }
     
-    func insert(transportCVData: [TransportCVRoute]) {
+    private func insert(transportCVData: [TransportCVRoute]) {
         var newRoutes: [RouteKey: RouteData] = [:]
         for transportRoute in transportCVData {
             let routeKey = transportRoute.routeKey
@@ -68,7 +99,7 @@ class RouteStore {
         }
     }
     
-    func insert(transGPSCVData: [TransGPSCVRoute]) {
+    private func insert(transGPSCVData: [TransGPSCVRoute]) {
         var newRoutes: [RouteKey: RouteData] = [:]
         for transGPSRoute in transGPSCVData {
             let routeKey = transGPSRoute.routeKey
@@ -86,38 +117,6 @@ class RouteStore {
             r.transGPSCVRoute = $1.transGPSCVRoute ?? $0.transGPSCVRoute
             return r
         }
-    }
-    
-}
-
-class RouteData {
-    
-    var transportCVRoute: TransportCVRoute?
-    var transGPSCVRoute: TransGPSCVRoute?
-    var transportCVTrackers: [TransportCVTracker] = []
-    var transGPSCVTrackers: [TransGPSCVTracker] = []
-    
-    func genericData(routeKey: RouteKey) -> GenericRoute? {
-        switch (transportCVRoute, transGPSCVRoute) {
-        case let (transportCVRoute?, transGPSCVRoute?):
-            return merge(routeKey: routeKey,
-                         transportCVData: transportCVRoute,
-                         transGPSCVData: transGPSCVRoute)
-        case let (transportCVRoute?, nil):
-            return transportCVRoute.asGenericRoute
-        case let (nil, transGPSCVRoute?):
-            return transGPSCVRoute.asGenericRoute
-        case (nil, nil):
-            return nil
-        }
-    }
-    
-    private func merge(routeKey: RouteKey,
-                       transportCVData: TransportCVRoute,
-                       transGPSCVData: TransGPSCVRoute) -> GenericRoute {
-        return GenericRoute(key: routeKey,
-                            subtitle: transportCVData.description ?? transGPSCVData.priceString,
-                            provider: .both)
     }
     
 }

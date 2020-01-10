@@ -48,8 +48,7 @@ class MapViewController: UIViewController {
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
-        getRoutes()
-        getTrackers()
+        refresh()
         getLocation()
     }
     
@@ -64,6 +63,9 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func refresh() {
+        if RouteStore.shared.routes.isEmpty {
+            RouteStore.shared.updateRoutes()
+        }
         getTrackers()
     }
     
@@ -106,30 +108,6 @@ class MapViewController: UIViewController {
         mapView.setRegion(MKCoordinateRegion(center: newCoordinate,
                                              span: span),
                           animated: animated)
-    }
-    
-    func getRoutes() {
-        RouteStore.shared.routes = [:]
-        
-        TransGPSCVAPI.getRoutes { transGPSResult in
-            switch transGPSResult {
-            case let .success(transGPSRoutes):
-                print("trans-gps routes:", transGPSRoutes.count)
-                RouteStore.shared.insert(transGPSCVData: transGPSRoutes)
-            case let .failure(error):
-                print("trans-gps routes error:", error)
-            }
-        }
-        
-        TransportCVAPI.getRoutes { transportRoutesResult in
-            switch transportRoutesResult {
-            case let .success(transportRoutes):
-                print("transport routes:", transportRoutes.count)
-                RouteStore.shared.insert(transportCVData: transportRoutes)
-            case let .failure(error):
-                print("transport routes error:", error)
-            }
-        }
     }
     
     func getTrackers() {
