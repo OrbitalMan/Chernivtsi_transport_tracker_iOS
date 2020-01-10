@@ -39,17 +39,30 @@ class MapViewController: UIViewController {
     /// The `mapView` and `locationManager` setup.
     override func viewDidLoad() {
         super.viewDidLoad()
-        if #available(iOS 13.0, *) {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark.rectangle"),
-                                                               style: .done,
-                                                               target: self,
-                                                               action: #selector(selectRoutes))
-        }
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         refresh()
         getLocation()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let image: UIImage?
+        let title: String
+        if #available(iOS 13.0, *) {
+            let checkedRoutes = Storage.checkedRoutes
+            if checkedRoutes.contains(where: { !$0.value }) {
+                if !checkedRoutes.contains(where: { $0.value }) {
+                    image = UIImage(systemName: "xmark.rectangle")
+                } else {
+                    image = UIImage(systemName: "checkmark.rectangle")
+                }
+            } else {
+                image = UIImage(systemName: "checkmark.rectangle.fill")
+            }
+            navigationItem.leftBarButtonItem?.image = image
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

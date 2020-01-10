@@ -68,6 +68,10 @@ class RoutesTableViewController: UITableViewController {
         }
         
         navigationItem.titleView = busTypeSelector
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Check",
+                                                            style: .done,
+                                                            target: self,
+                                                            action: #selector(checkAll))
         updateCheckAll()
     }
     
@@ -99,22 +103,15 @@ class RoutesTableViewController: UITableViewController {
             } else {
                 image = UIImage(systemName: "checkmark.circle")
             }
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: image,
-                                                                style: .done,
-                                                                target: self,
-                                                                action: #selector(checkAll))
-        } else {
-            let title: String
-            if anyChecked {
-                title = "Uncheck All"
-            } else {
-                title = "Check All"
-            }
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: title,
-                                                                style: .done,
-                                                                target: self,
-                                                                action: #selector(checkAll))
+            navigationItem.rightBarButtonItem?.image = image
         }
+        let title: String
+        if anyChecked {
+            title = "Uncheck All"
+        } else {
+            title = "Check All"
+        }
+        navigationItem.rightBarButtonItem?.title = title
     }
     
     func recordSelections() {
