@@ -12,7 +12,7 @@ import MapKit
 class MapViewController: UIViewController {
     
     static var shared: MapViewController? {
-        return UIApplication.shared.keyWindow?.rootViewController as? MapViewController
+        return (UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.viewControllers.first as? MapViewController
     }
     
     /// The main view. Represents a map to pick a location on.

@@ -12,15 +12,22 @@ class RouteStore {
     
     var routes: [RouteKey: RouteData] = [:] {
         didSet {
-            guard let mapVC = MapViewController.shared else { return }
+            if routes.isEmpty { return }
+            guard let mapVC = MapViewController.shared else {
+                print("failed to get map VC")
+                return
+            }
             var updatedTrackers: [GenericTracker] = []
             for tracker in mapVC.trackers {
                 var newTracker = tracker
-                if let gotRoute = RouteStore.shared.findRoute(key: tracker.routeKey) {
+                let routekey = tracker.routeKey
+                if let gotRoute = RouteStore.shared.findRoute(key: routekey) {
                     newTracker.route = gotRoute
                 } else {
                     if tracker.route == nil {
-                        print("failed to find route for \(tracker.routeId) \(tracker.title)!")
+                        print("failed to find route \(tracker.routeId) for \(tracker.title) tracker")
+                    } else {
+                        print("tracker \(tracker.title) has route for id \(tracker.routeId): \(tracker.route!.key.title)")
                     }
                 }
                 updatedTrackers.append(newTracker)
