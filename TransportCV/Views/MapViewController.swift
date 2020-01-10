@@ -48,21 +48,29 @@ class MapViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        let imageName: String
         let image: UIImage?
         let title: String
-        if #available(iOS 13.0, *) {
-            let checkedRoutes = Storage.checkedRoutes
-            if checkedRoutes.contains(where: { !$0.value }) {
-                if !checkedRoutes.contains(where: { $0.value }) {
-                    image = UIImage(systemName: "xmark.rectangle")
-                } else {
-                    image = UIImage(systemName: "checkmark.rectangle")
-                }
+        let checkedRoutes = Storage.checkedRoutes
+        if checkedRoutes.contains(where: { !$0.value }) {
+            if !checkedRoutes.contains(where: { $0.value }) {
+                imageName = "xmark.rectangle"
+                title = "Show"
             } else {
-                image = UIImage(systemName: "checkmark.rectangle.fill")
+                imageName = "checkmark.rectangle"
+                title = "Filter"
             }
-            navigationItem.leftBarButtonItem?.image = image
+        } else {
+            imageName = "checkmark.rectangle.fill"
+            title = "Filter"
         }
+        if #available(iOS 13.0, *) {
+            image = UIImage(systemName: imageName)
+        } else {
+            image = nil
+        }
+        navigationItem.leftBarButtonItem?.image = image
+        navigationItem.leftBarButtonItem?.title = title
     }
     
     override func viewDidAppear(_ animated: Bool) {
