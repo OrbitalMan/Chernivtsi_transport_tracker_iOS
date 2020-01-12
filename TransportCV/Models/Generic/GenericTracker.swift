@@ -14,14 +14,29 @@ protocol GenericTrackerConvertible {
     var asGenericTracker: GenericTracker { get }
 }
 
-struct GenericTracker {
+class GenericTracker {
     
     let routeId: Int
     let title: String
-    var route: GenericRoute?
-    let location: CLLocation
     let status: Status
     let provider: TrackerProvider
+    dynamic var route: GenericRoute?
+    dynamic var location: CLLocation
+    
+    init(routeId: Int,
+         title: String,
+         route: GenericRoute?,
+         location: CLLocation,
+         status: GenericTracker.Status,
+         provider: TrackerProvider)
+    {
+        self.routeId = routeId
+        self.title = title
+        self.status = status
+        self.provider = provider
+        self.route = route
+        self.location = location
+    }
     
     enum Status {
         case idle
@@ -39,6 +54,15 @@ struct GenericTracker {
         case .both:
             return routes.first(where: { ($0.value.transGPSCVRoute?.id ?? $0.value.transportCVRoute?.id) == routeId })?.key
         }
+    }
+    
+}
+
+extension GenericTracker: Equatable {
+    
+    static func == (lhs: GenericTracker,
+                    rhs: GenericTracker) -> Bool {
+        return lhs.title == rhs.title
     }
     
 }

@@ -22,22 +22,17 @@ class RouteStore {
                 print("failed to get map VC")
                 return
             }
-            var updatedTrackers: [GenericTracker] = []
             for tracker in mapVC.trackers {
-                var newTracker = tracker
-                let routekey = tracker.routeKey
-                if let gotRoute = RouteStore.shared.findRoute(key: routekey) {
-                    newTracker.route = gotRoute
+                if let gotRoute = RouteStore.shared.findRoute(key: tracker.routeKey) {
+                    tracker.route = gotRoute
                 } else {
-                    if tracker.route == nil {
-                        print("failed to find route \(tracker.routeId) for \(tracker.title) tracker")
+                    if let route = tracker.route {
+                        print("tracker \(tracker.title) already has route for id \(tracker.routeId): \(route.key.title)")
                     } else {
-                        print("tracker \(tracker.title) has route for id \(tracker.routeId): \(tracker.route!.key.title)")
+                        print("failed to find route \(tracker.routeId) for \(tracker.title) tracker")
                     }
                 }
-                updatedTrackers.append(newTracker)
             }
-            mapVC.trackers = updatedTrackers
         }
     }
     

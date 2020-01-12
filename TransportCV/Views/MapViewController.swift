@@ -21,11 +21,10 @@ class MapViewController: UIViewController {
     /// Requests the real location to get initial coordinate for user convenience.
     let locationManager = CLLocationManager()
     
-    var trackers: [GenericTracker] = [] {
-        didSet {
-            updateAnnotations()
-        }
-    }
+    let trackerAnnotationReuseIdentifier = "trackerAnnotationReuseIdentifier"
+    var trackers: [GenericTracker] = []
+    var visibleTrackers: [GenericTracker] = []
+    var annotations: [TrackerAnnotation] = []
     
     // MARK: -
     
@@ -40,6 +39,8 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
+        mapView.isPitchEnabled = false
+        mapView.isRotateEnabled = false // TODO: need to implement annotations couse adjustment for map rotation
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         refresh()
@@ -75,7 +76,7 @@ class MapViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        updateAnnotations()
+        updateVisibleTrackers()
     }
     
     @IBAction func selectRoutes() {
@@ -131,45 +132,105 @@ class MapViewController: UIViewController {
                           animated: animated)
     }
     
+    var getTrackerTasks = 0
+    
     func getTrackers() {
-        trackers = []
-        
+        guard getTrackerTasks < 1 else { return }
+        getTrackerTasks += 1
         TransGPSCVAPI.getTrackers { [weak self] transGPSResult in
+            self?.getTrackerTasks -= 1
             switch transGPSResult {
             case let .success(transGPSTrackers):
                 print("trans-gps trackers:", transGPSTrackers.count)
                 let genericTrackers = transGPSTrackers.map { $0.asGenericTracker }
-                self?.trackers.append(contentsOf: genericTrackers)
+                self?.updateTrackers(newTrackers: genericTrackers)
             case let .failure(error):
                 print("trans-gps trackers error:", error)
             }
         }
         
+        getTrackerTasks += 1
         TransportCVAPI.getTrackers { [weak self] transportResult in
+            self?.getTrackerTasks -= 1
             switch transportResult {
             case let .success(transportTrackers):
                 print("transport trackers:", transportTrackers.count)
                 let genericTrackers = transportTrackers.map { $0.asGenericTracker }
-                self?.trackers.append(contentsOf: genericTrackers)
+                self?.updateTrackers(newTrackers: genericTrackers)
             case let .failure(error):
                 print("transport trackers error:", error)
             }
         }
     }
     
-    func updateAnnotations() {
-        mapView.removeAnnotations(mapView.annotations)
-        let checkedRoutes = Storage.checkedRoutes
+    func updateTrackers(newTrackers: [GenericTracker]) {
+        var obsoleteTrackers: [GenericTracker] = []
+        var updatedTrackers: [GenericTracker] = []
+        var addedTrackers: [GenericTracker] = []
         for tracker in trackers {
-            if let key = tracker.route?.key, checkedRoutes[key] == false {
-                continue
+            var updated = false
+            var obsolete = false
+            for newTracker in newTrackers {
+                if newTracker == tracker {
+                    tracker.location = newTracker.location
+                    tracker.route = newTracker.route
+                    updatedTrackers.append(newTracker)
+                    updated = true
+                    break
+                } else if newTracker.provider == tracker.provider {
+                    obsolete = true
+                }
             }
-            let newPointer = MKPointAnnotation()
-            newPointer.coordinate = tracker.location.coordinate
-            newPointer.title = tracker.route?.key.title ?? tracker.title
-            newPointer.subtitle = tracker.title
-            mapView.addAnnotation(newPointer)
+            if !updated, obsolete {
+                obsoleteTrackers.append(tracker)
+            }
         }
+        trackers.removeAll { obsoleteTrackers.contains($0) }
+        addedTrackers = newTrackers
+        addedTrackers.removeAll { updatedTrackers.contains($0) }
+        trackers.append(contentsOf: addedTrackers)
+        updateVisibleTrackers()
+    }
+    
+    func updateVisibleTrackers() {
+        let checkedRoutes = Storage.checkedRoutes
+        visibleTrackers = trackers.filter { tracker in
+            if let key = tracker.route?.key, checkedRoutes[key] == false {
+                return false
+            }
+            return true
+        }
+        updateAnnotations(newTrackers: visibleTrackers)
+    }
+    
+    func updateAnnotations(newTrackers: [GenericTracker]) {
+        var obsoleteAnnotations: [TrackerAnnotation] = []
+        var updatedTrackers: [GenericTracker] = []
+        for annotation in annotations {
+            var updated = false
+            for newTracker in newTrackers {
+                if newTracker.title == annotation.subtitle {
+                    annotation.update()
+                    updatedTrackers.append(newTracker)
+                    updated = true
+                    break
+                }
+            }
+            if !updated {
+                obsoleteAnnotations.append(annotation)
+            }
+        }
+        for obsolete in obsoleteAnnotations {
+            mapView.removeAnnotation(obsolete)
+        }
+        annotations.removeAll { obsoleteAnnotations.contains($0) }
+        var addedTrackers = newTrackers
+        addedTrackers.removeAll { updatedTrackers.contains($0) }
+        let newAnnotations = addedTrackers.map(TrackerAnnotation.init)
+        for new in newAnnotations {
+            mapView.addAnnotation(new)
+        }
+        annotations.append(contentsOf: newAnnotations)
     }
     
 }
@@ -177,19 +238,14 @@ class MapViewController: UIViewController {
 // MARK: - MKMapViewDelegate
 extension MapViewController: MKMapViewDelegate {
     
-    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-        
-    }
-    
-    func mapView(_ mapView: MKMapView,
-                 viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        let annotationView: MKAnnotationView
-        if #available(iOS 11.0, *) {
-            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "id")
-        } else {
-            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "id")
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let trackerAnnotation = annotation as? TrackerAnnotation else { return nil }
+        if let dequeued = mapView.dequeueReusableAnnotationView(withIdentifier: trackerAnnotationReuseIdentifier) {
+            dequeued.annotation = trackerAnnotation
+            return dequeued
         }
-        return annotationView
+        return TrackerAnnotationView(annotation: trackerAnnotation,
+                                     reuseIdentifier: trackerAnnotationReuseIdentifier)
     }
     
 }

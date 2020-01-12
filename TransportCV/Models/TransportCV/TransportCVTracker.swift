@@ -48,9 +48,6 @@ extension TransportCVTracker: GenericTrackerConvertible {
     var routeKey: RouteKey? {
         let routes = RouteStore.shared.routes
         let routePair = routes.first(where: { $0.value.transportCVRoute?.id == routeId })
-        if routePair == nil {
-            print("TransportCVTracker: missing route with \(routeId ?? -1) id")
-        }
         return routePair?.key
     }
     
