@@ -8,9 +8,13 @@
 
 import CoreLocation
 
-protocol GenericTrackerConvertible {
+protocol CLLocationConvertible {
+    var speedValue: Double { get }
+    var getCLLocation: CLLocation { get }
+}
+
+protocol GenericTrackerConvertible: CLLocationConvertible {
     var routeKey: RouteKey? { get }
-    var genericStatus: GenericTracker.Status { get }
     var asGenericTracker: GenericTracker { get }
 }
 
@@ -18,7 +22,6 @@ class GenericTracker {
     
     let routeId: Int
     let title: String
-    let status: Status
     let provider: TrackerProvider
     dynamic var route: GenericRoute?
     dynamic var location: CLLocation
@@ -27,21 +30,13 @@ class GenericTracker {
          title: String,
          route: GenericRoute?,
          location: CLLocation,
-         status: GenericTracker.Status,
          provider: TrackerProvider)
     {
         self.routeId = routeId
         self.title = title
-        self.status = status
         self.provider = provider
         self.route = route
         self.location = location
-    }
-    
-    enum Status {
-        case idle
-        case moving
-        case noConnection
     }
     
     var routeKey: RouteKey? {
@@ -62,7 +57,11 @@ extension GenericTracker: Equatable {
     
     static func == (lhs: GenericTracker,
                     rhs: GenericTracker) -> Bool {
-        return lhs.title == rhs.title
+        guard
+            lhs.routeId == rhs.routeId,
+            lhs.title == rhs.title,
+            lhs.provider == rhs.provider else { return false }
+        return true
     }
     
 }

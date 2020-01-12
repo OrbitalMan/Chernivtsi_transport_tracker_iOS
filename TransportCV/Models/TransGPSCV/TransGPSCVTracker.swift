@@ -8,11 +8,6 @@
 
 import CoreLocation
 
-protocol CLLocationConvertible {
-    var speedValue: Double { get }
-    var getCLLocation: CLLocation { get }
-}
-
 struct TransGPSCVTracker: Codable {
     
     let id: Int
@@ -37,11 +32,9 @@ struct TransGPSCVTracker: Codable {
     
 }
 
-extension TransGPSCVTracker: CLLocationConvertible {
+extension TransGPSCVTracker: GenericTrackerConvertible {
     
-    var speedValue: Double {
-        Double(speed) ?? 0
-    }
+    var speedValue: Double { Double(speed) ?? 0 }
     
     var getCLLocation: CLLocation {
         CLLocation(coordinate: CLLocationCoordinate2D(latitude: lat,
@@ -54,23 +47,9 @@ extension TransGPSCVTracker: CLLocationConvertible {
                    timestamp: Date())
     }
     
-}
-
-extension TransGPSCVTracker: GenericTrackerConvertible {
-    
     var routeKey: RouteKey? {
         let routes = RouteStore.shared.routes
         return routes.first(where: { $0.value.transGPSCVRoute?.id == routeId })?.key
-    }
-    
-    var genericStatus: GenericTracker.Status {
-        if inDepo {
-            return .noConnection
-        }
-        if speedValue > 0 {
-            return .moving
-        }
-        return .idle
     }
     
     var asGenericTracker: GenericTracker {
@@ -78,7 +57,6 @@ extension TransGPSCVTracker: GenericTrackerConvertible {
                               title: name + " trans",
                               route: RouteStore.shared.findRoute(key: routeKey),
                               location: getCLLocation,
-                              status: genericStatus,
                               provider: .transGPS)
     }
     

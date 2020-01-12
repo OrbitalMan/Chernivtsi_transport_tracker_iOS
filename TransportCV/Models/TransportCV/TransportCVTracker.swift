@@ -18,17 +18,14 @@ struct TransportCVTracker: Codable {
     let longitude: Double
     let number: String
     let routeId: Int?
-    let speed: Int
+    let speed: Double
     let startStatusDate: String
-    let statusName: String
     
 }
 
-extension TransportCVTracker: CLLocationConvertible {
+extension TransportCVTracker: GenericTrackerConvertible {
     
-    var speedValue: Double {
-        Double(speed)
-    }
+    var speedValue: Double { speed }
     
     var getCLLocation: CLLocation {
         CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude,
@@ -41,25 +38,10 @@ extension TransportCVTracker: CLLocationConvertible {
                    timestamp: Date())
     }
     
-}
-
-extension TransportCVTracker: GenericTrackerConvertible {
-    
     var routeKey: RouteKey? {
         let routes = RouteStore.shared.routes
         let routePair = routes.first(where: { $0.value.transportCVRoute?.id == routeId })
         return routePair?.key
-    }
-    
-    var genericStatus: GenericTracker.Status {
-        switch statusName {
-        case "move":
-            return .moving
-        case "stay":
-            return .idle
-        default:
-            return .noConnection
-        }
     }
     
     var asGenericTracker: GenericTracker {
@@ -67,7 +49,6 @@ extension TransportCVTracker: GenericTrackerConvertible {
                               title: number + " desyde",
                               route: RouteStore.shared.findRoute(key: routeKey),
                               location: getCLLocation,
-                              status: genericStatus,
                               provider: .desyde)
     }
     
