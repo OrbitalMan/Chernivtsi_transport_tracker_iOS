@@ -104,8 +104,8 @@ enum BusType: Int, Codable {
     
     var titleValue: String {
         switch self {
-        case .bus: return ""
-        case .trolley: return "Т"
+        case .bus: return "" //"🚌"
+        case .trolley: return "Т" //"🚎"
         }
     }
     

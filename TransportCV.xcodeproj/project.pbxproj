@@ -35,6 +35,7 @@
 		8595899023C62961005AF3C9 /* GenericRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8595898F23C62961005AF3C9 /* GenericRoute.swift */; };
 		8595899223C629C6005AF3C9 /* RouteKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8595899123C629C6005AF3C9 /* RouteKey.swift */; };
 		8595899423C629EB005AF3C9 /* RouteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8595899323C629EB005AF3C9 /* RouteStore.swift */; };
+		85AC53BB23CBCEFD00146800 /* PointerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85AC53BA23CBCEFD00146800 /* PointerView.swift */; };
 		D59FCBEF449AC627A029B837 /* Pods_TransportCV_TransportCVUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D17A5ED5578E86A6E4C1097C /* Pods_TransportCV_TransportCVUITests.framework */; };
 		F837E4A358F16A62B27F8D7D /* Pods_TransportCVTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE4BF1B816F9EB0513A6418A /* Pods_TransportCVTests.framework */; };
 /* End PBXBuildFile section */
@@ -93,6 +94,7 @@
 		8595898F23C62961005AF3C9 /* GenericRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericRoute.swift; sourceTree = "<group>"; };
 		8595899123C629C6005AF3C9 /* RouteKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteKey.swift; sourceTree = "<group>"; };
 		8595899323C629EB005AF3C9 /* RouteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteStore.swift; sourceTree = "<group>"; };
+		85AC53BA23CBCEFD00146800 /* PointerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerView.swift; sourceTree = "<group>"; };
 		98A172E48307F7450CFB5775 /* Pods-TransportCV-TransportCVUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportCV-TransportCVUITests.debug.xcconfig"; path = "Target Support Files/Pods-TransportCV-TransportCVUITests/Pods-TransportCV-TransportCVUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		A8B72F169666667D5C5AD318 /* Pods-TransportCV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportCV.debug.xcconfig"; path = "Target Support Files/Pods-TransportCV/Pods-TransportCV.debug.xcconfig"; sourceTree = "<group>"; };
 		AB25B7A21C386BE6D9BB1400 /* Pods-TransportCVTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportCVTests.debug.xcconfig"; path = "Target Support Files/Pods-TransportCVTests/Pods-TransportCVTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 				8524869623B3BD3B00E7D26F /* MapViewController.swift */,
 				8595898A23C61CFC005AF3C9 /* RoutesTableViewController.swift */,
 				855CC8E823C9E3B200CE805C /* TrackerAnnotationView.swift */,
+				85AC53BA23CBCEFD00146800 /* PointerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -530,6 +533,7 @@
 				852674A723B5104B00210509 /* TransportCVTracker.swift in Sources */,
 				8595899423C629EB005AF3C9 /* RouteStore.swift in Sources */,
 				855C157523BA56FC0062ABD5 /* TransGPSCVRoute.swift in Sources */,
+				85AC53BB23CBCEFD00146800 /* PointerView.swift in Sources */,
 				852674A223B506D300210509 /* Handler.swift in Sources */,
 				855CC8EB23C9E5D800CE805C /* TrackerAnnotation.swift in Sources */,
 				8524869723B3BD3B00E7D26F /* MapViewController.swift in Sources */,
@@ -708,7 +712,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5AAE2CPYY6;
 				INFOPLIST_FILE = TransportCV/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -716,6 +720,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.orbitalman.TransportCV;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -729,7 +734,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5AAE2CPYY6;
 				INFOPLIST_FILE = TransportCV/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -737,6 +742,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.orbitalman.TransportCV;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

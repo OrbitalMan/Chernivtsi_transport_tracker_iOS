@@ -13,7 +13,7 @@ class TrackerAnnotationView: MKAnnotationView {
     private var titleContext = 0
     private var locationContext = 1
     
-    let arrowView = ArrowView()
+    let pointer = PointerView()
     let label = UILabel()
     
     override var annotation: MKAnnotation? {
@@ -45,8 +45,7 @@ class TrackerAnnotationView: MKAnnotationView {
     }
     
     private func setup() {
-        arrowView.setup()
-        addSubview(arrowView)
+        addSubview(pointer)
         label.textAlignment = .center
         label.textColor = .black
         label.numberOfLines = 2
@@ -61,17 +60,16 @@ class TrackerAnnotationView: MKAnnotationView {
     
     override open func layoutSubviews() {
         super.layoutSubviews()
-        arrowView.frame = bounds
         label.frame = bounds.insetBy(dx: 2, dy: 2)
-        let arrowTransform = arrowView.transform
-        arrowView.transform = .identity
-        arrowView.frame = bounds
-        arrowView.transform = arrowTransform
+        let pointerTransform = pointer.transform
+        pointer.transform = .identity
+        pointer.frame = bounds
+        pointer.transform = pointerTransform
     }
     
     func updateData() {
         guard let trackerAnnotation = trackerAnnotation else { return }
-        arrowView.update(location: trackerAnnotation.location)
+        pointer.update(location: trackerAnnotation.location)
         label.text = trackerAnnotation.title
     }
     
@@ -100,7 +98,7 @@ class TrackerAnnotationView: MKAnnotationView {
         case &titleContext:
             label.text = trackerAnnotation?.title
         case &locationContext:
-            arrowView.update(location: trackerAnnotation?.location)
+            pointer.update(location: trackerAnnotation?.location)
         default:
             super.observeValue(forKeyPath: keyPath,
                                of: object,
@@ -110,68 +108,3 @@ class TrackerAnnotationView: MKAnnotationView {
     }
     
 }
-
-class ArrowView: UIView {
-    
-    let arrow = UIView()
-    let circle = UIView()
-    
-    fileprivate func setup() {
-        let borderColor = UIColor.red
-        layer.masksToBounds = false
-        circle.backgroundColor = .yellow
-        circle.layer.borderColor = borderColor.cgColor
-        circle.layer.borderWidth = 1
-        arrow.backgroundColor = borderColor
-        addSubview(arrow)
-        addSubview(circle)
-    }
-    
-    func update(location: CLLocation?) {
-        guard let location = location else { return }
-        let course = location.course
-        let speed = location.speed
-        
-        let angle = course * .pi / 180
-        
-        let height = arrow.bounds.height
-        let maxSpeed: CGFloat = 70
-        var offset: CGFloat = 0
-        if speed >= 1 {
-            offset = min(CGFloat(speed)/(maxSpeed/height), height) + circle.layer.borderWidth
-        } else if course != 0 {
-            offset = 1 + circle.layer.borderWidth
-        } else {
-            offset = 0
-        }
-        
-        rotate(angle: CGFloat(angle), yOffset: -offset)
-    }
-    
-    override open func layoutSubviews() {
-        super.layoutSubviews()
-        CATransaction.begin()
-        if let boundsAnimation = layer.animation(forKey: "bounds.size") {
-            CATransaction.setAnimationDuration(boundsAnimation.duration)
-            CATransaction.setAnimationTimingFunction(boundsAnimation.timingFunction)
-        } else {
-            CATransaction.disableActions()
-        }
-        
-        let arrowTransform = arrow.transform
-        arrow.transform = .identity
-        arrow.frame = CGRect(x: bounds.width/2-1, y: 0, width: 4, height: 20)
-        arrow.transform = arrowTransform
-        
-        circle.frame = bounds
-        circle.layer.cornerRadius = bounds.width/2
-        CATransaction.commit()
-    }
-    
-    func rotate(angle: CGFloat, yOffset: CGFloat) {
-        transform = CGAffineTransform(rotationAngle: angle)
-        arrow.transform = CGAffineTransform(translationX: 0, y: yOffset)
-    }
-    
-}
-
