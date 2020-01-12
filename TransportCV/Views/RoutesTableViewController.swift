@@ -96,22 +96,23 @@ class RoutesTableViewController: UITableViewController {
     }
     
     func updateCheckAll() {
-        if #available(iOS 13.0, *) {
-            let image: UIImage?
-            if anyChecked {
-                image = UIImage(systemName: "checkmark.circle.fill")
-            } else {
-                image = UIImage(systemName: "checkmark.circle")
-            }
-            navigationItem.rightBarButtonItem?.image = image
-        }
+        let image: UIImage?
+        let imageSystemName: String
         let title: String
         if anyChecked {
-            title = "Uncheck All"
+            title = "✅"
+            imageSystemName = "checkmark.circle.fill"
         } else {
-            title = "Check All"
+            title = "❎"
+            imageSystemName = "checkmark.circle"
+        }
+        if #available(iOS 13.0, *) {
+            image = UIImage(systemName: imageSystemName)
+        } else {
+            image = nil
         }
         navigationItem.rightBarButtonItem?.title = title
+        navigationItem.rightBarButtonItem?.image = image
     }
     
     func recordSelections() {

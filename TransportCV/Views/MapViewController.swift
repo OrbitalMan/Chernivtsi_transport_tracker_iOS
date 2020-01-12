@@ -56,14 +56,14 @@ class MapViewController: UIViewController {
         if checkedRoutes.contains(where: { !$0.value }) {
             if !checkedRoutes.contains(where: { $0.value }) {
                 imageName = "xmark.rectangle"
-                title = "Show"
+                title = "❌"
             } else {
                 imageName = "checkmark.rectangle"
-                title = "Filter"
+                title = "❎"
             }
         } else {
             imageName = "checkmark.rectangle.fill"
-            title = "Filter"
+            title = "✅"
         }
         if #available(iOS 13.0, *) {
             image = UIImage(systemName: imageName)
