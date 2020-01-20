@@ -15,6 +15,10 @@ class MapViewController: UIViewController {
         return (UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.viewControllers.first as? MapViewController
     }
     
+    @IBOutlet weak var routesItem: UIBarButtonItem!
+    @IBOutlet weak var refreshItem: UIBarButtonItem!
+    @IBOutlet weak var settingsItem: UIBarButtonItem!
+    
     /// The main view. Represents a map to pick a location on.
     let mapView = MKMapView()
     
@@ -25,8 +29,13 @@ class MapViewController: UIViewController {
     var trackers: [GenericTracker] = []
     var visibleTrackers: [GenericTracker] = []
     var annotations: [TrackerAnnotation] = []
+    var autoUpdateTimer = Timer()
     
     // MARK: -
+    
+    deinit {
+        autoUpdateTimer.invalidate()
+    }
     
     /// Sets the `mapView`, text fields and navigation items up.
     override func loadView() {
@@ -46,8 +55,10 @@ class MapViewController: UIViewController {
         }
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
-        refresh()
         getLocation()
+        if #available(iOS 13.0, *) {
+            settingsItem.image = UIImage(systemName: "gear")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,13 +84,19 @@ class MapViewController: UIViewController {
         } else {
             image = nil
         }
-        navigationItem.leftBarButtonItem?.image = image
-        navigationItem.leftBarButtonItem?.title = title
+        routesItem.image = image
+        routesItem.title = title
+        startAutoUpdate()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateVisibleTrackers()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        autoUpdateTimer.invalidate()
     }
     
     @IBAction func selectRoutes() {
@@ -92,6 +109,34 @@ class MapViewController: UIViewController {
             RouteStore.shared.updateRoutes()
         }
         getTrackers()
+        if Storage.autoUpdateInterval == nil {
+            autoUpdateTimer.invalidate()
+        }
+    }
+    
+    @IBAction func settings() {
+        let settingsSheet = UIAlertController(title: "Auto-update trackers:",
+                                              message: nil,
+                                              preferredStyle: .actionSheet)
+        
+        let setInterval: (TimeInterval?) -> () = { [weak self] interval in
+            Storage.autoUpdateInterval = interval
+            self?.startAutoUpdate()
+        }
+        
+        settingsSheet.addAction(UIAlertAction(title: "Every 5 seconds",
+                                              style: .default,
+                                              handler: { _ in setInterval(5) }))
+        settingsSheet.addAction(UIAlertAction(title: "Every 10 seconds",
+                                              style: .default,
+                                              handler: { _ in setInterval(10) }))
+        settingsSheet.addAction(UIAlertAction(title: "Every 15 seconds",
+                                              style: .default,
+                                              handler: { _ in setInterval(15) }))
+        settingsSheet.addAction(UIAlertAction(title: "Manual",
+                                              style: .cancel,
+                                              handler: { _ in setInterval(nil) }))
+        present(settingsSheet, animated: true, completion: nil)
     }
     
     // MARK: -
@@ -234,6 +279,20 @@ class MapViewController: UIViewController {
             mapView.addAnnotation(new)
         }
         annotations.append(contentsOf: newAnnotations)
+    }
+    
+    func startAutoUpdate() {
+        refresh()
+        autoUpdateTimer.invalidate()
+        refreshItem.isEnabled = Storage.autoUpdateInterval == nil
+        guard let autoUpdateInterval = Storage.autoUpdateInterval else { return }
+        autoUpdateTimer = Timer(timeInterval: autoUpdateInterval,
+                                 target: self,
+                                 selector: #selector(refresh),
+                                 userInfo: nil,
+                                 repeats: true)
+        RunLoop.current.add(autoUpdateTimer, forMode: .common)
+        autoUpdateTimer.tolerance = 0.1
     }
     
 }
