@@ -32,6 +32,11 @@ class StorageContainer {
         set { defaults[#function] = newValue }
     }
     
+    var mapRegion: MapRegion? {
+        get { return defaults[#function] }
+        set { defaults[#function] = newValue }
+    }
+    
 }
 
 private extension UserDefaults {

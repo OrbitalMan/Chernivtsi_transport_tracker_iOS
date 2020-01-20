@@ -41,6 +41,9 @@ class MapViewController: UIViewController {
         mapView.delegate = self
         mapView.isPitchEnabled = false
         mapView.isRotateEnabled = false // TODO: need to implement annotations couse adjustment for map rotation
+        if let mapRegion = Storage.mapRegion {
+            mapView.region = mapRegion.mkRegion
+        }
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         refresh()
@@ -237,6 +240,10 @@ class MapViewController: UIViewController {
 
 // MARK: - MKMapViewDelegate
 extension MapViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        Storage.mapRegion = MapRegion(mkRegion: mapView.region)
+    }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard let trackerAnnotation = annotation as? TrackerAnnotation else { return nil }
