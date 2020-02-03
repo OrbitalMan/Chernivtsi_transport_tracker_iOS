@@ -15,8 +15,8 @@ struct TransGPSCVRoute: Codable {
     let idBusTypes: Int
     let price: Int
     
-    var busType: BusType? {
-        return BusType(rawValue: idBusTypes)
+    var vehicleType: VehicleType? {
+        return VehicleType(transGPSCVIndex: idBusTypes)
     }
     
     var priceString: String {
@@ -31,7 +31,7 @@ extension TransGPSCVRoute: GenericRouteConvertible {
     
     var routeKey: RouteKey {
         let refinedName = name.components(separatedBy: "/").first ?? ""
-        return RouteKey(busType: busType ?? .bus,
+        return RouteKey(type: vehicleType ?? .bus,
                         name: refinedName)
     }
     

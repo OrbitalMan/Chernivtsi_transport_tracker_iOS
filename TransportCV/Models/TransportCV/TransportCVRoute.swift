@@ -27,13 +27,13 @@ struct TransportCVRoutes: Codable {
 extension TransportCVRoute: GenericRouteConvertible {
     
     var routeKey: RouteKey {
-        let busType: BusType
+        let vehicleType: VehicleType
         if name.contains(where: "TtТт".contains) {
-            busType = .trolley
+            vehicleType = .trolley
         } else {
-            busType = .bus
+            vehicleType = .bus
         }
-        return RouteKey(busType: busType,
+        return RouteKey(type: vehicleType,
                         name: name)
     }
     

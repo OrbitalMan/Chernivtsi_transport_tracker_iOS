@@ -26,8 +26,8 @@ struct TransGPSCVTracker: Codable {
     let remark: String
     let idBusTypes: Int
     
-    var busType: BusType? {
-        return BusType(rawValue: idBusTypes)
+    var vehicleType: VehicleType? {
+        return VehicleType(transGPSCVIndex: idBusTypes)
     }
     
 }

@@ -24,11 +24,15 @@ class RoutesTableViewController: UITableViewController {
     var trolleySelections: [RouteSelection] = []
     var busSelections: [RouteSelection] = []
     
-    let busTypeSelector = UISegmentedControl(items: ["Trolleys", "Buses"])
-    var busType: BusType = .trolley
+    let vehicleTypeSelector: UISegmentedControl = {
+        let items = VehicleType.allCases.map { $0.segmentedControlTitle }
+        return UISegmentedControl(items: items)
+    }()
+    
+    var selectedVehicleType: VehicleType = .trolley
     
     var cellSelections: [RouteSelection] {
-        switch busType {
+        switch selectedVehicleType {
         case .trolley:
             return trolleySelections
         case .bus:
@@ -45,10 +49,10 @@ class RoutesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
-        busTypeSelector.selectedSegmentIndex = busType.segmentIndex
-        busTypeSelector.addTarget(self,
-                                  action: #selector(selectedBusType),
-                                  for: .valueChanged)
+        vehicleTypeSelector.selectedSegmentIndex = selectedVehicleType.rawValue
+        vehicleTypeSelector.addTarget(self,
+                                      action: #selector(didSelectVehicleType),
+                                      for: .valueChanged)
         let checkedRoutes = Storage.checkedRoutes
         for routeKey in RouteStore.shared.routes.keys {
             let s = RouteSelection(routeKey: routeKey)
@@ -67,12 +71,12 @@ class RoutesTableViewController: UITableViewController {
             $0.routeKey < $1.routeKey
         }
         
-        navigationItem.titleView = busTypeSelector
+        navigationItem.titleView = vehicleTypeSelector
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Check",
                                                             style: .done,
                                                             target: self,
                                                             action: #selector(checkAll))
-        updateCheckAll()
+        updateCheckAllButton()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -80,10 +84,10 @@ class RoutesTableViewController: UITableViewController {
         recordSelections()
     }
     
-    @objc func selectedBusType() {
-        busType = BusType(segmentIndex: busTypeSelector.selectedSegmentIndex)
+    @objc func didSelectVehicleType() {
+        selectedVehicleType = VehicleType(rawValue: vehicleTypeSelector.selectedSegmentIndex) ?? .trolley
         tableView.reloadData()
-        updateCheckAll()
+        updateCheckAllButton()
     }
     
     @objc func checkAll() {
@@ -92,10 +96,10 @@ class RoutesTableViewController: UITableViewController {
             selection.isChecked = selected
         }
         tableView.reloadData()
-        updateCheckAll()
+        updateCheckAllButton()
     }
     
-    func updateCheckAll() {
+    func updateCheckAllButton() {
         let image: UIImage?
         let imageSystemName: String
         let title: String
@@ -144,7 +148,7 @@ class RoutesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         cellSelections[indexPath.row].isChecked.toggle()
         tableView.reloadData()
-        updateCheckAll()
+        updateCheckAllButton()
     }
     
 }

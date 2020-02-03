@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2ACC4F2F8ABAE9E1B7A4D978 /* Pods_TransportCV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17A98F1E3D77449F60D77791 /* Pods_TransportCV.framework */; };
+		8522944A23E8299800219718 /* VehicleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8522944923E8299800219718 /* VehicleType.swift */; };
 		8524866723B3BCF600E7D26F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8524866623B3BCF600E7D26F /* AppDelegate.swift */; };
 		8524866923B3BCF600E7D26F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8524866823B3BCF600E7D26F /* SceneDelegate.swift */; };
 		8524866E23B3BCF600E7D26F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8524866C23B3BCF600E7D26F /* Main.storyboard */; };
@@ -62,6 +63,7 @@
 		05AF448F1E46608CF7C2F7F3 /* Pods-TransportCVTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportCVTests.release.xcconfig"; path = "Target Support Files/Pods-TransportCVTests/Pods-TransportCVTests.release.xcconfig"; sourceTree = "<group>"; };
 		17A98F1E3D77449F60D77791 /* Pods_TransportCV.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TransportCV.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DD6E93586DB74DE8356BFE8 /* Pods-TransportCV-TransportCVUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportCV-TransportCVUITests.release.xcconfig"; path = "Target Support Files/Pods-TransportCV-TransportCVUITests/Pods-TransportCV-TransportCVUITests.release.xcconfig"; sourceTree = "<group>"; };
+		8522944923E8299800219718 /* VehicleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleType.swift; sourceTree = "<group>"; };
 		8524866323B3BCF600E7D26F /* TransportCV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransportCV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8524866623B3BCF600E7D26F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8524866823B3BCF600E7D26F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 		8595898C23C628FE005AF3C9 /* Generic */ = {
 			isa = PBXGroup;
 			children = (
+				8522944923E8299800219718 /* VehicleType.swift */,
 				8595899123C629C6005AF3C9 /* RouteKey.swift */,
 				8595898F23C62961005AF3C9 /* GenericRoute.swift */,
 				855C157023BA34FB0062ABD5 /* GenericTracker.swift */,
@@ -536,6 +539,7 @@
 				8595898B23C61CFC005AF3C9 /* RoutesTableViewController.swift in Sources */,
 				852674A723B5104B00210509 /* TransportCVTracker.swift in Sources */,
 				8595899423C629EB005AF3C9 /* RouteStore.swift in Sources */,
+				8522944A23E8299800219718 /* VehicleType.swift in Sources */,
 				855C157523BA56FC0062ABD5 /* TransGPSCVRoute.swift in Sources */,
 				85AC53BB23CBCEFD00146800 /* PointerView.swift in Sources */,
 				852674A223B506D300210509 /* Handler.swift in Sources */,

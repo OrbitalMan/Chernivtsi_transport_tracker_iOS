@@ -10,7 +10,7 @@ import Foundation
 
 struct RouteKey: Hashable, Codable {
     
-    let type: BusType
+    let type: VehicleType
     let routeNumber: Int?
     let routeLetter: String?
     
@@ -22,19 +22,19 @@ struct RouteKey: Hashable, Codable {
             }
             return "\(type.titleValue)\(number)\(letter)"
         }
-        return routeLetter ?? "invalid \(type.stringValue)"
+        return routeLetter ?? "invalid \(type.emojiValue)"
     }
     
 }
 
 extension RouteKey {
     
-    init(busType: BusType, name: String) {
+    init(type: VehicleType, name: String) {
         let numberString = name.filter("0123456789".contains)
         let routeNumber = Int(numberString)
         
         var routeLetter: String? = nil
-        if  busType == .bus,
+        if  type == .bus,
             let letter = name.components(separatedBy: .decimalDigits).last,
             !letter.isEmpty
         {
@@ -46,7 +46,7 @@ extension RouteKey {
         routeLetter = routeLetter?.applyingTransform(.latinToCyrillic, reverse: false)
         routeLetter = routeLetter?.capitalized
         
-        self.init(type: busType,
+        self.init(type: type,
                   routeNumber: routeNumber,
                   routeLetter: routeLetter)
     }
@@ -89,45 +89,6 @@ extension RouteKey: Comparable {
             return false
         default:
             return true
-        }
-    }
-    
-}
-
-enum BusType: Int, Codable {
-    case bus = 1
-    case trolley = 2
-    
-    var stringValue: String {
-        return "\(self)"
-    }
-    
-    var titleValue: String {
-        switch self {
-        case .bus: return "" //"🚌"
-        case .trolley: return "Т" //"🚎"
-        }
-    }
-    
-}
-
-extension BusType {
-    
-    init(segmentIndex: Int) {
-        switch segmentIndex {
-        case 0:
-            self = .trolley
-        case 1:
-            self = .bus
-        default:
-            self = .trolley
-        }
-    }
-    
-    var segmentIndex: Int {
-        switch self {
-        case .bus: return 1
-        case .trolley: return 0
         }
     }
     
