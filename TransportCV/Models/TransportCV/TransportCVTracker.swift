@@ -38,18 +38,13 @@ extension TransportCVTracker: GenericTrackerConvertible {
                    timestamp: Date())
     }
     
-    var routeKey: RouteKey? {
-        let routes = RouteStore.shared.routes
-        let routePair = routes.first(where: { $0.value.transportCVRoute?.id == routeId })
-        return routePair?.key
-    }
-    
     var asGenericTracker: GenericTracker {
+        let provider = Provider.desyde(id: routeId ?? -1)
         return GenericTracker(routeId: routeId ?? -1,
                               title: number + " desyde",
-                              route: RouteStore.shared.findRoute(key: routeKey),
+                              route: RouteStore.shared.findRoute(provider: provider),
                               location: getCLLocation,
-                              provider: .desyde)
+                              provider: provider)
     }
     
 }

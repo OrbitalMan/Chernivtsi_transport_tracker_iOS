@@ -9,38 +9,30 @@
 import Foundation
 
 struct TransportCVRoute: Codable {
-    
-    let description: String?
     let id: Int
-    let lineColor: String
-    let maxDuration: Int?
     let name: String
+}
+
+extension TransportCVRoute: RouteConvertible {
+    
+    func getVehicleType() -> VehicleType {
+        if name.contains(where: "TtТт".contains) {
+            return .trolley
+        } else {
+            return .bus
+        }
+    }
+    
+    func getProvider() -> Provider {
+        return .desyde(id: id)
+    }
+    
+    func getRouteName() -> String {
+        return name
+    }
     
 }
 
 struct TransportCVRoutes: Codable {
-    
     let routes: SafeCodableArray<TransportCVRoute>
-    
-}
-
-extension TransportCVRoute: GenericRouteConvertible {
-    
-    var routeKey: RouteKey {
-        let vehicleType: VehicleType
-        if name.contains(where: "TtТт".contains) {
-            vehicleType = .trolley
-        } else {
-            vehicleType = .bus
-        }
-        return RouteKey(type: vehicleType,
-                        name: name)
-    }
-    
-    var asGenericRoute: GenericRoute {
-        return GenericRoute(key: routeKey,
-                            subtitle: description,
-                            provider: .desyde)
-    }
-    
 }

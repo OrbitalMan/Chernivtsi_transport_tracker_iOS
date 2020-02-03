@@ -13,32 +13,23 @@ struct TransGPSCVRoute: Codable {
     let id: Int
     let name: String
     let idBusTypes: Int
-    let price: Int
     
-    var vehicleType: VehicleType? {
-        return VehicleType(transGPSCVIndex: idBusTypes)
+}
+
+extension TransGPSCVRoute: RouteConvertible {
+    
+    func getVehicleType() -> VehicleType {
+        return VehicleType(transGPSCVIndex: idBusTypes) ?? .bus
     }
     
-    var priceString: String {
-        return "Price: \(price) UAH"
+    func getProvider() -> Provider {
+        return .transGPS(id: id)
+    }
+    
+    func getRouteName() -> String {
+        return name.components(separatedBy: "/").first ?? ""
     }
     
 }
 
 typealias TransGPSCVRouteContainer = [String: TransGPSCVRoute]
-
-extension TransGPSCVRoute: GenericRouteConvertible {
-    
-    var routeKey: RouteKey {
-        let refinedName = name.components(separatedBy: "/").first ?? ""
-        return RouteKey(type: vehicleType ?? .bus,
-                        name: refinedName)
-    }
-    
-    var asGenericRoute: GenericRoute {
-        return GenericRoute(key: routeKey,
-                            subtitle: priceString,
-                            provider: .transGPS)
-    }
-    
-}

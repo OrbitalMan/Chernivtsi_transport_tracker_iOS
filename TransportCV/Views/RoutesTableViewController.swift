@@ -54,14 +54,14 @@ class RoutesTableViewController: UITableViewController {
                                       action: #selector(didSelectVehicleType),
                                       for: .valueChanged)
         let checkedRoutes = Storage.checkedRoutes
-        for routeKey in RouteStore.shared.routes.keys {
-            let s = RouteSelection(routeKey: routeKey)
-            s.isChecked = checkedRoutes[routeKey] ?? true
-            switch routeKey.type {
+        for route in RouteStore.shared.routes {
+            let selection = RouteSelection(routeKey: route.key)
+            selection.isChecked = checkedRoutes[route.key] ?? true
+            switch route.key.type {
             case .trolley:
-                trolleySelections.append(s)
+                trolleySelections.append(selection)
             case .bus:
-                busSelections.append(s)
+                busSelections.append(selection)
             }
         }
         trolleySelections.sort {

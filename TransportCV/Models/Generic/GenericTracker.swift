@@ -14,7 +14,6 @@ protocol CLLocationConvertible {
 }
 
 protocol GenericTrackerConvertible: CLLocationConvertible {
-    var routeKey: RouteKey? { get }
     var asGenericTracker: GenericTracker { get }
 }
 
@@ -22,33 +21,21 @@ class GenericTracker {
     
     let routeId: Int
     let title: String
-    let provider: TrackerProvider
-    dynamic var route: GenericRoute?
+    let provider: Provider
+    dynamic var route: Route?
     dynamic var location: CLLocation
     
     init(routeId: Int,
          title: String,
-         route: GenericRoute?,
+         route: Route?,
          location: CLLocation,
-         provider: TrackerProvider)
+         provider: Provider)
     {
         self.routeId = routeId
         self.title = title
         self.provider = provider
         self.route = route
         self.location = location
-    }
-    
-    var routeKey: RouteKey? {
-        let routes = RouteStore.shared.routes
-        switch provider {
-        case .transGPS:
-            return routes.first(where: { $0.value.transGPSCVRoute?.id == routeId })?.key
-        case .desyde:
-            return routes.first(where: { $0.value.transportCVRoute?.id == routeId })?.key
-        case .both:
-            return routes.first(where: { ($0.value.transGPSCVRoute?.id ?? $0.value.transportCVRoute?.id) == routeId })?.key
-        }
     }
     
 }

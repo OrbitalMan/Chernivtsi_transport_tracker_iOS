@@ -47,17 +47,13 @@ extension TransGPSCVTracker: GenericTrackerConvertible {
                    timestamp: Date())
     }
     
-    var routeKey: RouteKey? {
-        let routes = RouteStore.shared.routes
-        return routes.first(where: { $0.value.transGPSCVRoute?.id == routeId })?.key
-    }
-    
     var asGenericTracker: GenericTracker {
+        let provider = Provider.transGPS(id: routeId)
         return GenericTracker(routeId: routeId,
                               title: name + " trans",
-                              route: RouteStore.shared.findRoute(key: routeKey),
+                              route: RouteStore.shared.findRoute(provider: provider),
                               location: getCLLocation,
-                              provider: .transGPS)
+                              provider: provider)
     }
     
 }

@@ -13,9 +13,9 @@ class RouteStore {
     static let shared = RouteStore()
     private init() { }
     
-    private(set) var updatingTasks = 0
+    private(set) var getRouteTasks = 0
     
-    var routes: [RouteKey: RouteData] = [:] {
+    private(set) var routes: [Route] = [] {
         didSet {
             if routes.isEmpty { return }
             guard let mapVC = MapViewController.shared else {
@@ -23,95 +23,53 @@ class RouteStore {
                 return
             }
             for tracker in mapVC.trackers {
-                if let gotRoute = RouteStore.shared.findRoute(key: tracker.routeKey) {
-                    tracker.route = gotRoute
-                } else {
-                    if let route = tracker.route {
-                        print("tracker \(tracker.title) already has route for id \(tracker.routeId): \(route.key.title)")
-                    } else {
-                        print("failed to find route \(tracker.routeId) for \(tracker.title) tracker")
+                if tracker.route == nil {
+                    if let gotRoute = RouteStore.shared.findRoute(provider: tracker.provider) {
+                        tracker.route = gotRoute
                     }
                 }
             }
+            mapVC.updateVisibleTrackers()
         }
     }
     
+    func findRoute(provider: Provider) -> Route? {
+        return routes.first { $0.provider.contains(another: provider) }
+    }
+    
     func updateRoutes() {
-        if updatingTasks > 0 { return }
+        if getRouteTasks > 0 { return }
+        routes = []
         
-        routes = [:]
-        
-        updatingTasks += 1
+        getRouteTasks += 1
         TransGPSCVAPI.getRoutes { [weak self] transGPSResult in
-            self?.updatingTasks -= 1
+            self?.getRouteTasks -= 1
             switch transGPSResult {
             case let .success(transGPSRoutes):
                 print("trans-gps routes:", transGPSRoutes.count)
-                self?.insert(transGPSCVData: transGPSRoutes)
+                self?.insert(convertibles: transGPSRoutes)
             case let .failure(error):
                 print("trans-gps routes error:", error)
             }
         }
         
-        updatingTasks += 1
+        getRouteTasks += 1
         TransportCVAPI.getRoutes { [weak self] transportRoutesResult in
-            self?.updatingTasks -= 1
+            self?.getRouteTasks -= 1
             switch transportRoutesResult {
             case let .success(transportRoutes):
                 print("transport routes:", transportRoutes.count)
-                self?.insert(transportCVData: transportRoutes)
+                self?.insert(convertibles: transportRoutes)
             case let .failure(error):
                 print("transport routes error:", error)
             }
         }
     }
     
-    func findRoute(key: RouteKey?) -> GenericRoute? {
-        guard let routeKey = key else {
-            return nil }
-        guard let route = routes[routeKey] else {
-            return nil }
-        return route.genericData(routeKey: routeKey)
-    }
-    
-    private func insert(transportCVData: [TransportCVRoute]) {
-        var newRoutes: [RouteKey: RouteData] = [:]
-        for transportRoute in transportCVData {
-            let routeKey = transportRoute.routeKey
-            if let routeData = newRoutes[routeKey] {
-                routeData.transportCVRoute = transportRoute
-            } else {
-                let newRouteData = RouteData()
-                newRouteData.transportCVRoute = transportRoute
-                newRoutes[routeKey] = newRouteData
-            }
-        }
-        routes.merge(newRoutes) {
-            let r = RouteData()
-            r.transportCVRoute = $1.transportCVRoute ?? $0.transportCVRoute
-            r.transGPSCVRoute = $0.transGPSCVRoute
-            return r
-        }
-    }
-    
-    private func insert(transGPSCVData: [TransGPSCVRoute]) {
-        var newRoutes: [RouteKey: RouteData] = [:]
-        for transGPSRoute in transGPSCVData {
-            let routeKey = transGPSRoute.routeKey
-            if let routeData = newRoutes[routeKey] {
-                routeData.transGPSCVRoute = transGPSRoute
-            } else {
-                let newRouteData = RouteData()
-                newRouteData.transGPSCVRoute = transGPSRoute
-                newRoutes[routeKey] = newRouteData
-            }
-        }
-        routes.merge(newRoutes) {
-            let r = RouteData()
-            r.transportCVRoute = $0.transportCVRoute
-            r.transGPSCVRoute = $1.transGPSCVRoute ?? $0.transGPSCVRoute
-            return r
-        }
+    private func insert(convertibles: [RouteConvertible]) {
+        var newRoutes = convertibles.map(Route.from)
+        newRoutes.removeAll(where: routes.contains)
+        routes.append(contentsOf: newRoutes)
     }
     
 }
