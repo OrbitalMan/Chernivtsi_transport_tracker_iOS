@@ -85,3 +85,12 @@ func unwrap<T>(results: [APIResult<T>]) -> APIResult<[T]> {
     }
     return .success(values)
 }
+
+extension String {
+    
+    var apiSafeIntValue: Int? {
+        let refined = filter("0123456789".contains)
+        return Int(refined)
+    }
+    
+}

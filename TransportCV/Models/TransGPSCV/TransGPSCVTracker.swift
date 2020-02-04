@@ -10,50 +10,52 @@ import CoreLocation
 
 struct TransGPSCVTracker: Codable {
     
-    let id: Int
-    let name: String
-    var lat: Double
-    var lng: Double
-    var speed: String
-    var orientation: String
-    var gpstime: String
-    let routeId: Int
-    let routeName: String
-    var inDepo: Bool
-    let busNumber: String
-    let perevId: Int?
-    let perevName: String
-    let remark: String
     let idBusTypes: Int
+    let routeId: Int
+    let lat: Double
+    let lng: Double
+    let orientation: String
+    let speed: String
+    let gpstime: String
+    let busNumber: String
     
-    var vehicleType: VehicleType? {
-        return VehicleType(transGPSCVIndex: idBusTypes)
-    }
+    static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(identifier: "Europe/Kiev")
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return formatter
+    }()
     
 }
 
-extension TransGPSCVTracker: GenericTrackerConvertible {
+extension TransGPSCVTracker: TrackerConvertible {
     
-    var speedValue: Double { Double(speed) ?? 0 }
-    
-    var getCLLocation: CLLocation {
-        CLLocation(coordinate: CLLocationCoordinate2D(latitude: lat,
-                                                      longitude: lng),
-                   altitude: 0,
-                   horizontalAccuracy: 0,
-                   verticalAccuracy: 0,
-                   course: Double(orientation) ?? 0,
-                   speed: speedValue,
-                   timestamp: Date())
+    func getVehicleType() -> VehicleType {
+        return VehicleType(transGPSCVIndex: idBusTypes) ?? .bus
     }
     
-    var asGenericTracker: GenericTracker {
-        let provider = Provider.transGPS(id: routeId)
-        return GenericTracker(routeId: routeId,
-                              title: name + " trans",
-                              route: RouteStore.shared.findRoute(provider: provider),
-                              location: getCLLocation,
-                              provider: provider)
+    func getProvider() -> Provider {
+        return .transGPS(id: routeId)
+    }
+    
+    func getCoordinate() -> Coordinate {
+        return Coordinate(latitude: lat, longitude: lng)
+    }
+    
+    func getCourse() -> Double {
+        return Double(orientation) ?? 0
+    }
+    
+    func getSpeed() -> Double {
+        return Double(speed) ?? 0
+    }
+    
+    func getTimestamp() -> Date {
+        return Self.dateFormatter.date(from: gpstime) ?? Date(timeIntervalSince1970: 0)
+    }
+    
+    func getBusNumber() -> Int {
+        return busNumber.apiSafeIntValue ?? -1
     }
     
 }

@@ -35,6 +35,24 @@ enum Provider: Equatable {
             return desydeId == anotherDesydeId
         case (let .both(_, transGPSId), let .transGPS(anotherTransGPSId)):
             return transGPSId == anotherTransGPSId
+        case (let .desyde(desydeId), let .both(anotherDesydeId, anotherTransGPSId)):
+            if anotherTransGPSId < 0 {
+                return desydeId == anotherDesydeId
+            }
+            return false
+        case (let .transGPS(transGPSId), let .both(anotherDesydeId, anotherTransGPSId)):
+            if anotherDesydeId < 0 {
+                return transGPSId == anotherTransGPSId
+            }
+            return false
+        case (let .both(desydeId, transGPSId), let .both(anotherDesydeId, anotherTransGPSId)):
+            if anotherDesydeId < 0 {
+                return transGPSId == anotherTransGPSId
+            }
+            if anotherTransGPSId < 0 {
+                return desydeId == anotherDesydeId
+            }
+            return false
         default: return false
         }
     }

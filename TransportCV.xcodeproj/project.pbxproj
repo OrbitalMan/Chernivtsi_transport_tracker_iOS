@@ -29,7 +29,6 @@
 		854FFA6E23C6915600A2570F /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854FFA6D23C6915600A2570F /* Storage.swift */; };
 		85546F3B23B4E9D70050045A /* TransGPSCVAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85546F3A23B4E9D70050045A /* TransGPSCVAPI.swift */; };
 		85546F3D23B4E9EC0050045A /* TransportCVAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85546F3C23B4E9EC0050045A /* TransportCVAPI.swift */; };
-		855C157123BA34FB0062ABD5 /* GenericTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855C157023BA34FB0062ABD5 /* GenericTracker.swift */; };
 		855C157323BA4C620062ABD5 /* TransportCVRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855C157223BA4C620062ABD5 /* TransportCVRoute.swift */; };
 		855C157523BA56FC0062ABD5 /* TransGPSCVRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855C157423BA56FC0062ABD5 /* TransGPSCVRoute.swift */; };
 		855CC8E923C9E3B200CE805C /* TrackerAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855CC8E823C9E3B200CE805C /* TrackerAnnotationView.swift */; };
@@ -37,6 +36,8 @@
 		8595898B23C61CFC005AF3C9 /* RoutesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8595898A23C61CFC005AF3C9 /* RoutesTableViewController.swift */; };
 		8595899223C629C6005AF3C9 /* RouteKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8595899123C629C6005AF3C9 /* RouteKey.swift */; };
 		8595899423C629EB005AF3C9 /* RouteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8595899323C629EB005AF3C9 /* RouteStore.swift */; };
+		859E14F623E9F23C0085347F /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859E14F523E9F23C0085347F /* Tracker.swift */; };
+		859E14F823E9F27B0085347F /* TrackerConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859E14F723E9F27B0085347F /* TrackerConvertible.swift */; };
 		85AC53BB23CBCEFD00146800 /* PointerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85AC53BA23CBCEFD00146800 /* PointerView.swift */; };
 		85FB07ED23D5E9FC00FF13AD /* MapRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FB07EC23D5E9FC00FF13AD /* MapRegion.swift */; };
 		D59FCBEF449AC627A029B837 /* Pods_TransportCV_TransportCVUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D17A5ED5578E86A6E4C1097C /* Pods_TransportCV_TransportCVUITests.framework */; };
@@ -91,7 +92,6 @@
 		854FFA6D23C6915600A2570F /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		85546F3A23B4E9D70050045A /* TransGPSCVAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransGPSCVAPI.swift; sourceTree = "<group>"; };
 		85546F3C23B4E9EC0050045A /* TransportCVAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportCVAPI.swift; sourceTree = "<group>"; };
-		855C157023BA34FB0062ABD5 /* GenericTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTracker.swift; sourceTree = "<group>"; };
 		855C157223BA4C620062ABD5 /* TransportCVRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportCVRoute.swift; sourceTree = "<group>"; };
 		855C157423BA56FC0062ABD5 /* TransGPSCVRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransGPSCVRoute.swift; sourceTree = "<group>"; };
 		855CC8E823C9E3B200CE805C /* TrackerAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerAnnotationView.swift; sourceTree = "<group>"; };
@@ -99,6 +99,8 @@
 		8595898A23C61CFC005AF3C9 /* RoutesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesTableViewController.swift; sourceTree = "<group>"; };
 		8595899123C629C6005AF3C9 /* RouteKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteKey.swift; sourceTree = "<group>"; };
 		8595899323C629EB005AF3C9 /* RouteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteStore.swift; sourceTree = "<group>"; };
+		859E14F523E9F23C0085347F /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
+		859E14F723E9F27B0085347F /* TrackerConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerConvertible.swift; sourceTree = "<group>"; };
 		85AC53BA23CBCEFD00146800 /* PointerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerView.swift; sourceTree = "<group>"; };
 		85FB07EC23D5E9FC00FF13AD /* MapRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegion.swift; sourceTree = "<group>"; };
 		98A172E48307F7450CFB5775 /* Pods-TransportCV-TransportCVUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportCV-TransportCVUITests.debug.xcconfig"; path = "Target Support Files/Pods-TransportCV-TransportCVUITests/Pods-TransportCV-TransportCVUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -260,7 +262,8 @@
 				8595899123C629C6005AF3C9 /* RouteKey.swift */,
 				8522944B23E8323B00219718 /* RouteConvertible.swift */,
 				8522944D23E8325300219718 /* Route.swift */,
-				855C157023BA34FB0062ABD5 /* GenericTracker.swift */,
+				859E14F723E9F27B0085347F /* TrackerConvertible.swift */,
+				859E14F523E9F23C0085347F /* Tracker.swift */,
 				8595899323C629EB005AF3C9 /* RouteStore.swift */,
 				855CC8EA23C9E5D800CE805C /* TrackerAnnotation.swift */,
 			);
@@ -527,18 +530,19 @@
 				8524866723B3BCF600E7D26F /* AppDelegate.swift in Sources */,
 				8526749A23B5038C00210509 /* Request.swift in Sources */,
 				855C157323BA4C620062ABD5 /* TransportCVRoute.swift in Sources */,
+				859E14F623E9F23C0085347F /* Tracker.swift in Sources */,
 				85FB07ED23D5E9FC00FF13AD /* MapRegion.swift in Sources */,
 				854FFA6E23C6915600A2570F /* Storage.swift in Sources */,
 				855CC8E923C9E3B200CE805C /* TrackerAnnotationView.swift in Sources */,
 				8524866923B3BCF600E7D26F /* SceneDelegate.swift in Sources */,
 				852674A523B5103500210509 /* TransGPSCVTracker.swift in Sources */,
-				855C157123BA34FB0062ABD5 /* GenericTracker.swift in Sources */,
 				8526749C23B504AE00210509 /* APITargetType.swift in Sources */,
 				85546F3D23B4E9EC0050045A /* TransportCVAPI.swift in Sources */,
 				852674A023B5064C00210509 /* JSONExtension.swift in Sources */,
 				8595899223C629C6005AF3C9 /* RouteKey.swift in Sources */,
 				8522944C23E8323B00219718 /* RouteConvertible.swift in Sources */,
 				8522945023E8331500219718 /* Provider.swift in Sources */,
+				859E14F823E9F27B0085347F /* TrackerConvertible.swift in Sources */,
 				8595898B23C61CFC005AF3C9 /* RoutesTableViewController.swift in Sources */,
 				852674A723B5104B00210509 /* TransportCVTracker.swift in Sources */,
 				8522944E23E8325300219718 /* Route.swift in Sources */,

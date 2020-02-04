@@ -10,7 +10,7 @@ import MapKit
 
 class TrackerAnnotation: MKPointAnnotation {
     
-    dynamic var tracker: GenericTracker {
+    dynamic var tracker: Tracker {
         didSet {
             update()
         }
@@ -18,7 +18,7 @@ class TrackerAnnotation: MKPointAnnotation {
     
     @objc dynamic var location = CLLocation()
     
-    init(tracker: GenericTracker) {
+    init(tracker: Tracker) {
         self.tracker = tracker
         super.init()
         update()
@@ -27,8 +27,8 @@ class TrackerAnnotation: MKPointAnnotation {
     func update() {
         location = tracker.location
         coordinate = location.coordinate
-        title = tracker.route?.key.title ?? tracker.title
-        subtitle = tracker.title
+        title = tracker.route?.key.title ?? tracker.subtitle
+        subtitle = tracker.subtitle
     }
     
 }

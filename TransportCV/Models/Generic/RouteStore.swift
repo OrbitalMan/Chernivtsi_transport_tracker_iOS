@@ -24,7 +24,7 @@ class RouteStore {
             }
             for tracker in mapVC.trackers {
                 if tracker.route == nil {
-                    if let gotRoute = RouteStore.shared.findRoute(provider: tracker.provider) {
+                    if let gotRoute = findRoute(provider: tracker.routeProvider) {
                         tracker.route = gotRoute
                     }
                 }

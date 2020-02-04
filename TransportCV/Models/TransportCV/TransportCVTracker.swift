@@ -10,42 +10,51 @@ import CoreLocation
 
 struct TransportCVTracker: Codable {
     
-    let angle: Double
-    let datetime: String
-    let duration: String
-    let id: Int
+    let routeId: Int?
     let latitude: Double
     let longitude: Double
-    let number: String
-    let routeId: Int?
+    let angle: Double
     let speed: Double
-    let startStatusDate: String
+    let datetime: String
+    let number: String
+    
+    static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(identifier: "Europe/Kiev")
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        return formatter
+    }()
     
 }
 
-extension TransportCVTracker: GenericTrackerConvertible {
+extension TransportCVTracker: TrackerConvertible {
     
-    var speedValue: Double { speed }
-    
-    var getCLLocation: CLLocation {
-        CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude,
-                                                      longitude: longitude),
-                   altitude: 0,
-                   horizontalAccuracy: 0,
-                   verticalAccuracy: 0,
-                   course: angle,
-                   speed: speedValue,
-                   timestamp: Date())
+    func getVehicleType() -> VehicleType {
+        return RouteStore.shared.findRoute(provider: getProvider())?.key.type ?? .trolley
     }
     
-    var asGenericTracker: GenericTracker {
-        let provider = Provider.desyde(id: routeId ?? -1)
-        return GenericTracker(routeId: routeId ?? -1,
-                              title: number + " desyde",
-                              route: RouteStore.shared.findRoute(provider: provider),
-                              location: getCLLocation,
-                              provider: provider)
+    func getProvider() -> Provider {
+        return .desyde(id: routeId ?? -2)
+    }
+    
+    func getCoordinate() -> Coordinate {
+        return Coordinate(latitude: latitude, longitude: longitude)
+    }
+    
+    func getCourse() -> Double {
+        return angle
+    }
+    
+    func getSpeed() -> Double {
+        return speed
+    }
+    
+    func getTimestamp() -> Date {
+        return Self.dateFormatter.date(from: datetime) ?? Date(timeIntervalSince1970: 0)
+    }
+    
+    func getBusNumber() -> Int {
+        return number.apiSafeIntValue ?? -1
     }
     
 }
-

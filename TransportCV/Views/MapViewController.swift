@@ -26,8 +26,8 @@ class MapViewController: UIViewController {
     let locationManager = CLLocationManager()
     
     let trackerAnnotationReuseIdentifier = "trackerAnnotationReuseIdentifier"
-    var trackers: [GenericTracker] = []
-    var visibleTrackers: [GenericTracker] = []
+    var trackers: [Tracker] = []
+    var visibleTrackers: [Tracker] = []
     var annotations: [TrackerAnnotation] = []
     var autoUpdateTimer = Timer()
     
@@ -190,7 +190,7 @@ class MapViewController: UIViewController {
             switch transGPSResult {
             case let .success(transGPSTrackers):
                 print("trans-gps trackers:", transGPSTrackers.count)
-                let genericTrackers = transGPSTrackers.map { $0.asGenericTracker }
+                let genericTrackers = transGPSTrackers.map(Tracker.from)
                 self?.updateTrackers(newTrackers: genericTrackers)
             case let .failure(error):
                 print("trans-gps trackers error:", error)
@@ -203,7 +203,7 @@ class MapViewController: UIViewController {
             switch transportResult {
             case let .success(transportTrackers):
                 print("transport trackers:", transportTrackers.count)
-                let genericTrackers = transportTrackers.map { $0.asGenericTracker }
+                let genericTrackers = transportTrackers.map(Tracker.from)
                 self?.updateTrackers(newTrackers: genericTrackers)
             case let .failure(error):
                 print("transport trackers error:", error)
@@ -211,25 +211,26 @@ class MapViewController: UIViewController {
         }
     }
     
-    func updateTrackers(newTrackers: [GenericTracker]) {
-        var obsoleteTrackers: [GenericTracker] = []
-        var updatedTrackers: [GenericTracker] = []
-        var addedTrackers: [GenericTracker] = []
+    func updateTrackers(newTrackers: [Tracker]) {
+        var obsoleteTrackers: [Tracker] = []
+        var updatedTrackers: [Tracker] = []
+        var addedTrackers: [Tracker] = []
         for tracker in trackers {
             var updated = false
-            var obsolete = false
+            var mayBeObsolete = false
             for newTracker in newTrackers {
                 if newTracker == tracker {
-                    tracker.location = newTracker.location
-                    tracker.route = newTracker.route
+                    if !(newTracker === tracker) {
+                        tracker.update(with: newTracker)
+                    }
                     updatedTrackers.append(newTracker)
                     updated = true
                     break
-                } else if newTracker.provider == tracker.provider {
-                    obsolete = true
+                } else if tracker.routeProvider.mayBeObsolete(with: newTracker.routeProvider) {
+                    mayBeObsolete = true
                 }
             }
-            if !updated, obsolete {
+            if !updated, mayBeObsolete {
                 obsoleteTrackers.append(tracker)
             }
         }
@@ -251,13 +252,13 @@ class MapViewController: UIViewController {
         updateAnnotations(newTrackers: visibleTrackers)
     }
     
-    func updateAnnotations(newTrackers: [GenericTracker]) {
+    func updateAnnotations(newTrackers: [Tracker]) {
         var obsoleteAnnotations: [TrackerAnnotation] = []
-        var updatedTrackers: [GenericTracker] = []
+        var updatedTrackers: [Tracker] = []
         for annotation in annotations {
             var updated = false
             for newTracker in newTrackers {
-                if newTracker.title == annotation.subtitle {
+                if newTracker === annotation.tracker {
                     annotation.update()
                     updatedTrackers.append(newTracker)
                     updated = true

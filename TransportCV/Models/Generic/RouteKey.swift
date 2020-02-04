@@ -30,8 +30,7 @@ struct RouteKey: Hashable, Codable {
 extension RouteKey {
     
     init(type: VehicleType, name: String) {
-        let numberString = name.filter("0123456789".contains)
-        let routeNumber = Int(numberString)
+        let routeNumber = name.apiSafeIntValue
         
         var routeLetter: String? = nil
         if  type == .bus,
