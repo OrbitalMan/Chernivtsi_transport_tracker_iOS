@@ -9,9 +9,9 @@
 import Foundation
 
 enum Provider: Equatable {
-    case desyde(id: Int)
+    case desyde(id: Int?)
     case transGPS(id: Int)
-    case both(desydeId: Int, transGPSId: Int)
+    case both(desydeId: Int?, transGPSId: Int)
     
     func updated(with another: Provider) -> Provider {
         switch (self, another) {
@@ -27,34 +27,22 @@ enum Provider: Equatable {
     }
     
     func contains(another: Provider) -> Bool {
-        if self == another {
-            return true
-        }
         switch (self, another) {
         case (let .both(desydeId, _), let .desyde(anotherDesydeId)):
             return desydeId == anotherDesydeId
         case (let .both(_, transGPSId), let .transGPS(anotherTransGPSId)):
             return transGPSId == anotherTransGPSId
-        case (let .desyde(desydeId), let .both(anotherDesydeId, anotherTransGPSId)):
-            if anotherTransGPSId < 0 {
-                return desydeId == anotherDesydeId
-            }
-            return false
-        case (let .transGPS(transGPSId), let .both(anotherDesydeId, anotherTransGPSId)):
-            if anotherDesydeId < 0 {
+        case (let .both(_, transGPSId), let .both(anotherDesydeId, anotherTransGPSId)):
+            if anotherDesydeId == nil {
                 return transGPSId == anotherTransGPSId
             }
-            return false
-        case (let .both(desydeId, transGPSId), let .both(anotherDesydeId, anotherTransGPSId)):
-            if anotherDesydeId < 0 {
-                return transGPSId == anotherTransGPSId
-            }
-            if anotherTransGPSId < 0 {
-                return desydeId == anotherDesydeId
-            }
-            return false
-        default: return false
+        default: break
         }
+        return self == another
+    }
+    
+    func hasIntersection(with another: Provider) -> Bool {
+        return contains(another: another) || another.contains(another: self)
     }
     
     func mayBeObsolete(with another: Provider) -> Bool {

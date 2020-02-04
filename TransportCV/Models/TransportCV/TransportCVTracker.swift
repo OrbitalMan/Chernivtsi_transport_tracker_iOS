@@ -34,7 +34,7 @@ extension TransportCVTracker: TrackerConvertible {
     }
     
     func getProvider() -> Provider {
-        return .desyde(id: routeId ?? -2)
+        return .desyde(id: routeId)
     }
     
     func getCoordinate() -> Coordinate {

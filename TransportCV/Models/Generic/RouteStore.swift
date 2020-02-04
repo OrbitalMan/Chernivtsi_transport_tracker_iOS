@@ -34,7 +34,7 @@ class RouteStore {
     }
     
     func findRoute(provider: Provider) -> Route? {
-        return routes.first { $0.provider.contains(another: provider) }
+        return routes.first { $0.provider.hasIntersection(with: provider) }
     }
     
     func updateRoutes() {
