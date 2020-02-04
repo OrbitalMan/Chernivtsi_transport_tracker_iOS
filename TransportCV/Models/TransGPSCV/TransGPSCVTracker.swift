@@ -58,4 +58,4 @@ extension TransGPSCVTracker: GenericTrackerConvertible {
     
 }
 
-typealias TransGPSCVTrackerContainer = [String: TransGPSCVTracker]
+typealias TransGPSCVTrackerContainer = [String: Safe<TransGPSCVTracker>]

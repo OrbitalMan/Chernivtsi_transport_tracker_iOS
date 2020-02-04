@@ -43,32 +43,19 @@ enum TransGPSCVAPI: TransportTargetType {
 
 extension TransGPSCVAPI {
     
-    static func getTrackers(completion: @escaping APIHandler<[TransGPSCVTracker]>) {
-        let transGPSTrackersRequest = Request(target: TransGPSCVAPI.getTrackers)
-        transGPSTrackersRequest.responseDecoding { (result: APIResult<TransGPSCVTrackerContainer>) in
-            switch result {
-            case let .success(container):
-                let trackers = Array(container.values)
-                completion(.success(trackers))
-            case let .failure(error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
     static func getRoutes(completion: @escaping APIHandler<[TransGPSCVRoute]>) {
-        var routes: [TransGPSCVRoute] = []
-        var errors: [Error] = []
+        var results: [APIResult<TransGPSCVRoute>] = []
         let routesFetchGroup = DispatchGroup()
         
         let transGPSBusRoutesRequest = Request(target: TransGPSCVAPI.getBusRoutes)
         routesFetchGroup.enter()
         transGPSBusRoutesRequest.responseDecoding { (result: APIResult<TransGPSCVRouteContainer>) in
             switch result {
-            case let .success(container):
-                routes.append(contentsOf: container.values)
+            case let .success(busContainer):
+                let busResults = busContainer.values.map { $0.result }
+                results.append(contentsOf: busResults)
             case let .failure(error):
-                errors.append(error)
+                results.append(.failure(error))
             }
             routesFetchGroup.leave()
         }
@@ -77,19 +64,30 @@ extension TransGPSCVAPI {
         routesFetchGroup.enter()
         transGPSTrolleyRoutesRequest.responseDecoding { (result: APIResult<TransGPSCVRouteContainer>) in
             switch result {
-            case let .success(container):
-                routes.append(contentsOf: container.values)
+            case let .success(trolleyContainer):
+                let trolleyResults = trolleyContainer.values.map { $0.result }
+                results.append(contentsOf: trolleyResults)
             case let .failure(error):
-                errors.append(error)
+                results.append(.failure(error))
             }
             routesFetchGroup.leave()
         }
         
         routesFetchGroup.notify(queue: .main) {
-            if routes.isEmpty, let error = errors.first {
+            let unwrapped = unwrap(results: results)
+            completion(unwrapped)
+        }
+    }
+    
+    static func getTrackers(completion: @escaping APIHandler<[TransGPSCVTracker]>) {
+        let transGPSTrackersRequest = Request(target: TransGPSCVAPI.getTrackers)
+        transGPSTrackersRequest.responseDecoding { (result: APIResult<TransGPSCVTrackerContainer>) in
+            switch result {
+            case let .success(container):
+                let unwrapped = unwrap(safeArray: Array(container.values))
+                completion(unwrapped)
+            case let .failure(error):
                 completion(.failure(error))
-            } else {
-                completion(.success(routes))
             }
         }
     }

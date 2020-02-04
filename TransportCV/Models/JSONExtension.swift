@@ -39,37 +39,49 @@ func printJSON(_ json: Any) -> String {
     return string ?? data.description
 }
 
-private struct DummyCodable: Codable { }
-
-struct SafeCodableArray<Element: Codable>: Codable {
+struct Safe<Base: Codable>: Codable {
     
-    var elements: [Element]
+    let result: APIResult<Base>
     
-    init(from decoder: Decoder) throws {
-        var container = try decoder.unkeyedContainer()
-        var elements = [Element]()
-        if let count = container.count {
-            elements.reserveCapacity(count)
+    public init(from decoder: Decoder) throws {
+        do {
+            let container = try decoder.singleValueContainer()
+            let decoded = try container.decode(Base.self)
+            result = .success(decoded)
+        } catch {
+            result = .failure(error)
         }
-        var errors = [Error]()
-        while !container.isAtEnd {
-            do {
-                let element = try container.decode(Element.self)
-                elements.append(element)
-            } catch {
-                _ = try? container.decode(DummyCodable.self)
-                errors.append(error)
-            }
-        }
-        if elements.isEmpty, let error = errors.first {
-            throw error
-        }
-        self.elements = elements
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
-        try container.encode(elements)
+        switch result {
+        case let .success(value):
+            try container.encode(value)
+        case let .failure(error):
+            print("\(type(of: self)) won't encode - error \(error)")
+        }
     }
     
+    static func unwrap1(safeArray: [Self]) -> APIResult<[Base]> {
+        let values = safeArray.compactMap { $0.result.value }
+        if values.isEmpty, let error = safeArray.first(where: { $0.result.error != nil })?.result.error {
+            return .failure(error)
+        }
+        return .success(values)
+    }
+    
+}
+
+func unwrap<T>(safeArray: [Safe<T>]) -> APIResult<[T]> {
+    let results = safeArray.map { $0.result }
+    return unwrap(results: results)
+}
+
+func unwrap<T>(results: [APIResult<T>]) -> APIResult<[T]> {
+    let values = results.compactMap { $0.value }
+    if values.isEmpty, let error = results.first(where: { $0.error != nil })?.error {
+        return .failure(error)
+    }
+    return .success(values)
 }

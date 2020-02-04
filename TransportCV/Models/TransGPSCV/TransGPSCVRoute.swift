@@ -32,4 +32,4 @@ extension TransGPSCVRoute: RouteConvertible {
     
 }
 
-typealias TransGPSCVRouteContainer = [String: TransGPSCVRoute]
+typealias TransGPSCVRouteContainer = [String: Safe<TransGPSCVRoute>]

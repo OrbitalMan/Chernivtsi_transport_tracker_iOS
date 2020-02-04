@@ -92,8 +92,9 @@ extension TransportCVAPI {
         let routesRequest = TransportCVAPI.getRoutes(token: token).request()
         routesRequest.responseDecoding { (result: APIResult<TransportCVRoutes>) in
             switch result {
-            case let .success(routes):
-                completion(.success(routes.routes.elements))
+            case let .success(container):
+                let unwrapped = unwrap(safeArray: container.routes)
+                completion(unwrapped)
             case let .failure(error):
                 completion(.failure(error))
             }
@@ -103,10 +104,11 @@ extension TransportCVAPI {
     private static func getTrackers(token: String?,
                                     completion: @escaping APIHandler<[TransportCVTracker]>) {
         let trackersRequest = TransportCVAPI.getTrackers(token: token).request()
-        trackersRequest.responseDecoding { (result: APIResult<SafeCodableArray<TransportCVTracker>>) in
+        trackersRequest.responseDecoding { (result: APIResult<[Safe<TransportCVTracker>]>) in
             switch result {
             case let .success(trackers):
-                completion(.success(trackers.elements))
+                let unwrapped = unwrap(safeArray: trackers)
+                completion(unwrapped)
             case let .failure(error):
                 completion(.failure(error))
             }

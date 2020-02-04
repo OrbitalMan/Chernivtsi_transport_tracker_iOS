@@ -14,7 +14,14 @@ typealias APIResult<Value> = Result<Value, Error>
 
 typealias APIHandler<Value> = (APIResult<Value>) -> ()
 
-extension Result where Success == () {
+extension Result {
+    
+    var value: Success? {
+        switch self {
+        case let .success(value): return value
+        case .failure: return nil
+        }
+    }
     
     var error: Error? {
         switch self {

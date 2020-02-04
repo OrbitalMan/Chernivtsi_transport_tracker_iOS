@@ -34,5 +34,5 @@ extension TransportCVRoute: RouteConvertible {
 }
 
 struct TransportCVRoutes: Codable {
-    let routes: SafeCodableArray<TransportCVRoute>
+    let routes: [Safe<TransportCVRoute>]
 }
