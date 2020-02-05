@@ -30,7 +30,7 @@
                                     <action selector="settings" destination="BYZ-38-t0r" id="1dk-08-KcC"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem style="done" systemItem="refresh" id="X4x-BC-L39">
+                            <barButtonItem systemItem="refresh" id="X4x-BC-L39">
                                 <connections>
                                     <action selector="refresh" destination="BYZ-38-t0r" id="IJY-op-0px"/>
                                 </connections>

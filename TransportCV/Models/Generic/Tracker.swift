@@ -30,21 +30,27 @@ final class Tracker {
         return convertible.getTracker(updating: MapViewController.shared?.trackers)
     }
     
+    var title: String {
+        if let routeTitle = route?.key.title {
+            return routeTitle
+        }
+        return subtitle
+    }
+    
     var subtitle: String {
         "\(vehicle.title) \(routeProvider.shortDescription)"
     }
     
 }
 
-extension Tracker: Equatable {
+extension Tracker: Updatable {
     
     static func == (lhs: Tracker,
                     rhs: Tracker) -> Bool {
         return lhs.vehicle == rhs.vehicle
     }
     
-    func update(with new: Tracker?) {
-        guard let new = new else { return }
+    func update(with new: Tracker) {
         update(route: new.route,
                routeProvider: new.routeProvider,
                location: new.location)
@@ -64,6 +70,25 @@ extension Tracker: Equatable {
         if location.timestamp > self.location.timestamp  {
             self.location = location
         }
+    }
+    
+    func mayBeObsolete(with another: Tracker) -> Bool {
+        return routeProvider.mayBeObsolete(with: another.routeProvider)
+    }
+    
+}
+
+extension Tracker: TrackerAnnotationConvertible {
+    
+    func getAnnotation(updating annotations: [TrackerAnnotation]?) -> TrackerAnnotation {
+        if let found = annotations?.first(where: { $0.tracker == self }) {
+            if !(found.tracker === self) {
+                found.tracker.update(with: self)
+            }
+            found.update()
+            return found
+        }
+        return TrackerAnnotation(tracker: self)
     }
     
 }

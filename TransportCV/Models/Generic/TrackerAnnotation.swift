@@ -8,6 +8,10 @@
 
 import MapKit
 
+protocol TrackerAnnotationConvertible {
+    func getAnnotation(updating annotations: [TrackerAnnotation]?) -> TrackerAnnotation
+}
+
 class TrackerAnnotation: MKPointAnnotation {
     
     dynamic var tracker: Tracker {
@@ -24,11 +28,33 @@ class TrackerAnnotation: MKPointAnnotation {
         update()
     }
     
+    static func from(convertible: TrackerAnnotationConvertible) -> TrackerAnnotation {
+        return convertible.getAnnotation(updating: MapViewController.shared?.annotations)
+    }
+    
     func update() {
         location = tracker.location
         coordinate = location.coordinate
-        title = tracker.route?.key.title ?? tracker.subtitle
+        title = tracker.title
         subtitle = tracker.subtitle
+    }
+    
+}
+
+extension TrackerAnnotation: Updatable {
+    
+    static func == (lhs: TrackerAnnotation,
+                    rhs: TrackerAnnotation) -> Bool {
+        return lhs.tracker == rhs.tracker
+    }
+    
+    func update(with new: TrackerAnnotation) {
+        tracker.update(with: new.tracker)
+        update()
+    }
+    
+    func mayBeObsolete(with another: TrackerAnnotation) -> Bool {
+        return true
     }
     
 }

@@ -34,6 +34,7 @@
 		855CC8E923C9E3B200CE805C /* TrackerAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855CC8E823C9E3B200CE805C /* TrackerAnnotationView.swift */; };
 		855CC8EB23C9E5D800CE805C /* TrackerAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855CC8EA23C9E5D800CE805C /* TrackerAnnotation.swift */; };
 		856D0B4923EAD619004B9A3D /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856D0B4823EAD619004B9A3D /* Vehicle.swift */; };
+		85811F3123EB4139009673A4 /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85811F3023EB4139009673A4 /* Updatable.swift */; };
 		8595898B23C61CFC005AF3C9 /* RoutesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8595898A23C61CFC005AF3C9 /* RoutesTableViewController.swift */; };
 		8595899223C629C6005AF3C9 /* RouteKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8595899123C629C6005AF3C9 /* RouteKey.swift */; };
 		8595899423C629EB005AF3C9 /* RouteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8595899323C629EB005AF3C9 /* RouteStore.swift */; };
@@ -98,6 +99,7 @@
 		855CC8E823C9E3B200CE805C /* TrackerAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerAnnotationView.swift; sourceTree = "<group>"; };
 		855CC8EA23C9E5D800CE805C /* TrackerAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerAnnotation.swift; sourceTree = "<group>"; };
 		856D0B4823EAD619004B9A3D /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
+		85811F3023EB4139009673A4 /* Updatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
 		8595898A23C61CFC005AF3C9 /* RoutesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesTableViewController.swift; sourceTree = "<group>"; };
 		8595899123C629C6005AF3C9 /* RouteKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteKey.swift; sourceTree = "<group>"; };
 		8595899323C629EB005AF3C9 /* RouteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteStore.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 				8595898E23C62926005AF3C9 /* Desyde */,
 				8595898C23C628FE005AF3C9 /* Generic */,
 				85FB07EC23D5E9FC00FF13AD /* MapRegion.swift */,
+				85811F3023EB4139009673A4 /* Updatable.swift */,
 				852674A123B506D300210509 /* Handler.swift */,
 				8526749F23B5064C00210509 /* JSONExtension.swift */,
 				854FFA6D23C6915600A2570F /* Storage.swift */,
@@ -546,6 +549,7 @@
 				8595899223C629C6005AF3C9 /* RouteKey.swift in Sources */,
 				8522944C23E8323B00219718 /* RouteConvertible.swift in Sources */,
 				8522945023E8331500219718 /* Provider.swift in Sources */,
+				85811F3123EB4139009673A4 /* Updatable.swift in Sources */,
 				859E14F823E9F27B0085347F /* TrackerConvertible.swift in Sources */,
 				8595898B23C61CFC005AF3C9 /* RoutesTableViewController.swift in Sources */,
 				852674A723B5104B00210509 /* DesydeTracker.swift in Sources */,

@@ -22,6 +22,7 @@ class RouteStore {
                 print("failed to get map VC")
                 return
             }
+            if mapVC.trackers.isEmpty { return }
             for tracker in mapVC.trackers {
                 if tracker.route == nil {
                     if let gotRoute = findRoute(provider: tracker.routeProvider) {
@@ -39,7 +40,6 @@ class RouteStore {
     
     func updateRoutes() {
         if getRouteTasks > 0 { return }
-        routes = []
         
         getRouteTasks += 1
         TransGPSAPI.getRoutes { [weak self] transGPSResult in
@@ -47,7 +47,7 @@ class RouteStore {
             switch transGPSResult {
             case let .success(transGPSRoutes):
                 print("trans-gps routes:", transGPSRoutes.count)
-                self?.insert(convertibles: transGPSRoutes)
+                self?.updateRoutes(with: transGPSRoutes)
             case let .failure(error):
                 print("trans-gps routes error:", error)
             }
@@ -59,17 +59,16 @@ class RouteStore {
             switch desydeRoutesResult {
             case let .success(desydeRoutes):
                 print("desyde routes:", desydeRoutes.count)
-                self?.insert(convertibles: desydeRoutes)
+                self?.updateRoutes(with: desydeRoutes)
             case let .failure(error):
                 print("desyde routes error:", error)
             }
         }
     }
     
-    private func insert(convertibles: [RouteConvertible]) {
-        var newRoutes = convertibles.map(Route.from)
-        newRoutes.removeAll(where: routes.contains)
-        routes.append(contentsOf: newRoutes)
+    private func updateRoutes(with convertibles: [RouteConvertible]) {
+        let newRoutes = convertibles.map(Route.from)
+        routes.update(newElements: newRoutes)
     }
     
 }

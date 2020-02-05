@@ -24,20 +24,23 @@ final class Route {
     
 }
 
-extension Route: Equatable {
+extension Route: Updatable {
     
     static func == (lhs: Route,
                     rhs: Route) -> Bool {
         return lhs.key == rhs.key
     }
     
-    func update(provider: Provider) {
-        self.provider = self.provider.updated(with: provider)
+    func update(with new: Route) {
+        update(provider: new.provider)
     }
     
-    func update(with new: Route?) {
-        guard let new = new else { return }
-        update(provider: new.provider)
+    func mayBeObsolete(with another: Route) -> Bool {
+        return provider.mayBeObsolete(with: another.provider)
+    }
+    
+    func update(provider: Provider) {
+        self.provider = self.provider.updated(with: provider)
     }
     
 }

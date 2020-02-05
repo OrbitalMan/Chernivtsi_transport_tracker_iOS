@@ -59,6 +59,7 @@ class MapViewController: UIViewController {
         if #available(iOS 13.0, *) {
             settingsItem.image = UIImage(systemName: "gear")
         }
+        refresh()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -190,8 +191,7 @@ class MapViewController: UIViewController {
             switch transGPSResult {
             case let .success(transGPSTrackers):
                 print("trans-gps trackers:", transGPSTrackers.count)
-                let trackers = transGPSTrackers.map(Tracker.from)
-                self?.updateTrackers(newTrackers: trackers)
+                self?.updateTrackers(with: transGPSTrackers)
             case let .failure(error):
                 print("trans-gps trackers error:", error)
             }
@@ -203,41 +203,16 @@ class MapViewController: UIViewController {
             switch desydeResult {
             case let .success(desydeTrackers):
                 print("desyde trackers:", desydeTrackers.count)
-                let trackers = desydeTrackers.map(Tracker.from)
-                self?.updateTrackers(newTrackers: trackers)
+                self?.updateTrackers(with: desydeTrackers)
             case let .failure(error):
                 print("desyde trackers error:", error)
             }
         }
     }
     
-    func updateTrackers(newTrackers: [Tracker]) {
-        var obsoleteTrackers: [Tracker] = []
-        var updatedTrackers: [Tracker] = []
-        var addedTrackers: [Tracker] = []
-        for tracker in trackers {
-            var updated = false
-            var mayBeObsolete = false
-            for newTracker in newTrackers {
-                if newTracker == tracker {
-                    if !(newTracker === tracker) {
-                        tracker.update(with: newTracker)
-                    }
-                    updatedTrackers.append(newTracker)
-                    updated = true
-                    break
-                } else if tracker.routeProvider.mayBeObsolete(with: newTracker.routeProvider) {
-                    mayBeObsolete = true
-                }
-            }
-            if !updated, mayBeObsolete {
-                obsoleteTrackers.append(tracker)
-            }
-        }
-        trackers.removeAll { obsoleteTrackers.contains($0) }
-        addedTrackers = newTrackers
-        addedTrackers.removeAll { updatedTrackers.contains($0) }
-        trackers.append(contentsOf: addedTrackers)
+    func updateTrackers(with convertibles: [TrackerConvertible]) {
+        let newTrackers = convertibles.map(Tracker.from)
+        trackers.update(newElements: newTrackers)
         updateVisibleTrackers()
     }
     
@@ -249,49 +224,26 @@ class MapViewController: UIViewController {
             }
             return true
         }
-        updateAnnotations(newTrackers: visibleTrackers)
+        updateAnnotations(with: visibleTrackers)
     }
     
-    func updateAnnotations(newTrackers: [Tracker]) {
-        var obsoleteAnnotations: [TrackerAnnotation] = []
-        var updatedTrackers: [Tracker] = []
-        for annotation in annotations {
-            var updated = false
-            for newTracker in newTrackers {
-                if newTracker === annotation.tracker {
-                    annotation.update()
-                    updatedTrackers.append(newTracker)
-                    updated = true
-                    break
-                }
-            }
-            if !updated {
-                obsoleteAnnotations.append(annotation)
-            }
-        }
-        for obsolete in obsoleteAnnotations {
-            mapView.removeAnnotation(obsolete)
-        }
-        annotations.removeAll { obsoleteAnnotations.contains($0) }
-        var addedTrackers = newTrackers
-        addedTrackers.removeAll { updatedTrackers.contains($0) }
-        let newAnnotations = addedTrackers.map(TrackerAnnotation.init)
-        for new in newAnnotations {
-            mapView.addAnnotation(new)
-        }
-        annotations.append(contentsOf: newAnnotations)
+    func updateAnnotations(with convertibles: [TrackerAnnotationConvertible]) {
+        let newAnnotations = convertibles.map(TrackerAnnotation.from)
+        annotations.update(newElements: newAnnotations,
+                           onRemoving: mapView.removeAnnotation,
+                           onAdding: mapView.addAnnotation)
     }
     
     func startAutoUpdate() {
-        refresh()
         autoUpdateTimer.invalidate()
         refreshItem.isEnabled = Storage.autoUpdateInterval == nil
         guard let autoUpdateInterval = Storage.autoUpdateInterval else { return }
+        refresh()
         autoUpdateTimer = Timer(timeInterval: autoUpdateInterval,
-                                 target: self,
-                                 selector: #selector(refresh),
-                                 userInfo: nil,
-                                 repeats: true)
+                                target: self,
+                                selector: #selector(refresh),
+                                userInfo: nil,
+                                repeats: true)
         RunLoop.current.add(autoUpdateTimer, forMode: .common)
         autoUpdateTimer.tolerance = 0.1
     }
