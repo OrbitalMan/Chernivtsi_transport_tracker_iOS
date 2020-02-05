@@ -10,13 +10,13 @@ import CoreLocation
 
 struct TransGPSCVTracker: Codable {
     
-    let idBusTypes: Int
+    let idBusTypes: Int?
     let routeId: Int
     let lat: Double
     let lng: Double
-    let orientation: String
-    let speed: String
-    let gpstime: String
+    let orientation: String?
+    let speed: String?
+    let gpstime: String?
     let busNumber: String
     
     static let dateFormatter: DateFormatter = {
@@ -30,8 +30,8 @@ struct TransGPSCVTracker: Codable {
 
 extension TransGPSCVTracker: TrackerConvertible {
     
-    func getVehicleType() -> VehicleType {
-        return VehicleType(transGPSCVIndex: idBusTypes) ?? .bus
+    func getVehicleType() -> VehicleType? {
+        return VehicleType(transGPSIdBusTypes: idBusTypes)
     }
     
     func getProvider() -> Provider {
@@ -43,15 +43,15 @@ extension TransGPSCVTracker: TrackerConvertible {
     }
     
     func getCourse() -> Double {
-        return Double(orientation) ?? 0
+        return Double(orientation ?? "0") ?? 0
     }
     
     func getSpeed() -> Double {
-        return Double(speed) ?? 0
+        return Double(speed ?? "0") ?? 0
     }
     
     func getTimestamp() -> Date {
-        return Self.dateFormatter.date(from: gpstime) ?? Date(timeIntervalSince1970: 0)
+        return Self.dateFormatter.date(from: gpstime ?? "") ?? Date(timeIntervalSince1970: 0)
     }
     
     func getBusNumber() -> Int {

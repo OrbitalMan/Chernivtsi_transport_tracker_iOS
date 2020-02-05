@@ -13,6 +13,17 @@ enum Provider: Equatable {
     case transGPS(id: Int)
     case both(desydeId: Int?, transGPSId: Int)
     
+    var shortDescription: String {
+        switch self {
+        case .desyde(let id):
+            return "d\(id?.description ?? "!")"
+        case .transGPS(let id):
+            return "t\(id)"
+            case .both(let desydeId, let transGPSId):
+                return "d\(desydeId?.description ?? "!")&t\(transGPSId)"
+        }
+    }
+    
     func updated(with another: Provider) -> Provider {
         switch (self, another) {
         case (.desyde(let desydeId), .transGPS(let transGPSId)),

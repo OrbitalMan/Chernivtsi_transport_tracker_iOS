@@ -9,17 +9,15 @@
 import Foundation
 
 struct TransGPSCVRoute: Codable {
-    
-    let id: Int
-    let name: String
     let idBusTypes: Int
-    
+    let id: Int
+    let name: String?
 }
 
 extension TransGPSCVRoute: RouteConvertible {
     
     func getVehicleType() -> VehicleType {
-        return VehicleType(transGPSCVIndex: idBusTypes) ?? .bus
+        return VehicleType(transGPSIdBusTypes: idBusTypes) ?? .bus
     }
     
     func getProvider() -> Provider {
@@ -27,7 +25,7 @@ extension TransGPSCVRoute: RouteConvertible {
     }
     
     func getRouteName() -> String {
-        return name.components(separatedBy: "/").first ?? ""
+        return name?.components(separatedBy: "/").first ?? ""
     }
     
 }

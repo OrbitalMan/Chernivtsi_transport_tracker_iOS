@@ -10,12 +10,13 @@ import CoreLocation
 
 struct TransportCVTracker: Codable {
     
+    let tteId: Int?
     let routeId: Int?
     let latitude: Double
     let longitude: Double
-    let angle: Double
-    let speed: Double
-    let datetime: String
+    let angle: Double?
+    let speed: Double?
+    let datetime: String?
     let number: String
     
     static let dateFormatter: DateFormatter = {
@@ -29,8 +30,8 @@ struct TransportCVTracker: Codable {
 
 extension TransportCVTracker: TrackerConvertible {
     
-    func getVehicleType() -> VehicleType {
-        return RouteStore.shared.findRoute(provider: getProvider())?.key.type ?? .trolley
+    func getVehicleType() -> VehicleType? {
+        return VehicleType(desydeTteId: tteId)
     }
     
     func getProvider() -> Provider {
@@ -42,15 +43,15 @@ extension TransportCVTracker: TrackerConvertible {
     }
     
     func getCourse() -> Double {
-        return angle
+        return angle ?? 0
     }
     
     func getSpeed() -> Double {
-        return speed
+        return speed ?? 0
     }
     
     func getTimestamp() -> Date {
-        return Self.dateFormatter.date(from: datetime) ?? Date(timeIntervalSince1970: 0)
+        return Self.dateFormatter.date(from: datetime ?? "") ?? Date(timeIntervalSince1970: 0)
     }
     
     func getBusNumber() -> Int {

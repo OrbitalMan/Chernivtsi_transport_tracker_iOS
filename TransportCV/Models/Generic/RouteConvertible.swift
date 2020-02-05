@@ -8,12 +8,12 @@
 
 import Foundation
 
-protocol RouteDataSource {
-    func getVehicleType() -> VehicleType
+protocol ProviderDataSource {
     func getProvider() -> Provider
 }
 
-protocol RouteConvertible: RouteDataSource {
+protocol RouteConvertible: ProviderDataSource {
+    func getVehicleType() -> VehicleType
     func getRouteName() -> String
 }
 

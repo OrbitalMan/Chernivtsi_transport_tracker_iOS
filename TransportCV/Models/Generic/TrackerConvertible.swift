@@ -31,24 +31,26 @@ extension CLLocationConvertible {
     
 }
 
-protocol TrackerConvertible: RouteDataSource, CLLocationConvertible {
+protocol TrackerConvertible: ProviderDataSource, CLLocationConvertible {
+    func getVehicleType() -> VehicleType?
     func getBusNumber() -> Int
 }
 
 extension TrackerConvertible {
     
     func getTracker(updating trackers: [Tracker]?) -> Tracker {
-        let busNumber = getBusNumber()
+        let vehicle = Vehicle(type: getVehicleType(),
+                              number: getBusNumber())
         let provider = getProvider()
         var findRoute: Route? { RouteStore.shared.findRoute(provider: provider) }
         let location = getLocation()
-        if let tracker = trackers?.first(where: { $0.busNumber == busNumber }) {
+        if let tracker = trackers?.first(where: { $0.vehicle == vehicle }) {
             tracker.update(route: tracker.route ?? findRoute,
                            routeProvider: provider,
                            location: location)
             return tracker
         }
-        return Tracker(busNumber: busNumber,
+        return Tracker(vehicle: vehicle,
                        route: findRoute,
                        routeProvider: provider,
                        location: location)

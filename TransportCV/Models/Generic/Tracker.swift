@@ -10,17 +10,17 @@ import CoreLocation
 
 final class Tracker {
     
-    let busNumber: Int
+    let vehicle: Vehicle
     dynamic weak var route: Route?
     dynamic var routeProvider: Provider
     dynamic var location: CLLocation
     
-    init(busNumber: Int,
+    init(vehicle: Vehicle,
          route: Route?,
          routeProvider: Provider,
          location: CLLocation)
     {
-        self.busNumber = busNumber
+        self.vehicle = vehicle
         self.route = route
         self.routeProvider = routeProvider
         self.location = location
@@ -31,7 +31,7 @@ final class Tracker {
     }
     
     var subtitle: String {
-        "\(busNumber) \(routeProvider)"
+        "\(vehicle.title) \(routeProvider.shortDescription)"
     }
     
 }
@@ -40,7 +40,7 @@ extension Tracker: Equatable {
     
     static func == (lhs: Tracker,
                     rhs: Tracker) -> Bool {
-        return lhs.busNumber == rhs.busNumber
+        return lhs.vehicle == rhs.vehicle
     }
     
     func update(with new: Tracker?) {

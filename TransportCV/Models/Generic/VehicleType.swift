@@ -35,8 +35,8 @@ enum VehicleType: Int, CaseIterable, Codable {
 
 extension VehicleType {
     
-    init?(transGPSCVIndex: Int) {
-        switch transGPSCVIndex {
+    init?(transGPSIdBusTypes: Int?) {
+        switch transGPSIdBusTypes {
         case 2:
             self = .trolley
         case 1:
@@ -46,10 +46,25 @@ extension VehicleType {
         }
     }
     
-    var transGPSCVIndex: Int {
-        switch self {
-        case .trolley: return 2
-        case .bus: return 1
+    init?(desydeTteId: Int?) {
+        switch desydeTteId {
+        case 141, 242:
+            self = .trolley
+        case 1, 2, 41, 81:
+            self = .bus
+        default:
+            return nil
+        }
+    }
+    
+    init?(desydeRteId: Int?) {
+        switch desydeRteId {
+        case 1:
+            self = .trolley
+        case 4:
+            self = .bus
+        default:
+            return nil
         }
     }
     

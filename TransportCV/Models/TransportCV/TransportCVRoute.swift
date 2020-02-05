@@ -9,6 +9,7 @@
 import Foundation
 
 struct TransportCVRoute: Codable {
+    let rteId: Int?
     let id: Int
     let name: String
 }
@@ -18,9 +19,8 @@ extension TransportCVRoute: RouteConvertible {
     func getVehicleType() -> VehicleType {
         if name.contains(where: "TtТт".contains) {
             return .trolley
-        } else {
-            return .bus
         }
+        return VehicleType(desydeRteId: rteId) ?? .bus
     }
     
     func getProvider() -> Provider {
