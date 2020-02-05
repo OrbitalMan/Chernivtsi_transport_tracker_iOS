@@ -1,5 +1,5 @@
 //
-//  TransportCVTracker.swift
+//  DesydeTracker.swift
 //  TransportCV
 //
 //  Created by Stanislav on 26.12.2019.
@@ -8,7 +8,7 @@
 
 import CoreLocation
 
-struct TransportCVTracker: Codable {
+struct DesydeTracker: Codable {
     
     let tteId: Int?
     let routeId: Int?
@@ -28,7 +28,7 @@ struct TransportCVTracker: Codable {
     
 }
 
-extension TransportCVTracker: TrackerConvertible {
+extension DesydeTracker: TrackerConvertible {
     
     func getVehicleType() -> VehicleType? {
         return VehicleType(desydeTteId: tteId)

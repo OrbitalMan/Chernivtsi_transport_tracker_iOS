@@ -1,5 +1,5 @@
 //
-//  TransGPSCVTracker.swift
+//  TransGPSTracker.swift
 //  TransportCV
 //
 //  Created by Stanislav on 26.12.2019.
@@ -8,7 +8,7 @@
 
 import CoreLocation
 
-struct TransGPSCVTracker: Codable {
+struct TransGPSTracker: Codable {
     
     let idBusTypes: Int?
     let routeId: Int
@@ -28,7 +28,7 @@ struct TransGPSCVTracker: Codable {
     
 }
 
-extension TransGPSCVTracker: TrackerConvertible {
+extension TransGPSTracker: TrackerConvertible {
     
     func getVehicleType() -> VehicleType? {
         return VehicleType(transGPSIdBusTypes: idBusTypes)
@@ -60,4 +60,4 @@ extension TransGPSCVTracker: TrackerConvertible {
     
 }
 
-typealias TransGPSCVTrackerContainer = [String: Safe<TransGPSCVTracker>]
+typealias TransGPSTrackerContainer = [String: Safe<TransGPSTracker>]

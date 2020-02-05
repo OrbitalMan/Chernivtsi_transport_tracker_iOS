@@ -185,28 +185,28 @@ class MapViewController: UIViewController {
     func getTrackers() {
         guard getTrackerTasks < 1 else { return }
         getTrackerTasks += 1
-        TransGPSCVAPI.getTrackers { [weak self] transGPSResult in
+        TransGPSAPI.getTrackers { [weak self] transGPSResult in
             self?.getTrackerTasks -= 1
             switch transGPSResult {
             case let .success(transGPSTrackers):
                 print("trans-gps trackers:", transGPSTrackers.count)
-                let genericTrackers = transGPSTrackers.map(Tracker.from)
-                self?.updateTrackers(newTrackers: genericTrackers)
+                let trackers = transGPSTrackers.map(Tracker.from)
+                self?.updateTrackers(newTrackers: trackers)
             case let .failure(error):
                 print("trans-gps trackers error:", error)
             }
         }
         
         getTrackerTasks += 1
-        TransportCVAPI.getTrackers { [weak self] transportResult in
+        DesydeAPI.getTrackers { [weak self] desydeResult in
             self?.getTrackerTasks -= 1
-            switch transportResult {
-            case let .success(transportTrackers):
-                print("transport trackers:", transportTrackers.count)
-                let genericTrackers = transportTrackers.map(Tracker.from)
-                self?.updateTrackers(newTrackers: genericTrackers)
+            switch desydeResult {
+            case let .success(desydeTrackers):
+                print("desyde trackers:", desydeTrackers.count)
+                let trackers = desydeTrackers.map(Tracker.from)
+                self?.updateTrackers(newTrackers: trackers)
             case let .failure(error):
-                print("transport trackers error:", error)
+                print("desyde trackers error:", error)
             }
         }
     }

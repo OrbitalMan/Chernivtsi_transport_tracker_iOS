@@ -1,5 +1,5 @@
 //
-//  TransGPSCVRoute.swift
+//  TransGPSRoute.swift
 //  TransportCV
 //
 //  Created by Stanislav on 30.12.2019.
@@ -8,13 +8,13 @@
 
 import Foundation
 
-struct TransGPSCVRoute: Codable {
+struct TransGPSRoute: Codable {
     let idBusTypes: Int
     let id: Int
     let name: String?
 }
 
-extension TransGPSCVRoute: RouteConvertible {
+extension TransGPSRoute: RouteConvertible {
     
     func getVehicleType() -> VehicleType {
         return VehicleType(transGPSIdBusTypes: idBusTypes) ?? .bus
@@ -30,4 +30,4 @@ extension TransGPSCVRoute: RouteConvertible {
     
 }
 
-typealias TransGPSCVRouteContainer = [String: Safe<TransGPSCVRoute>]
+typealias TransGPSRouteContainer = [String: Safe<TransGPSRoute>]

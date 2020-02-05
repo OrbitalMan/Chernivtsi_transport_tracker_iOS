@@ -1,5 +1,5 @@
 //
-//  TransportCVRoute.swift
+//  DesydeRoute.swift
 //  TransportCV
 //
 //  Created by Stanislav on 30.12.2019.
@@ -8,13 +8,13 @@
 
 import Foundation
 
-struct TransportCVRoute: Codable {
+struct DesydeRoute: Codable {
     let rteId: Int?
     let id: Int
     let name: String
 }
 
-extension TransportCVRoute: RouteConvertible {
+extension DesydeRoute: RouteConvertible {
     
     func getVehicleType() -> VehicleType {
         if name.contains(where: "TtТт".contains) {
@@ -33,6 +33,6 @@ extension TransportCVRoute: RouteConvertible {
     
 }
 
-struct TransportCVRoutes: Codable {
-    let routes: [Safe<TransportCVRoute>]
+struct DesydeRouteContainer: Codable {
+    let routes: [Safe<DesydeRoute>]
 }

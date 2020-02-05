@@ -22,7 +22,7 @@ class StorageContainer {
     fileprivate let decoder = PropertyListDecoder()
     
     /// The transport.cv token for cookies.
-    var transportCVCookie: String? {
+    var desydeCookie: String? {
         get { return defaults[#function] }
         set { defaults[#function] = newValue }
     }

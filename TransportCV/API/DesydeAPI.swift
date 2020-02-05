@@ -1,5 +1,5 @@
 //
-//  TransportCVAPI.swift
+//  DesydeAPI.swift
 //  TransportCV
 //
 //  Created by Stanislav on 26.12.2019.
@@ -8,7 +8,7 @@
 
 import Alamofire
 
-enum TransportCVAPI: TransportTargetType {
+enum DesydeAPI: ProviderTargetType {
     case getRoutes(token: String?)
     case getTrackers(token: String?)
     
@@ -52,11 +52,11 @@ enum TransportCVAPI: TransportTargetType {
 
 // MARK: -
 
-extension TransportCVAPI {
+extension DesydeAPI {
     
     static func catchCookies() {
         Alamofire.SessionManager.default.delegate.taskWillPerformHTTPRedirection = { _, task, response, request in
-            guard task.originalRequest?.url?.absoluteString.localizedCaseInsensitiveContains(TransportCVAPI.baseURL.absoluteString) ?? false else {
+            guard task.originalRequest?.url?.absoluteString.localizedCaseInsensitiveContains(DesydeAPI.baseURL.absoluteString) ?? false else {
                 return request
             }
             var request = request
@@ -68,7 +68,7 @@ extension TransportCVAPI {
                 Cookie: \(cookie ?? "nope")
                 """)
             if let cookie = cookie {
-                Storage.transportCVCookie = cookie
+                Storage.desydeCookie = cookie
                 request.allHTTPHeaderFields?["Cookie"] = cookie
             }
             let redirectCookie = cookie ?? request.allHTTPHeaderFields?["Cookie"]
@@ -88,9 +88,9 @@ extension TransportCVAPI {
     // MARK: -
     
     private static func getRoutes(token: String?,
-                                  completion: @escaping APIHandler<[TransportCVRoute]>) {
-        let routesRequest = TransportCVAPI.getRoutes(token: token).request()
-        routesRequest.responseDecoding { (result: APIResult<TransportCVRoutes>) in
+                                  completion: @escaping APIHandler<[DesydeRoute]>) {
+        let routesRequest = DesydeAPI.getRoutes(token: token).request()
+        routesRequest.responseDecoding { (result: APIResult<DesydeRouteContainer>) in
             switch result {
             case let .success(container):
                 let unwrapped = unwrap(safeArray: container.routes)
@@ -102,9 +102,9 @@ extension TransportCVAPI {
     }
     
     private static func getTrackers(token: String?,
-                                    completion: @escaping APIHandler<[TransportCVTracker]>) {
-        let trackersRequest = TransportCVAPI.getTrackers(token: token).request()
-        trackersRequest.responseDecoding { (result: APIResult<[Safe<TransportCVTracker>]>) in
+                                    completion: @escaping APIHandler<[DesydeTracker]>) {
+        let trackersRequest = DesydeAPI.getTrackers(token: token).request()
+        trackersRequest.responseDecoding { (result: APIResult<[Safe<DesydeTracker>]>) in
             switch result {
             case let .success(trackers):
                 let unwrapped = unwrap(safeArray: trackers)
@@ -117,12 +117,12 @@ extension TransportCVAPI {
     
     // MARK: -
     
-    static func getRoutes(completion: @escaping APIHandler<[TransportCVRoute]>) {
-        getRoutes(token: Storage.transportCVCookie, completion: completion)
+    static func getRoutes(completion: @escaping APIHandler<[DesydeRoute]>) {
+        getRoutes(token: Storage.desydeCookie, completion: completion)
     }
     
-    static func getTrackers(completion: @escaping APIHandler<[TransportCVTracker]>) {
-        getTrackers(token: Storage.transportCVCookie, completion: completion)
+    static func getTrackers(completion: @escaping APIHandler<[DesydeTracker]>) {
+        getTrackers(token: Storage.desydeCookie, completion: completion)
     }
     
 }

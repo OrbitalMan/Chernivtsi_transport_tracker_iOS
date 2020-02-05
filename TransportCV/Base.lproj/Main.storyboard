@@ -19,18 +19,18 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="5Tf-aN-F1o">
-                        <barButtonItem key="leftBarButtonItem" title="✅" style="plain" id="5v1-vs-Jp3">
+                        <barButtonItem key="leftBarButtonItem" title="✅" style="done" id="5v1-vs-Jp3">
                             <connections>
                                 <action selector="selectRoutes" destination="BYZ-38-t0r" id="UGY-b3-K61"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem title="⚙️" style="plain" id="dnI-SN-EGJ">
+                            <barButtonItem title="⚙️" style="done" id="dnI-SN-EGJ">
                                 <connections>
                                     <action selector="settings" destination="BYZ-38-t0r" id="1dk-08-KcC"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem style="plain" systemItem="refresh" id="X4x-BC-L39">
+                            <barButtonItem style="done" systemItem="refresh" id="X4x-BC-L39">
                                 <connections>
                                     <action selector="refresh" destination="BYZ-38-t0r" id="IJY-op-0px"/>
                                 </connections>

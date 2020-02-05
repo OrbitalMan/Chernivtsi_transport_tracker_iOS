@@ -1,5 +1,5 @@
 //
-//  TransGPSCVAPI.swift
+//  TransGPSAPI.swift
 //  TransportCV
 //
 //  Created by Stanislav on 26.12.2019.
@@ -8,7 +8,7 @@
 
 import Alamofire
 
-enum TransGPSCVAPI: TransportTargetType {
+enum TransGPSAPI: ProviderTargetType {
     case getBusRoutes
     case getTrolleyRoutes
     case getTrackers
@@ -41,15 +41,15 @@ enum TransGPSCVAPI: TransportTargetType {
     
 }
 
-extension TransGPSCVAPI {
+extension TransGPSAPI {
     
-    static func getRoutes(completion: @escaping APIHandler<[TransGPSCVRoute]>) {
-        var results: [APIResult<TransGPSCVRoute>] = []
+    static func getRoutes(completion: @escaping APIHandler<[TransGPSRoute]>) {
+        var results: [APIResult<TransGPSRoute>] = []
         let routesFetchGroup = DispatchGroup()
         
-        let transGPSBusRoutesRequest = Request(target: TransGPSCVAPI.getBusRoutes)
+        let transGPSBusRoutesRequest = Request(target: TransGPSAPI.getBusRoutes)
         routesFetchGroup.enter()
-        transGPSBusRoutesRequest.responseDecoding { (result: APIResult<TransGPSCVRouteContainer>) in
+        transGPSBusRoutesRequest.responseDecoding { (result: APIResult<TransGPSRouteContainer>) in
             switch result {
             case let .success(busContainer):
                 let busResults = busContainer.values.map { $0.result }
@@ -60,9 +60,9 @@ extension TransGPSCVAPI {
             routesFetchGroup.leave()
         }
         
-        let transGPSTrolleyRoutesRequest = Request(target: TransGPSCVAPI.getTrolleyRoutes)
+        let transGPSTrolleyRoutesRequest = Request(target: TransGPSAPI.getTrolleyRoutes)
         routesFetchGroup.enter()
-        transGPSTrolleyRoutesRequest.responseDecoding { (result: APIResult<TransGPSCVRouteContainer>) in
+        transGPSTrolleyRoutesRequest.responseDecoding { (result: APIResult<TransGPSRouteContainer>) in
             switch result {
             case let .success(trolleyContainer):
                 let trolleyResults = trolleyContainer.values.map { $0.result }
@@ -79,9 +79,9 @@ extension TransGPSCVAPI {
         }
     }
     
-    static func getTrackers(completion: @escaping APIHandler<[TransGPSCVTracker]>) {
-        let transGPSTrackersRequest = Request(target: TransGPSCVAPI.getTrackers)
-        transGPSTrackersRequest.responseDecoding { (result: APIResult<TransGPSCVTrackerContainer>) in
+    static func getTrackers(completion: @escaping APIHandler<[TransGPSTracker]>) {
+        let transGPSTrackersRequest = Request(target: TransGPSAPI.getTrackers)
+        transGPSTrackersRequest.responseDecoding { (result: APIResult<TransGPSTrackerContainer>) in
             switch result {
             case let .success(container):
                 let unwrapped = unwrap(safeArray: Array(container.values))

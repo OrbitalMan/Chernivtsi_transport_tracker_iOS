@@ -24,13 +24,13 @@
 		8526749C23B504AE00210509 /* APITargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8526749B23B504AE00210509 /* APITargetType.swift */; };
 		852674A023B5064C00210509 /* JSONExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8526749F23B5064C00210509 /* JSONExtension.swift */; };
 		852674A223B506D300210509 /* Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852674A123B506D300210509 /* Handler.swift */; };
-		852674A523B5103500210509 /* TransGPSCVTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852674A423B5103500210509 /* TransGPSCVTracker.swift */; };
-		852674A723B5104B00210509 /* TransportCVTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852674A623B5104B00210509 /* TransportCVTracker.swift */; };
+		852674A523B5103500210509 /* TransGPSTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852674A423B5103500210509 /* TransGPSTracker.swift */; };
+		852674A723B5104B00210509 /* DesydeTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852674A623B5104B00210509 /* DesydeTracker.swift */; };
 		854FFA6E23C6915600A2570F /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854FFA6D23C6915600A2570F /* Storage.swift */; };
-		85546F3B23B4E9D70050045A /* TransGPSCVAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85546F3A23B4E9D70050045A /* TransGPSCVAPI.swift */; };
-		85546F3D23B4E9EC0050045A /* TransportCVAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85546F3C23B4E9EC0050045A /* TransportCVAPI.swift */; };
-		855C157323BA4C620062ABD5 /* TransportCVRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855C157223BA4C620062ABD5 /* TransportCVRoute.swift */; };
-		855C157523BA56FC0062ABD5 /* TransGPSCVRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855C157423BA56FC0062ABD5 /* TransGPSCVRoute.swift */; };
+		85546F3B23B4E9D70050045A /* TransGPSAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85546F3A23B4E9D70050045A /* TransGPSAPI.swift */; };
+		85546F3D23B4E9EC0050045A /* DesydeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85546F3C23B4E9EC0050045A /* DesydeAPI.swift */; };
+		855C157323BA4C620062ABD5 /* DesydeRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855C157223BA4C620062ABD5 /* DesydeRoute.swift */; };
+		855C157523BA56FC0062ABD5 /* TransGPSRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855C157423BA56FC0062ABD5 /* TransGPSRoute.swift */; };
 		855CC8E923C9E3B200CE805C /* TrackerAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855CC8E823C9E3B200CE805C /* TrackerAnnotationView.swift */; };
 		855CC8EB23C9E5D800CE805C /* TrackerAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855CC8EA23C9E5D800CE805C /* TrackerAnnotation.swift */; };
 		856D0B4923EAD619004B9A3D /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856D0B4823EAD619004B9A3D /* Vehicle.swift */; };
@@ -88,13 +88,13 @@
 		8526749B23B504AE00210509 /* APITargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITargetType.swift; sourceTree = "<group>"; };
 		8526749F23B5064C00210509 /* JSONExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONExtension.swift; sourceTree = "<group>"; };
 		852674A123B506D300210509 /* Handler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handler.swift; sourceTree = "<group>"; };
-		852674A423B5103500210509 /* TransGPSCVTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransGPSCVTracker.swift; sourceTree = "<group>"; };
-		852674A623B5104B00210509 /* TransportCVTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportCVTracker.swift; sourceTree = "<group>"; };
+		852674A423B5103500210509 /* TransGPSTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransGPSTracker.swift; sourceTree = "<group>"; };
+		852674A623B5104B00210509 /* DesydeTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesydeTracker.swift; sourceTree = "<group>"; };
 		854FFA6D23C6915600A2570F /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
-		85546F3A23B4E9D70050045A /* TransGPSCVAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransGPSCVAPI.swift; sourceTree = "<group>"; };
-		85546F3C23B4E9EC0050045A /* TransportCVAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportCVAPI.swift; sourceTree = "<group>"; };
-		855C157223BA4C620062ABD5 /* TransportCVRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportCVRoute.swift; sourceTree = "<group>"; };
-		855C157423BA56FC0062ABD5 /* TransGPSCVRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransGPSCVRoute.swift; sourceTree = "<group>"; };
+		85546F3A23B4E9D70050045A /* TransGPSAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransGPSAPI.swift; sourceTree = "<group>"; };
+		85546F3C23B4E9EC0050045A /* DesydeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesydeAPI.swift; sourceTree = "<group>"; };
+		855C157223BA4C620062ABD5 /* DesydeRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesydeRoute.swift; sourceTree = "<group>"; };
+		855C157423BA56FC0062ABD5 /* TransGPSRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransGPSRoute.swift; sourceTree = "<group>"; };
 		855CC8E823C9E3B200CE805C /* TrackerAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerAnnotationView.swift; sourceTree = "<group>"; };
 		855CC8EA23C9E5D800CE805C /* TrackerAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerAnnotation.swift; sourceTree = "<group>"; };
 		856D0B4823EAD619004B9A3D /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
@@ -223,8 +223,8 @@
 		852674A323B50FEF00210509 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8595898D23C62915005AF3C9 /* TransGPSCV */,
-				8595898E23C62926005AF3C9 /* TransportCV */,
+				8595898D23C62915005AF3C9 /* TransGPS */,
+				8595898E23C62926005AF3C9 /* Desyde */,
 				8595898C23C628FE005AF3C9 /* Generic */,
 				85FB07EC23D5E9FC00FF13AD /* MapRegion.swift */,
 				852674A123B506D300210509 /* Handler.swift */,
@@ -237,8 +237,8 @@
 		85546F3923B4E99C0050045A /* API */ = {
 			isa = PBXGroup;
 			children = (
-				85546F3A23B4E9D70050045A /* TransGPSCVAPI.swift */,
-				85546F3C23B4E9EC0050045A /* TransportCVAPI.swift */,
+				85546F3A23B4E9D70050045A /* TransGPSAPI.swift */,
+				85546F3C23B4E9EC0050045A /* DesydeAPI.swift */,
 				8526749923B5038C00210509 /* Request.swift */,
 				8526749B23B504AE00210509 /* APITargetType.swift */,
 			);
@@ -273,22 +273,22 @@
 			path = Generic;
 			sourceTree = "<group>";
 		};
-		8595898D23C62915005AF3C9 /* TransGPSCV */ = {
+		8595898D23C62915005AF3C9 /* TransGPS */ = {
 			isa = PBXGroup;
 			children = (
-				855C157423BA56FC0062ABD5 /* TransGPSCVRoute.swift */,
-				852674A423B5103500210509 /* TransGPSCVTracker.swift */,
+				855C157423BA56FC0062ABD5 /* TransGPSRoute.swift */,
+				852674A423B5103500210509 /* TransGPSTracker.swift */,
 			);
-			path = TransGPSCV;
+			path = TransGPS;
 			sourceTree = "<group>";
 		};
-		8595898E23C62926005AF3C9 /* TransportCV */ = {
+		8595898E23C62926005AF3C9 /* Desyde */ = {
 			isa = PBXGroup;
 			children = (
-				855C157223BA4C620062ABD5 /* TransportCVRoute.swift */,
-				852674A623B5104B00210509 /* TransportCVTracker.swift */,
+				855C157223BA4C620062ABD5 /* DesydeRoute.swift */,
+				852674A623B5104B00210509 /* DesydeTracker.swift */,
 			);
-			path = TransportCV;
+			path = Desyde;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -532,15 +532,15 @@
 			files = (
 				8524866723B3BCF600E7D26F /* AppDelegate.swift in Sources */,
 				8526749A23B5038C00210509 /* Request.swift in Sources */,
-				855C157323BA4C620062ABD5 /* TransportCVRoute.swift in Sources */,
+				855C157323BA4C620062ABD5 /* DesydeRoute.swift in Sources */,
 				859E14F623E9F23C0085347F /* Tracker.swift in Sources */,
 				85FB07ED23D5E9FC00FF13AD /* MapRegion.swift in Sources */,
 				854FFA6E23C6915600A2570F /* Storage.swift in Sources */,
 				855CC8E923C9E3B200CE805C /* TrackerAnnotationView.swift in Sources */,
 				8524866923B3BCF600E7D26F /* SceneDelegate.swift in Sources */,
-				852674A523B5103500210509 /* TransGPSCVTracker.swift in Sources */,
+				852674A523B5103500210509 /* TransGPSTracker.swift in Sources */,
 				8526749C23B504AE00210509 /* APITargetType.swift in Sources */,
-				85546F3D23B4E9EC0050045A /* TransportCVAPI.swift in Sources */,
+				85546F3D23B4E9EC0050045A /* DesydeAPI.swift in Sources */,
 				856D0B4923EAD619004B9A3D /* Vehicle.swift in Sources */,
 				852674A023B5064C00210509 /* JSONExtension.swift in Sources */,
 				8595899223C629C6005AF3C9 /* RouteKey.swift in Sources */,
@@ -548,16 +548,16 @@
 				8522945023E8331500219718 /* Provider.swift in Sources */,
 				859E14F823E9F27B0085347F /* TrackerConvertible.swift in Sources */,
 				8595898B23C61CFC005AF3C9 /* RoutesTableViewController.swift in Sources */,
-				852674A723B5104B00210509 /* TransportCVTracker.swift in Sources */,
+				852674A723B5104B00210509 /* DesydeTracker.swift in Sources */,
 				8522944E23E8325300219718 /* Route.swift in Sources */,
 				8595899423C629EB005AF3C9 /* RouteStore.swift in Sources */,
 				8522944A23E8299800219718 /* VehicleType.swift in Sources */,
-				855C157523BA56FC0062ABD5 /* TransGPSCVRoute.swift in Sources */,
+				855C157523BA56FC0062ABD5 /* TransGPSRoute.swift in Sources */,
 				85AC53BB23CBCEFD00146800 /* PointerView.swift in Sources */,
 				852674A223B506D300210509 /* Handler.swift in Sources */,
 				855CC8EB23C9E5D800CE805C /* TrackerAnnotation.swift in Sources */,
 				8524869723B3BD3B00E7D26F /* MapViewController.swift in Sources */,
-				85546F3B23B4E9D70050045A /* TransGPSCVAPI.swift in Sources */,
+				85546F3B23B4E9D70050045A /* TransGPSAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

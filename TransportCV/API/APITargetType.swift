@@ -52,11 +52,11 @@ extension APITargetType {
     
 }
 
-protocol TransportTargetType: APITargetType {
+protocol ProviderTargetType: APITargetType {
     
 }
 
-extension TransportTargetType {
+extension ProviderTargetType {
     
     var method: Alamofire.HTTPMethod { .get }
     

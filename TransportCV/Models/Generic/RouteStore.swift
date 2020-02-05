@@ -42,7 +42,7 @@ class RouteStore {
         routes = []
         
         getRouteTasks += 1
-        TransGPSCVAPI.getRoutes { [weak self] transGPSResult in
+        TransGPSAPI.getRoutes { [weak self] transGPSResult in
             self?.getRouteTasks -= 1
             switch transGPSResult {
             case let .success(transGPSRoutes):
@@ -54,14 +54,14 @@ class RouteStore {
         }
         
         getRouteTasks += 1
-        TransportCVAPI.getRoutes { [weak self] transportRoutesResult in
+        DesydeAPI.getRoutes { [weak self] desydeRoutesResult in
             self?.getRouteTasks -= 1
-            switch transportRoutesResult {
-            case let .success(transportRoutes):
-                print("transport routes:", transportRoutes.count)
-                self?.insert(convertibles: transportRoutes)
+            switch desydeRoutesResult {
+            case let .success(desydeRoutes):
+                print("desyde routes:", desydeRoutes.count)
+                self?.insert(convertibles: desydeRoutes)
             case let .failure(error):
-                print("transport routes error:", error)
+                print("desyde routes error:", error)
             }
         }
     }
