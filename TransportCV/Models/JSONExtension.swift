@@ -89,7 +89,7 @@ func unwrap<T>(results: [APIResult<T>]) -> APIResult<[T]> {
 extension String {
     
     var apiSafeIntValue: Int? {
-        let refined = filter("0123456789".contains)
+        let refined = filter("-0123456789.,".contains)
         return Int(refined)
     }
     
