@@ -49,7 +49,8 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         mapView.delegate = self
         mapView.isPitchEnabled = false
-        mapView.isRotateEnabled = false // TODO: need to implement annotations couse adjustment for map rotation
+        mapView.isRotateEnabled = false // TODO: need to implement annotations course adjustment for map rotation
+        mapView.showsUserLocation = true
         if let mapRegion = Storage.mapRegion {
             mapView.region = mapRegion.mkRegion
         }
@@ -110,17 +111,25 @@ class MapViewController: UIViewController {
             RouteStore.shared.updateRoutes()
         }
         getTrackers()
-        if Storage.autoUpdateInterval == nil {
+        if Storage.autoUpdateInterval == 0 {
             autoUpdateTimer.invalidate()
         }
     }
     
     @IBAction func settings() {
-        let settingsSheet = UIAlertController(title: "Auto-update trackers:",
+        let currentInterval = Storage.autoUpdateInterval
+        let intervalDescription: String
+        if currentInterval == 0 {
+            intervalDescription = "Manual"
+        } else {
+            intervalDescription = "Every \(Int(currentInterval)) seconds"
+        }
+        let title = "Auto-update trackers: \(intervalDescription)"
+        let settingsSheet = UIAlertController(title: title,
                                               message: nil,
                                               preferredStyle: .actionSheet)
         
-        let setInterval: (TimeInterval?) -> () = { [weak self] interval in
+        let setInterval: (TimeInterval) -> () = { [weak self] interval in
             Storage.autoUpdateInterval = interval
             self?.startAutoUpdate()
         }
@@ -136,7 +145,7 @@ class MapViewController: UIViewController {
                                               handler: { _ in setInterval(15) }))
         settingsSheet.addAction(UIAlertAction(title: "Manual",
                                               style: .cancel,
-                                              handler: { _ in setInterval(nil) }))
+                                              handler: { _ in setInterval(0) }))
         present(settingsSheet, animated: true, completion: nil)
     }
     
@@ -228,16 +237,28 @@ class MapViewController: UIViewController {
     }
     
     func updateAnnotations(with convertibles: [TrackerAnnotationConvertible]) {
+        let previousAnnotationsCount = annotations.count
         let newAnnotations = convertibles.map(TrackerAnnotation.from)
         annotations.update(newElements: newAnnotations,
                            onRemoving: mapView.removeAnnotation,
                            onAdding: mapView.addAnnotation)
+        switch CLLocationManager.authorizationStatus() {
+        case .authorizedAlways, .authorizedWhenInUse:
+            break
+        case .notDetermined, .denied, .restricted:
+            if previousAnnotationsCount < annotations.count {
+                mapView.showAnnotations(mapView.annotations, animated: true)
+            }
+        @unknown default:
+            break
+        }
     }
     
     func startAutoUpdate() {
         autoUpdateTimer.invalidate()
-        refreshItem.isEnabled = Storage.autoUpdateInterval == nil
-        guard let autoUpdateInterval = Storage.autoUpdateInterval else { return }
+        refreshItem.isEnabled = Storage.autoUpdateInterval == 0
+        let autoUpdateInterval = Storage.autoUpdateInterval
+        if autoUpdateInterval == 0 { return }
         refresh()
         autoUpdateTimer = Timer(timeInterval: autoUpdateInterval,
                                 target: self,
@@ -278,9 +299,10 @@ extension MapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let userCoordinate = locations.last?.coordinate {
-            updateLocation(newCoordinate: userCoordinate, size: 0.05, animated: true)
+            updateLocation(newCoordinate: userCoordinate, size: 0.03, animated: true)
         }
         manager.stopUpdatingLocation()
+        mapView.setUserTrackingMode(., animated: <#T##Bool#>)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

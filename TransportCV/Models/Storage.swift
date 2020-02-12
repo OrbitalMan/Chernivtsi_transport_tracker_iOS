@@ -37,9 +37,9 @@ class StorageContainer {
         set { defaults[#function] = newValue }
     }
     
-    /// `nil` means auto-update is disabled.
-    var autoUpdateInterval: TimeInterval? {
-        get { return defaults[#function] }
+    /// `0` means auto-update is disabled.
+    var autoUpdateInterval: TimeInterval {
+        get { return defaults[#function] ?? 5 }
         set { defaults[#function] = newValue }
     }
     
