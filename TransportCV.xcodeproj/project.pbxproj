@@ -3,11 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2ACC4F2F8ABAE9E1B7A4D978 /* Pods_TransportCV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17A98F1E3D77449F60D77791 /* Pods_TransportCV.framework */; };
+		4A641BB35D9E611834C82413 /* libPods-TransportCV-TransportCVUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C69651B586D92D10CCCDC45A /* libPods-TransportCV-TransportCVUITests.a */; };
 		8522944A23E8299800219718 /* VehicleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8522944923E8299800219718 /* VehicleType.swift */; };
 		8522944C23E8323B00219718 /* RouteConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8522944B23E8323B00219718 /* RouteConvertible.swift */; };
 		8522944E23E8325300219718 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8522944D23E8325300219718 /* Route.swift */; };
@@ -34,6 +34,7 @@
 		855CC8E923C9E3B200CE805C /* TrackerAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855CC8E823C9E3B200CE805C /* TrackerAnnotationView.swift */; };
 		855CC8EB23C9E5D800CE805C /* TrackerAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855CC8EA23C9E5D800CE805C /* TrackerAnnotation.swift */; };
 		856D0B4923EAD619004B9A3D /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856D0B4823EAD619004B9A3D /* Vehicle.swift */; };
+		856E8F4E23F5BDEA00960EF1 /* TrackerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856E8F4D23F5BDEA00960EF1 /* TrackerStore.swift */; };
 		85811F3123EB4139009673A4 /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85811F3023EB4139009673A4 /* Updatable.swift */; };
 		8595898B23C61CFC005AF3C9 /* RoutesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8595898A23C61CFC005AF3C9 /* RoutesTableViewController.swift */; };
 		8595899223C629C6005AF3C9 /* RouteKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8595899123C629C6005AF3C9 /* RouteKey.swift */; };
@@ -42,8 +43,8 @@
 		859E14F823E9F27B0085347F /* TrackerConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859E14F723E9F27B0085347F /* TrackerConvertible.swift */; };
 		85AC53BB23CBCEFD00146800 /* PointerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85AC53BA23CBCEFD00146800 /* PointerView.swift */; };
 		85FB07ED23D5E9FC00FF13AD /* MapRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FB07EC23D5E9FC00FF13AD /* MapRegion.swift */; };
-		D59FCBEF449AC627A029B837 /* Pods_TransportCV_TransportCVUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D17A5ED5578E86A6E4C1097C /* Pods_TransportCV_TransportCVUITests.framework */; };
-		F837E4A358F16A62B27F8D7D /* Pods_TransportCVTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE4BF1B816F9EB0513A6418A /* Pods_TransportCVTests.framework */; };
+		AEE7A197A875564F0B6DA68C /* libPods-TransportCV.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 340E5BB3CC97FC51EFA893FB /* libPods-TransportCV.a */; };
+		FC2E03742AA56B7F0DE0970F /* libPods-TransportCVTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E02494801E5D29B8DCD8B2F1 /* libPods-TransportCVTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +66,7 @@
 
 /* Begin PBXFileReference section */
 		05AF448F1E46608CF7C2F7F3 /* Pods-TransportCVTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportCVTests.release.xcconfig"; path = "Target Support Files/Pods-TransportCVTests/Pods-TransportCVTests.release.xcconfig"; sourceTree = "<group>"; };
-		17A98F1E3D77449F60D77791 /* Pods_TransportCV.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TransportCV.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		340E5BB3CC97FC51EFA893FB /* libPods-TransportCV.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TransportCV.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DD6E93586DB74DE8356BFE8 /* Pods-TransportCV-TransportCVUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportCV-TransportCVUITests.release.xcconfig"; path = "Target Support Files/Pods-TransportCV-TransportCVUITests/Pods-TransportCV-TransportCVUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8522944923E8299800219718 /* VehicleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleType.swift; sourceTree = "<group>"; };
 		8522944B23E8323B00219718 /* RouteConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteConvertible.swift; sourceTree = "<group>"; };
@@ -99,6 +100,7 @@
 		855CC8E823C9E3B200CE805C /* TrackerAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerAnnotationView.swift; sourceTree = "<group>"; };
 		855CC8EA23C9E5D800CE805C /* TrackerAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerAnnotation.swift; sourceTree = "<group>"; };
 		856D0B4823EAD619004B9A3D /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
+		856E8F4D23F5BDEA00960EF1 /* TrackerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerStore.swift; sourceTree = "<group>"; };
 		85811F3023EB4139009673A4 /* Updatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
 		8595898A23C61CFC005AF3C9 /* RoutesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesTableViewController.swift; sourceTree = "<group>"; };
 		8595899123C629C6005AF3C9 /* RouteKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteKey.swift; sourceTree = "<group>"; };
@@ -110,9 +112,9 @@
 		98A172E48307F7450CFB5775 /* Pods-TransportCV-TransportCVUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportCV-TransportCVUITests.debug.xcconfig"; path = "Target Support Files/Pods-TransportCV-TransportCVUITests/Pods-TransportCV-TransportCVUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		A8B72F169666667D5C5AD318 /* Pods-TransportCV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportCV.debug.xcconfig"; path = "Target Support Files/Pods-TransportCV/Pods-TransportCV.debug.xcconfig"; sourceTree = "<group>"; };
 		AB25B7A21C386BE6D9BB1400 /* Pods-TransportCVTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportCVTests.debug.xcconfig"; path = "Target Support Files/Pods-TransportCVTests/Pods-TransportCVTests.debug.xcconfig"; sourceTree = "<group>"; };
-		D17A5ED5578E86A6E4C1097C /* Pods_TransportCV_TransportCVUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TransportCV_TransportCVUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C69651B586D92D10CCCDC45A /* libPods-TransportCV-TransportCVUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TransportCV-TransportCVUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA0EE5BC62C38839C22171D9 /* Pods-TransportCV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportCV.release.xcconfig"; path = "Target Support Files/Pods-TransportCV/Pods-TransportCV.release.xcconfig"; sourceTree = "<group>"; };
-		FE4BF1B816F9EB0513A6418A /* Pods_TransportCVTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TransportCVTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E02494801E5D29B8DCD8B2F1 /* libPods-TransportCVTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TransportCVTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,7 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2ACC4F2F8ABAE9E1B7A4D978 /* Pods_TransportCV.framework in Frameworks */,
+				AEE7A197A875564F0B6DA68C /* libPods-TransportCV.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,7 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F837E4A358F16A62B27F8D7D /* Pods_TransportCVTests.framework in Frameworks */,
+				FC2E03742AA56B7F0DE0970F /* libPods-TransportCVTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,7 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D59FCBEF449AC627A029B837 /* Pods_TransportCV_TransportCVUITests.framework in Frameworks */,
+				4A641BB35D9E611834C82413 /* libPods-TransportCV-TransportCVUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,9 +161,9 @@
 		62C590452EDB240F1310FF91 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				17A98F1E3D77449F60D77791 /* Pods_TransportCV.framework */,
-				D17A5ED5578E86A6E4C1097C /* Pods_TransportCV_TransportCVUITests.framework */,
-				FE4BF1B816F9EB0513A6418A /* Pods_TransportCVTests.framework */,
+				340E5BB3CC97FC51EFA893FB /* libPods-TransportCV.a */,
+				C69651B586D92D10CCCDC45A /* libPods-TransportCV-TransportCVUITests.a */,
+				E02494801E5D29B8DCD8B2F1 /* libPods-TransportCVTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -271,6 +273,7 @@
 				859E14F723E9F27B0085347F /* TrackerConvertible.swift */,
 				859E14F523E9F23C0085347F /* Tracker.swift */,
 				8595899323C629EB005AF3C9 /* RouteStore.swift */,
+				856E8F4D23F5BDEA00960EF1 /* TrackerStore.swift */,
 				855CC8EA23C9E5D800CE805C /* TrackerAnnotation.swift */,
 			);
 			path = Generic;
@@ -305,7 +308,6 @@
 				8524865F23B3BCF600E7D26F /* Sources */,
 				8524866023B3BCF600E7D26F /* Frameworks */,
 				8524866123B3BCF600E7D26F /* Resources */,
-				BD5432D97A49EAD7F7C324A4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -343,7 +345,6 @@
 				8524868023B3BCFA00E7D26F /* Sources */,
 				8524868123B3BCFA00E7D26F /* Frameworks */,
 				8524868223B3BCFA00E7D26F /* Resources */,
-				B1003355BCE41D0C1EB9A343 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -470,40 +471,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B1003355BCE41D0C1EB9A343 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TransportCV-TransportCVUITests/Pods-TransportCV-TransportCVUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TransportCV-TransportCVUITests/Pods-TransportCV-TransportCVUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TransportCV-TransportCVUITests/Pods-TransportCV-TransportCVUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BD5432D97A49EAD7F7C324A4 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TransportCV/Pods-TransportCV-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TransportCV/Pods-TransportCV-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TransportCV/Pods-TransportCV-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		DBAA1DA21926C03411312EDF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -547,6 +514,7 @@
 				856D0B4923EAD619004B9A3D /* Vehicle.swift in Sources */,
 				852674A023B5064C00210509 /* JSONExtension.swift in Sources */,
 				8595899223C629C6005AF3C9 /* RouteKey.swift in Sources */,
+				856E8F4E23F5BDEA00960EF1 /* TrackerStore.swift in Sources */,
 				8522944C23E8323B00219718 /* RouteConvertible.swift in Sources */,
 				8522945023E8331500219718 /* Provider.swift in Sources */,
 				85811F3123EB4139009673A4 /* Updatable.swift in Sources */,

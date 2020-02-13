@@ -26,8 +26,17 @@ class MapViewController: UIViewController {
     let locationManager = CLLocationManager()
     
     let trackerAnnotationReuseIdentifier = "trackerAnnotationReuseIdentifier"
-    var trackers: [Tracker] = []
-    var visibleTrackers: [Tracker] = []
+    
+    var visibleTrackers: [Tracker] {
+        let checkedRoutes = Storage.checkedRoutes
+        return Tracker.store.trackers.filter { tracker in
+            let key = tracker.route?.key ?? RouteKey(type: tracker.vehicle.type ?? .bus,
+                                                     routeNumber: nil,
+                                                     routeLetter: nil)
+            return checkedRoutes[key] != false
+        }
+    }
+    
     var annotations: [TrackerAnnotation] = []
     var autoUpdateTimer = Timer()
     
@@ -107,10 +116,12 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func refresh() {
-        if RouteStore.shared.routes.isEmpty {
-            RouteStore.shared.updateRoutes()
+        if Route.store.routes.isEmpty {
+            Route.store.updateRoutes()
         }
-        getTrackers()
+        Tracker.store.getTrackers { [weak self] in
+            self?.updateVisibleTrackers()
+        }
         if Storage.autoUpdateInterval == 0 {
             autoUpdateTimer.invalidate()
         }
@@ -192,47 +203,7 @@ class MapViewController: UIViewController {
     
     var getTrackerTasks = 0
     
-    func getTrackers() {
-        guard getTrackerTasks < 1 else { return }
-        getTrackerTasks += 1
-        TransGPSAPI.getTrackers { [weak self] transGPSResult in
-            self?.getTrackerTasks -= 1
-            switch transGPSResult {
-            case let .success(transGPSTrackers):
-                print("trans-gps trackers:", transGPSTrackers.count)
-                self?.updateTrackers(with: transGPSTrackers)
-            case let .failure(error):
-                print("trans-gps trackers error:", error)
-            }
-        }
-        
-        getTrackerTasks += 1
-        DesydeAPI.getTrackers { [weak self] desydeResult in
-            self?.getTrackerTasks -= 1
-            switch desydeResult {
-            case let .success(desydeTrackers):
-                print("desyde trackers:", desydeTrackers.count)
-                self?.updateTrackers(with: desydeTrackers)
-            case let .failure(error):
-                print("desyde trackers error:", error)
-            }
-        }
-    }
-    
-    func updateTrackers(with convertibles: [TrackerConvertible]) {
-        let newTrackers = convertibles.map(Tracker.from)
-        trackers.update(newElements: newTrackers)
-        updateVisibleTrackers()
-    }
-    
     func updateVisibleTrackers() {
-        let checkedRoutes = Storage.checkedRoutes
-        visibleTrackers = trackers.filter { tracker in
-            if let key = tracker.route?.key, checkedRoutes[key] == false {
-                return false
-            }
-            return true
-        }
         updateAnnotations(with: visibleTrackers)
     }
     

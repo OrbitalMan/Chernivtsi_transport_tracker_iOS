@@ -24,9 +24,14 @@ extension RouteConvertible {
                         name: getRouteName())
     }
     
-    func getRoute(updating routes: [Route]) -> Route {
-        let key = getRouteKey()
+    func getRoute(updating routes: [Route]) -> Route? {
         let provider = getProvider()
+        if  provider == .transGPS(id: 20) || // A
+            provider == .transGPS(id: 37)    // T
+        {
+            return nil
+        }
+        let key = getRouteKey()
         if let route = routes.first(where: { $0.key == key }) {
             route.update(provider: provider)
             return route

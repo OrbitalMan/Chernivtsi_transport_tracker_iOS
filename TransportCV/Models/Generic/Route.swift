@@ -10,6 +10,8 @@ import Foundation
 
 final class Route {
     
+    static let store = RouteStore.shared
+    
     let key: RouteKey
     var provider: Provider
     
@@ -18,8 +20,8 @@ final class Route {
         self.provider = provider
     }
     
-    static func from(convertible: RouteConvertible) -> Route {
-        return convertible.getRoute(updating: RouteStore.shared.routes)
+    static func from(convertible: RouteConvertible) -> Route? {
+        return convertible.getRoute(updating: store.routes)
     }
     
 }

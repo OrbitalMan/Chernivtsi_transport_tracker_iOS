@@ -18,19 +18,16 @@ class RouteStore {
     private(set) var routes: [Route] = [] {
         didSet {
             if routes.isEmpty { return }
-            guard let mapVC = MapViewController.shared else {
-                print("failed to get map VC")
-                return
-            }
-            if mapVC.trackers.isEmpty { return }
-            for tracker in mapVC.trackers {
+            let trackers = Tracker.store.trackers
+            if trackers.isEmpty { return }
+            for tracker in trackers {
                 if tracker.route == nil {
                     if let gotRoute = findRoute(provider: tracker.routeProvider) {
                         tracker.route = gotRoute
                     }
                 }
             }
-            mapVC.updateVisibleTrackers()
+            MapViewController.shared?.updateVisibleTrackers()
         }
     }
     
@@ -67,7 +64,7 @@ class RouteStore {
     }
     
     private func updateRoutes(with convertibles: [RouteConvertible]) {
-        let newRoutes = convertibles.map(Route.from)
+        let newRoutes = convertibles.compactMap(Route.from)
         routes.update(newElements: newRoutes)
     }
     

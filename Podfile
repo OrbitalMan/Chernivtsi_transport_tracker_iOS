@@ -1,7 +1,7 @@
  platform :ios, '9.0'
 
 target 'TransportCV' do
-  use_frameworks!
+#  use_frameworks!
   
   # Pods for TransportCV
   pod 'Alamofire'

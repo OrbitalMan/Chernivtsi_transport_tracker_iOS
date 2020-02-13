@@ -42,7 +42,7 @@ extension TrackerConvertible {
         let vehicle = Vehicle(type: getVehicleType(),
                               number: getBusNumber())
         let provider = getProvider()
-        var findRoute: Route? { RouteStore.shared.findRoute(provider: provider) }
+        var findRoute: Route? { Route.store.findRoute(provider: provider) }
         let location = getLocation()
         if let tracker = trackers?.first(where: { $0.vehicle == vehicle }) {
             tracker.update(route: tracker.route ?? findRoute,

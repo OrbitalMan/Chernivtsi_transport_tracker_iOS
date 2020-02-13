@@ -54,7 +54,7 @@ class RoutesTableViewController: UITableViewController {
                                       action: #selector(didSelectVehicleType),
                                       for: .valueChanged)
         let checkedRoutes = Storage.checkedRoutes
-        for route in RouteStore.shared.routes {
+        for route in Route.store.routes {
             let selection = RouteSelection(routeKey: route.key)
             selection.isChecked = checkedRoutes[route.key] ?? true
             switch route.key.type {
@@ -67,9 +67,20 @@ class RoutesTableViewController: UITableViewController {
         trolleySelections.sort {
             $0.routeKey < $1.routeKey
         }
+        let undefinedTrolleySelection = RouteSelection(routeKey: RouteKey(type: .trolley,
+                                                                          routeNumber: nil,
+                                                                          routeLetter: nil))
+        undefinedTrolleySelection.isChecked = checkedRoutes[undefinedTrolleySelection.routeKey] ?? false
+        trolleySelections.append(undefinedTrolleySelection)
+        
         busSelections.sort {
             $0.routeKey < $1.routeKey
         }
+        let undefinedBusSelection = RouteSelection(routeKey: RouteKey(type: .bus,
+                                                                      routeNumber: nil,
+                                                                      routeLetter: nil))
+        undefinedBusSelection.isChecked = checkedRoutes[undefinedBusSelection.routeKey] ?? false
+        busSelections.append(undefinedBusSelection)
         
         navigationItem.titleView = vehicleTypeSelector
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Check",
@@ -141,6 +152,9 @@ class RoutesTableViewController: UITableViewController {
             letter = " \(letter)"
         }
         cell.textLabel?.text = "\(model.routeKey.routeNumber?.description ?? "")\(letter)"
+        if (cell.textLabel?.text ?? "") == "" {
+            cell.textLabel?.text = model.routeKey.title
+        }
         cell.accessoryType = model.isChecked ? .checkmark : .none
         return cell
     }

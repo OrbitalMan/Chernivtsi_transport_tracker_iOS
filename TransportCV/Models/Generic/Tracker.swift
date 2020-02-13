@@ -10,6 +10,8 @@ import CoreLocation
 
 final class Tracker {
     
+    static let store = TrackerStore.shared
+    
     let vehicle: Vehicle
     dynamic weak var route: Route?
     dynamic var routeProvider: Provider
@@ -27,7 +29,7 @@ final class Tracker {
     }
     
     static func from(convertible: TrackerConvertible) -> Tracker {
-        return convertible.getTracker(updating: MapViewController.shared?.trackers)
+        return convertible.getTracker(updating: Tracker.store.trackers)
     }
     
     var title: String {

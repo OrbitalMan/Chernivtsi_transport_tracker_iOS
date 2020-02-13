@@ -22,7 +22,7 @@ struct RouteKey: Hashable, Codable {
             }
             return "\(type.titleValue)\(number)\(letter)"
         }
-        return routeLetter ?? "invalid \(type.emojiValue)"
+        return routeLetter ?? "Undefined \(type.emojiValue)"
     }
     
 }
