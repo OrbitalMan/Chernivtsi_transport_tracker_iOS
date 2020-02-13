@@ -302,7 +302,6 @@ extension MapViewController: CLLocationManagerDelegate {
             updateLocation(newCoordinate: userCoordinate, size: 0.03, animated: true)
         }
         manager.stopUpdatingLocation()
-        mapView.setUserTrackingMode(., animated: <#T##Bool#>)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
