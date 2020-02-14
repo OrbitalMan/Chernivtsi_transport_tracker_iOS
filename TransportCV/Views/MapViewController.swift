@@ -30,10 +30,7 @@ class MapViewController: UIViewController {
     var visibleTrackers: [Tracker] {
         let checkedRoutes = Storage.checkedRoutes
         return Tracker.store.trackers.filter { tracker in
-            let key = tracker.route?.key ?? RouteKey(type: tracker.vehicle.type ?? .bus,
-                                                     routeNumber: nil,
-                                                     routeLetter: nil)
-            return checkedRoutes[key] != false
+            return checkedRoutes[tracker.routeKey] != false
         }
     }
     

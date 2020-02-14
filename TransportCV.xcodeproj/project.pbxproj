@@ -42,6 +42,9 @@
 		859E14F623E9F23C0085347F /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859E14F523E9F23C0085347F /* Tracker.swift */; };
 		859E14F823E9F27B0085347F /* TrackerConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859E14F723E9F27B0085347F /* TrackerConvertible.swift */; };
 		85AC53BB23CBCEFD00146800 /* PointerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85AC53BA23CBCEFD00146800 /* PointerView.swift */; };
+		85F4A40A23F6B0DB0025D72B /* RouteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85F4A40823F6B0DB0025D72B /* RouteTableViewCell.swift */; };
+		85F4A40B23F6B0DB0025D72B /* RouteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 85F4A40923F6B0DB0025D72B /* RouteTableViewCell.xib */; };
+		85F4A40D23F6B2110025D72B /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85F4A40C23F6B2110025D72B /* StringExtension.swift */; };
 		85FB07ED23D5E9FC00FF13AD /* MapRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FB07EC23D5E9FC00FF13AD /* MapRegion.swift */; };
 		AEE7A197A875564F0B6DA68C /* libPods-TransportCV.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 340E5BB3CC97FC51EFA893FB /* libPods-TransportCV.a */; };
 		FC2E03742AA56B7F0DE0970F /* libPods-TransportCVTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E02494801E5D29B8DCD8B2F1 /* libPods-TransportCVTests.a */; };
@@ -108,6 +111,9 @@
 		859E14F523E9F23C0085347F /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		859E14F723E9F27B0085347F /* TrackerConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerConvertible.swift; sourceTree = "<group>"; };
 		85AC53BA23CBCEFD00146800 /* PointerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerView.swift; sourceTree = "<group>"; };
+		85F4A40823F6B0DB0025D72B /* RouteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteTableViewCell.swift; sourceTree = "<group>"; };
+		85F4A40923F6B0DB0025D72B /* RouteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RouteTableViewCell.xib; sourceTree = "<group>"; };
+		85F4A40C23F6B2110025D72B /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		85FB07EC23D5E9FC00FF13AD /* MapRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegion.swift; sourceTree = "<group>"; };
 		98A172E48307F7450CFB5775 /* Pods-TransportCV-TransportCVUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportCV-TransportCVUITests.debug.xcconfig"; path = "Target Support Files/Pods-TransportCV-TransportCVUITests/Pods-TransportCV-TransportCVUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		A8B72F169666667D5C5AD318 /* Pods-TransportCV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransportCV.debug.xcconfig"; path = "Target Support Files/Pods-TransportCV/Pods-TransportCV.debug.xcconfig"; sourceTree = "<group>"; };
@@ -234,6 +240,7 @@
 				85811F3023EB4139009673A4 /* Updatable.swift */,
 				852674A123B506D300210509 /* Handler.swift */,
 				8526749F23B5064C00210509 /* JSONExtension.swift */,
+				85F4A40C23F6B2110025D72B /* StringExtension.swift */,
 				854FFA6D23C6915600A2570F /* Storage.swift */,
 			);
 			path = Models;
@@ -257,6 +264,8 @@
 				8595898A23C61CFC005AF3C9 /* RoutesTableViewController.swift */,
 				855CC8E823C9E3B200CE805C /* TrackerAnnotationView.swift */,
 				85AC53BA23CBCEFD00146800 /* PointerView.swift */,
+				85F4A40823F6B0DB0025D72B /* RouteTableViewCell.swift */,
+				85F4A40923F6B0DB0025D72B /* RouteTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -405,6 +414,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8524867323B3BCFA00E7D26F /* LaunchScreen.storyboard in Resources */,
+				85F4A40B23F6B0DB0025D72B /* RouteTableViewCell.xib in Resources */,
 				8524867023B3BCFA00E7D26F /* Assets.xcassets in Resources */,
 				8524866E23B3BCF600E7D26F /* Main.storyboard in Resources */,
 			);
@@ -504,6 +514,7 @@
 				8526749A23B5038C00210509 /* Request.swift in Sources */,
 				855C157323BA4C620062ABD5 /* DesydeRoute.swift in Sources */,
 				859E14F623E9F23C0085347F /* Tracker.swift in Sources */,
+				85F4A40D23F6B2110025D72B /* StringExtension.swift in Sources */,
 				85FB07ED23D5E9FC00FF13AD /* MapRegion.swift in Sources */,
 				854FFA6E23C6915600A2570F /* Storage.swift in Sources */,
 				855CC8E923C9E3B200CE805C /* TrackerAnnotationView.swift in Sources */,
@@ -516,6 +527,7 @@
 				8595899223C629C6005AF3C9 /* RouteKey.swift in Sources */,
 				856E8F4E23F5BDEA00960EF1 /* TrackerStore.swift in Sources */,
 				8522944C23E8323B00219718 /* RouteConvertible.swift in Sources */,
+				85F4A40A23F6B0DB0025D72B /* RouteTableViewCell.swift in Sources */,
 				8522945023E8331500219718 /* Provider.swift in Sources */,
 				85811F3123EB4139009673A4 /* Updatable.swift in Sources */,
 				859E14F823E9F27B0085347F /* TrackerConvertible.swift in Sources */,

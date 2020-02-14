@@ -44,11 +44,13 @@ class RoutesTableViewController: UITableViewController {
         return cellSelections.contains { $0.isChecked }
     }
     
-    let reuseIdentifier = "reuseIdentifier"
+    let reuseIdentifier = "RouteCellReuseIdentifier"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.register(UINib(nibName: "RouteTableViewCell", bundle: nil),
+                           forCellReuseIdentifier: reuseIdentifier)
+        tableView.tableFooterView = UIView(frame: .zero)
         vehicleTypeSelector.selectedSegmentIndex = selectedVehicleType.rawValue
         vehicleTypeSelector.addTarget(self,
                                       action: #selector(didSelectVehicleType),
@@ -67,18 +69,14 @@ class RoutesTableViewController: UITableViewController {
         trolleySelections.sort {
             $0.routeKey < $1.routeKey
         }
-        let undefinedTrolleySelection = RouteSelection(routeKey: RouteKey(type: .trolley,
-                                                                          routeNumber: nil,
-                                                                          routeLetter: nil))
+        let undefinedTrolleySelection = RouteSelection(routeKey: VehicleType.trolley.defaultRouteKey)
         undefinedTrolleySelection.isChecked = checkedRoutes[undefinedTrolleySelection.routeKey] ?? false
         trolleySelections.append(undefinedTrolleySelection)
         
         busSelections.sort {
             $0.routeKey < $1.routeKey
         }
-        let undefinedBusSelection = RouteSelection(routeKey: RouteKey(type: .bus,
-                                                                      routeNumber: nil,
-                                                                      routeLetter: nil))
+        let undefinedBusSelection = RouteSelection(routeKey: VehicleType.bus.defaultRouteKey)
         undefinedBusSelection.isChecked = checkedRoutes[undefinedBusSelection.routeKey] ?? false
         busSelections.append(undefinedBusSelection)
         
@@ -146,17 +144,17 @@ class RoutesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
+        guard let routeCell = cell as? RouteTableViewCell else { return cell }
         let model = cellSelections[indexPath.row]
-        var letter = model.routeKey.routeLetter ?? ""
-        if letter.count > 1, model.routeKey.routeNumber != nil {
-            letter = " \(letter)"
-        }
-        cell.textLabel?.text = "\(model.routeKey.routeNumber?.description ?? "")\(letter)"
-        if (cell.textLabel?.text ?? "") == "" {
-            cell.textLabel?.text = model.routeKey.title
-        }
-        cell.accessoryType = model.isChecked ? .checkmark : .none
-        return cell
+        routeCell.routeLabel.text = model.routeKey.title
+        let trackers = Tracker.store.trackers.filter { $0.routeKey == model.routeKey }
+        routeCell.trackersLabel.text = "\(trackers.count)"
+        routeCell.selectionIndicatorImage.isHidden = !model.isChecked
+        return routeCell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 48
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

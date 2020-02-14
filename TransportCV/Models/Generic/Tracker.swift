@@ -43,6 +43,10 @@ final class Tracker {
         "\(vehicle.title) \(routeProvider.shortDescription)"
     }
     
+    var routeKey: RouteKey {
+        return route?.key ?? (vehicle.type ?? .bus).defaultRouteKey
+    }
+    
 }
 
 extension Tracker: Updatable {

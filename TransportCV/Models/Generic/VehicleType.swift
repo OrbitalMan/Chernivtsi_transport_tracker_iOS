@@ -31,6 +31,12 @@ enum VehicleType: Int, CaseIterable, Codable {
         }
     }
     
+    var defaultRouteKey: RouteKey {
+        return RouteKey(type: self,
+                        routeNumber: nil,
+                        routeLetter: nil)
+    }
+    
 }
 
 extension VehicleType {

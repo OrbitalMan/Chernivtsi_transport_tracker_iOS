@@ -28,12 +28,8 @@ class StorageContainer {
     }
     
     var checkedRoutes: [RouteKey: Bool] {
-        get { return defaults[#function] ?? [RouteKey(type: .trolley,
-                                                      routeNumber: nil,
-                                                      routeLetter: nil): false,
-                                             RouteKey(type: .bus,
-                                                      routeNumber: nil,
-                                                      routeLetter: nil): false] }
+        get { return defaults[#function] ?? [VehicleType.trolley.defaultRouteKey: false,
+                                             VehicleType.bus.defaultRouteKey: false] }
         set { defaults[#function] = newValue }
     }
     
