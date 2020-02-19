@@ -27,7 +27,6 @@ class RouteStore {
                     }
                 }
             }
-            MapViewController.shared?.updateVisibleTrackers()
         }
     }
     
@@ -35,7 +34,7 @@ class RouteStore {
         return routes.first { $0.provider.hasIntersection(with: provider) }
     }
     
-    func updateRoutes() {
+    func updateRoutes(onUpdated: @escaping () -> ()) {
         if getRouteTasks > 0 { return }
         
         getRouteTasks += 1
@@ -45,6 +44,7 @@ class RouteStore {
             case let .success(transGPSRoutes):
                 print("trans-gps routes:", transGPSRoutes.count)
                 self?.updateRoutes(with: transGPSRoutes)
+                onUpdated()
             case let .failure(error):
                 print("trans-gps routes error:", error)
             }
@@ -57,6 +57,7 @@ class RouteStore {
             case let .success(desydeRoutes):
                 print("desyde routes:", desydeRoutes.count)
                 self?.updateRoutes(with: desydeRoutes)
+                onUpdated()
             case let .failure(error):
                 print("desyde routes error:", error)
             }

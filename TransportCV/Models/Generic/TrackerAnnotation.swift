@@ -28,10 +28,6 @@ class TrackerAnnotation: MKPointAnnotation {
         update()
     }
     
-    static func from(convertible: TrackerAnnotationConvertible) -> TrackerAnnotation {
-        return convertible.getAnnotation(updating: MapViewController.shared?.annotations)
-    }
-    
     func update() {
         location = tracker.location
         coordinate = location.coordinate

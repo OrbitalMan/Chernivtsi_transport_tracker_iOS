@@ -11,10 +11,6 @@ import MapKit
 
 class MapViewController: UIViewController {
     
-    static var shared: MapViewController? {
-        return (UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.viewControllers.first as? MapViewController
-    }
-    
     @IBOutlet weak var routesItem: UIBarButtonItem!
     @IBOutlet weak var refreshItem: UIBarButtonItem!
     @IBOutlet weak var settingsItem: UIBarButtonItem!
@@ -114,7 +110,9 @@ class MapViewController: UIViewController {
     
     @IBAction func refresh() {
         if Route.store.routes.isEmpty {
-            Route.store.updateRoutes()
+            Route.store.updateRoutes { [weak self] in
+                self?.updateVisibleTrackers()
+            }
         }
         Tracker.store.getTrackers { [weak self] in
             self?.updateVisibleTrackers()
@@ -206,7 +204,7 @@ class MapViewController: UIViewController {
     
     func updateAnnotations(with convertibles: [TrackerAnnotationConvertible]) {
         let previousAnnotationsCount = annotations.count
-        let newAnnotations = convertibles.map(TrackerAnnotation.from)
+        let newAnnotations = convertibles.map { $0.getAnnotation(updating: annotations) }
         annotations.update(newElements: newAnnotations,
                            onRemoving: mapView.removeAnnotation,
                            onAdding: mapView.addAnnotation)
