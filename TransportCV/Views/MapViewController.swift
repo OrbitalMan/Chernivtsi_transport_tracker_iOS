@@ -30,7 +30,47 @@ class MapViewController: UIViewController {
         }
     }
     
-    var annotations: [TrackerAnnotation] = []
+    var annotations: [TrackerAnnotation] = [] {
+        didSet {
+            if annotations.isEmpty { return }
+            var zoomRect: MKMapRect = MKMapRect.null
+            for annotation in annotations {
+                let rect = MKMapRect(origin: MKMapPoint(annotation.coordinate),
+                                     size: MKMapSize(width: 0.01, height: 0.01))
+                if zoomRect.isNull {
+                    zoomRect = rect
+                } else {
+                    zoomRect = zoomRect.union(rect)
+                }
+            }
+            operativeMapBounds = zoomRect.insetBy(dx: -20000, dy: -20000)
+        }
+    }
+    
+    var operativeMapBounds = MKMapRect.null {
+        didSet {
+            isInOperativeArea = mapView.visibleMapRect.intersects(operativeMapBounds)
+        }
+    }
+    
+    var isInOperativeArea = false {
+        didSet {
+            let autoUpdateInterval = Storage.autoUpdateInterval
+            if autoUpdateInterval != 0 {
+                if isInOperativeArea {
+                    if autoUpdateTimer.isValid {
+                        // autoUpdateTimer is already running
+                    } else {
+                        startAutoUpdate()
+                    }
+                } else {
+                    autoUpdateTimer.invalidate()
+                }
+            }
+            refreshItem.isEnabled = autoUpdateInterval == 0 && isInOperativeArea
+        }
+    }
+    
     var autoUpdateTimer = Timer()
     
     // MARK: -
@@ -222,9 +262,10 @@ class MapViewController: UIViewController {
     
     func startAutoUpdate() {
         autoUpdateTimer.invalidate()
-        refreshItem.isEnabled = Storage.autoUpdateInterval == 0
         let autoUpdateInterval = Storage.autoUpdateInterval
+        refreshItem.isEnabled = autoUpdateInterval == 0 && isInOperativeArea
         if autoUpdateInterval == 0 { return }
+        guard isInOperativeArea else { return }
         refresh()
         autoUpdateTimer = Timer(timeInterval: autoUpdateInterval,
                                 target: self,
@@ -242,6 +283,7 @@ extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         Storage.mapRegion = MapRegion(mkRegion: mapView.region)
+        isInOperativeArea = mapView.visibleMapRect.intersects(operativeMapBounds)
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
