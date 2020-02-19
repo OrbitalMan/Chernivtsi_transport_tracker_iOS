@@ -35,7 +35,10 @@ class MapViewController: UIViewController {
             if annotations.isEmpty { return }
             var zoomRect: MKMapRect = MKMapRect.null
             for annotation in annotations {
-                let rect = MKMapRect(origin: MKMapPoint(annotation.coordinate),
+                let coordinate = annotation.coordinate
+                // ignore invalid coordinates
+                guard coordinate.latitude != 0, coordinate.longitude != 0 else { continue }
+                let rect = MKMapRect(origin: MKMapPoint(coordinate),
                                      size: MKMapSize(width: 0.01, height: 0.01))
                 if zoomRect.isNull {
                     zoomRect = rect
